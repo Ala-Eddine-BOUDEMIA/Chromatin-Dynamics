@@ -28,9 +28,9 @@ cgc_file_upload_date | smmncpb
 cgc_case_year_of_diagnosis | smestlbs
 cgc_case_tumor_status | smmppd	
 cgc_case_age_at_diagnosis | smnterrt
- | smrrnanm	
- | smrdttl	
- | smvqcfl	
- | smtrscpt	
- | smexpeff	
- | smrrnart
+ / | smrrnanm	
+ / | smrdttl	
+ / | smvqcfl	
+ / | smtrscpt	
+ / | smexpeff	
+ / | smrrnart
