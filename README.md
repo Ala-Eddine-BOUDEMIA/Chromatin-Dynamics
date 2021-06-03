@@ -4,7 +4,7 @@ Integrated Analysis of Co-expression Patterns of Histone Variants and their Chap
 # 21/06/03
 
 - Most of TCGA attributes are Null or redundunt
-- Selected attributes from TCGA are :
+- Selected attributes are :
 
 __TCGA__ | __GTEx__
 ---------|---------
