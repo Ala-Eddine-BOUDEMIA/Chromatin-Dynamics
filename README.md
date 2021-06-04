@@ -8,29 +8,29 @@ Integrated Analysis of Co-expression Patterns of Histone Variants and their Chap
 
 __TCGA__ | __GTEx__
 ---------|---------
-Project  | Project
-reads_downloaded | sample
-mapped_read_count | read_count_as_reported_by_sra
-auc | reads_downloaded
-gdc_cases.case_id | proportion_of_reads_reported_by_sra_downloaded
-gdc_cases.demographic.gender | mapped_read_count
-gdc_cases.demographic.year_of_birth | auc	
-gdc_cases.demographic.race | avg_read_length
-gdc_cases.project.primary_site | sampid
-gdc_cases.project.project_id | smrin
-gdc_cases.tissue_source_site.project | smts
-gdc_cases.diagnoses.tumor_stage | smtsd
-gdc_cases.diagnoses.age_at_diagnosis | smntrart
-gdc_cases.diagnoses.vital_status | smmaprt
-gdc_cases.samples.sample_type | smexncrt
-cgc_filename | smgnsdtc
-cgc_file_upload_date | smmncpb
-cgc_case_year_of_diagnosis | smestlbs
-cgc_case_tumor_status | smmppd	
-cgc_case_age_at_diagnosis | smnterrt
+reads_downloaded | run 
+mapped_read_count | sample
+auc | read_count_as_reported_by_sra
+gdc_cases.case_id | reads_downloaded
+gdc_cases.demographic.gender | proportion_of_reads_reported_by_sra_downloaded
+gdc_cases.demographic.year_of_birth | mapped_read_count	
+gdc_cases.demographic.race | auc
+gdc_cases.project.primary_site | avg_read_length
+gdc_cases.project.project_id | sampid
+gdc_cases.tissue_source_site.project | smrin
+gdc_cases.diagnoses.tumor_stage | smts
+gdc_cases.diagnoses.age_at_diagnosis | smtsd
+gdc_cases.diagnoses.vital_status | smntrart
+gdc_cases.samples.sample_type | smmaprt
+cgc_filename | smexncrt
+cgc_file_upload_date | smgnsdtc
+cgc_case_year_of_diagnosis | smmncpb
+cgc_case_tumor_status | smestlbs	
+cgc_case_age_at_diagnosis | smmppd
+ / | smnterrt	
  / | smrrnanm	
  / | smrdttl	
  / | smvqcfl	
  / | smtrscpt	
- / | smexpeff	
+ / | smexpeff
  / | smrrnart
