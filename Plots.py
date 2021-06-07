@@ -2,19 +2,27 @@ import pandas as pd
 import plotly.express as px
 
 gtex = pd.read_csv(
-	"Data/GTEx.tsv", 
+	"Data/GTEx/GTEx.tsv", 
 	header=0, sep="\t")
 
 gtex_counts = pd.read_csv(
-	"Data/gtex_counts_per_sample.tsv", 
+	"Data/GTEx/gtex_counts_per_sample.tsv", 
 	header=0, sep="\t")
 
 gtex_counts_tissue = pd.read_csv(
-	"Data/CountsPerTissue.tsv", 
+	"Data/GTEx/GTEx_CountsPerTissue.tsv", 
 	header=0, sep="\t")
 
 tcga = pd.read_csv(
-	"Data/TCGA.tsv", 
+	"Data/TCGA/TCGA.tsv", 
+	header=0, sep="\t")
+
+tcga_counts = pd.read_csv(
+	"Data/TCGA/tcga_counts_per_sample.tsv", 
+	header=0, sep="\t")
+
+tcga_counts_tissue = pd.read_csv(
+	"Data/TCGA/TCGA_CountsPerTissue.tsv", 
 	header=0, sep="\t")
 
 fig = px.histogram(gtex, x="smtsd")
@@ -37,3 +45,12 @@ fig5.show()
 
 fig6 = px.histogram(gtex_counts_tissue, x="Tissue", y='Counts')
 fig6.show()
+
+fig7 = px.histogram(tcga_counts, x="x")
+fig7.show()
+
+fig8 = px.box(tcga_counts, x="x")
+fig8.show()
+
+fig9 = px.histogram(tcga_counts_tissue, x="Tissue", y='Counts')
+fig9.show()

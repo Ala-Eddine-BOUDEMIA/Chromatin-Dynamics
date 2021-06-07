@@ -27,7 +27,7 @@ cgc_file_upload_date | smgnsdtc
 cgc_case_year_of_diagnosis | smmncpb
 cgc_case_tumor_status | smestlbs	
 cgc_case_age_at_diagnosis | smmppd
- / | smnterrt	
+bigwig_file | smnterrt	
  / | smrrnanm	
  / | smrdttl	
  / | smvqcfl	
