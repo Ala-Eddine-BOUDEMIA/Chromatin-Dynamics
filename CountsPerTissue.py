@@ -54,14 +54,11 @@ with open("Data/TCGA/tcga_counts_per_sample.tsv","r") as f:
 		l = line.split("\t")
 		for i, k in zip(tcga_runs_per_tissue.values(), tcga_runs_per_tissue.keys()):
 			for j in i:
-				try:
-					if str(l[0]) == str('"') + j.split(".")[0] + str('"'):
-						if k in tcga_counts_per_tissue.keys(): 
-							tcga_counts_per_tissue[k] += int(l[1])
-						else:
-							tcga_counts_per_tissue[k] = int(l[1])
-				except:
-					pass
+				if str(l[0]) == str('"') + j.split(".")[0] + str('"'):
+					if k in tcga_counts_per_tissue.keys(): 
+						tcga_counts_per_tissue[k] += int(l[1])
+					else:
+						tcga_counts_per_tissue[k] = int(l[1])
 
 with open("Data/TCGA/TCGA_CountsPerTissue.tsv","w") as w:
 	w.write("Tissue"+ "\t" + "Counts" + "\n")
