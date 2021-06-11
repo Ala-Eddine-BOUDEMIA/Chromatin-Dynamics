@@ -1,5 +1,11 @@
 import Plots
+
 import pandas as pd 
+
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', None)
 
 gtex_counts = pd.read_csv(
 	"Data/GTEx/read_counts.tsv", 
@@ -57,7 +63,15 @@ Plots.boxplot(mean_counts_per_gene,
 				title="GTEx Mean Counts Per Gene",
 				x=mean_counts_per_gene)
 
-# 6- Number of counts per tissue
+# 6- CPM
+cpm = gtex_counts
+total = counts_per_sample.div(1e6)
+cpm = cpm.loc[:,:].div(total) 
+cpm= cpm.sum(axis=1)
+
+Plots.boxplot(cpm, title="CPM")
+
+# 7- Number of counts per tissue
 runs_per_tissue = gtex.groupby(["smts"]).agg({'run':'unique'})
 
 counts_per_tissue_sample, mean_counts_per_tissue_sample = [], []
@@ -68,7 +82,7 @@ for tissue in runs_per_tissue.index:
 		try:
 			# per sample
 			counts_per_sample_per_tissue = gtex_counts.loc[:,runs].sum(axis=0)
-			counts_per_tissue_sample.append((counts_per_sample_per_tissue, tissue))
+			counts_per_tissue_sample.append([list(counts_per_sample_per_tissue), tissue])
 
 			# mean per sample
 			mean_counts_per_sample_per_tissue = gtex_counts.loc[:,runs].mean(axis=0)
@@ -77,13 +91,50 @@ for tissue in runs_per_tissue.index:
 			# per gene
 			counts_per_gene_per_tissue = gtex_counts.loc[:,runs].sum(axis=1)
 			counts_per_tissue_gene.append((counts_per_gene_per_tissue, tissue))
+			
 			# mean per gene
 			mean_counts_per_gene_per_tissue = gtex_counts.loc[:,runs].mean(axis=1)
 			mean_counts_per_tissue_gene.append((mean_counts_per_gene_per_tissue, tissue))
+
 		except:
 			pass
 
-Plots.histogram(counts_per_tissue_sample, 
-				title="GTEx counts_per_tissue_sample",
-				x=[x[1] for x in counts_per_tissue_sample],
-				y=[y[0].sum() for y in counts_per_tissue_sample])
+# per sample
+df_counts_per_tissue_sample = pd.DataFrame([x[0] for x in counts_per_tissue_sample], 
+									index=[x[1] for x in counts_per_tissue_sample])
+
+Plots.histogram(df_counts_per_tissue_sample.transpose(), 
+				title="GTEx Number of Counts Per Sample Per Tissue")
+
+Plots.boxplot(df_counts_per_tissue_sample.transpose(), 
+				title="GTEx Number of Counts Per Sample Per Tissue")
+
+# mean per sample
+df_mean_counts_per_tissue_sample = pd.DataFrame([x[0] for x in mean_counts_per_tissue_sample], 
+									index=[x[1] for x in mean_counts_per_tissue_sample])
+
+Plots.histogram(df_mean_counts_per_tissue_sample.transpose(), 
+				title="GTEx Mean Counts Per Sample Per Tissue")
+
+Plots.boxplot(df_mean_counts_per_tissue_sample.transpose(), 
+				title="GTEx Mean Counts Per Sample Per Tissue")
+
+# per gene
+df_counts_per_tissue_gene = pd.DataFrame([x[0] for x in counts_per_tissue_gene], 
+									index=[x[1] for x in counts_per_tissue_gene])
+
+Plots.histogram(df_counts_per_tissue_gene.transpose(), 
+				title="GTEx Number of Counts Per Gene Per Tissue")
+
+Plots.boxplot(df_counts_per_tissue_gene.transpose(), 
+				title="GTEx Number of Counts Per Gene Per Tissue")
+
+# mean per gene
+df_mean_counts_per_tissue_gene = pd.DataFrame([x[0] for x in mean_counts_per_tissue_gene], 
+									index=[x[1] for x in mean_counts_per_tissue_gene])
+
+Plots.histogram(df_mean_counts_per_tissue_gene.transpose(), 
+				title="GTEx Mean Counts Per Gene Per Tissue")
+
+Plots.boxplot(df_mean_counts_per_tissue_gene.transpose(), 
+				title="GTEx Mean Counts Per Gene Per Tissue")
