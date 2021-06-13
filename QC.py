@@ -95,8 +95,8 @@ Plots.boxplot(mean_counts_per_gene_after_filtering,
 # 6.1- CPM Before Filtering
 cpm_before_filtering = gtex_counts_before_filtering
 total_before_filtering  = counts_per_sample_before_filtering.div(1e6)
-cpm_before_filtering  = cpm_before_filtering .loc[:,:].div(total_before_filtering ) 
-cpm_before_filtering = cpm_before_filtering .sum(axis=1)
+cpm_before_filtering  = cpm_before_filtering.loc[:,:].div(total_before_filtering ) 
+cpm_before_filtering = cpm_before_filtering.sum(axis=1)
 
 Plots.boxplot(cpm_before_filtering, title="CPM Before Filtering")
 
