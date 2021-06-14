@@ -1,1 +1,16 @@
+Data/GTEx/AfterFiltering/
+Data/GTEx/BeforeFiltering/
+Data/GTEx/Normalized/
+Data/GTEx/pca/
+.DS_Store
+Data/.DS_Store
+Data/GTEx/.DS_Store
 __pycache__/
+Data/TCGA/.DS_Store
+Images/.DS_Store
+Images/GTEx/.DS_Store
+Images/TCGA/.DS_Store
+Test/.DS_Store
+Test/Data/.DS_Store
+Test/Data/GTEx/.DS_Store
+Weekly reports/.DS_Store

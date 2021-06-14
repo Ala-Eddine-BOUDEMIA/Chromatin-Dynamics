@@ -24,13 +24,13 @@ y = y[!is.na(y$genes$Symbol), ]
 dim(y)
 
 # Mean-variance plot
-meanSdPlot(c1)
+meanSdPlot(y$counts)
 
 # Filter to remove low counts
 keep = rowSums(cpm(y) > 10) >= 36  
 table(keep)
 x = y[keep, ,keep.lib.sizes=FALSE]
-write.table(x, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExFilteredCPM10S18.tsv", sep="\t")
+write.table(x, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExFilteredCPM10S36.tsv", sep="\t")
 
 # Mean-variance plot
 meanSdPlot(x$counts)
