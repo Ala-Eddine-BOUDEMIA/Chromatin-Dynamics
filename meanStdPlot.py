@@ -7,14 +7,15 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
 pd.set_option('display.max_colwidth', None)
 
-"""
-gtex_counts = pd.read_csv("Test/Data/GTEx/read_counts.tsv", 
+# Complete dataset
+gtex_counts = pd.read_csv("Data/GTEx/Normalized/GTExNormalized.tsv", 
 						header=0, index_col=0, sep="\t")
-"""
 
 # top 1000 genes
+"""
 gtex_counts = pd.read_csv("Data/GTEx/Top1000/GTExTop1000Genes.tsv", 
 					header=0, index_col=0, sep="\t")
+"""
 
 # COUNTS
 mean = np.log2(gtex_counts + 0.5).mean(axis=1)
