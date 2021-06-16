@@ -37,7 +37,7 @@ lib_size = gtex_counts.sum(axis=0).to_frame(name="lib_size")
 scaler = StandardScaler()
 std_counts = scaler.fit_transform(gtex_counts.dropna().T)
 
-pca = PCA(n_components=3)
+pca = PCA(n_components=2)
 P = pca.fit_transform(std_counts)
 ratio = pca.explained_variance_ratio_ * 100
 
@@ -50,7 +50,6 @@ d.sort_values("smtsd", inplace=True)
 
 print("PC1: ", round(ratio[0],2))
 print("PC2: ", round(ratio[1],2))
-print("PC3: ", round(ratio[2],2))
 
 """
 d.to_csv("Data/GTEx/PCA/pca.tsv", sep="\t")
@@ -67,7 +66,6 @@ fig = px.scatter(
     hover_data=[d.dropna().index, "lib_size"],
     #size="lib_size",
     title="GTEx PCA")
-fig.show()
 
 # Leading genes
 loading_scores = pd.Series(pca.components_[0], index=gtex_counts.index)
