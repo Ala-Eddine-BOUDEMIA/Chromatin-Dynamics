@@ -57,12 +57,11 @@ heat_data = squareform(data_dist)
 heat_data = heat_data[dendro_leaves,:]
 heat_data = heat_data[:,dendro_leaves]
 
-heatmap = [
-    go.Heatmap(
-        x = dendro_leaves,
-        y = dendro_leaves,
-        z = heat_data,
-        colorscale = 'twilight')]
+heatmap = [go.Heatmap(
+    x = dendro_leaves,
+    y = dendro_leaves,
+    z = heat_data,
+    colorscale = 'inferno')]
 
 heatmap[0]['x'] = fig['layout']['xaxis']['tickvals']
 heatmap[0]['y'] = dendro_side['layout']['yaxis']['tickvals']
