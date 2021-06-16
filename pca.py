@@ -22,7 +22,6 @@ for index in tissues.index:
 gtex_counts = pd.read_csv("Data/GTEx/Normalized/GTExNormalized.tsv", 
 					header=0, index_col=0, sep="\t")
 """
-
 # top 1000 genes
 gtex_counts = pd.read_csv("Data/GTEx/Top1000/GTExTop1000Genes.tsv", 
 					header=0, index_col=0, sep="\t")
@@ -49,15 +48,18 @@ d = d.join(tissues)
 d = d.join(lib_size)
 d.sort_values("smtsd", inplace=True)
 
-d.to_csv("Data/GTEx/PCA/pca.tsv", sep="\t")
-
 print("PC1: ", round(ratio[0],2))
 print("PC2: ", round(ratio[1],2))
 print("PC3: ", round(ratio[2],2))
+
+"""
+d.to_csv("Data/GTEx/PCA/pca.tsv", sep="\t")
+"""
 """
 d = pd.read_csv("Data/GTEx/PCA/pca.tsv", 
 	header=0, index_col=0, sep="\t")
 """
+
 fig = px.scatter(
     d.dropna(), 
     x="PC1", y="PC2",
@@ -66,3 +68,9 @@ fig = px.scatter(
     #size="lib_size",
     title="GTEx PCA")
 fig.show()
+
+# Leading genes
+loading_scores = pd.Series(pca.components_[0], index=gtex_counts.index)
+sorted_loading_scores = loading_scores.abs().sort_values(ascending=False)
+top_10_genes = sorted_loading_scores[0:10].index.values
+print(loading_scores[top_10_genes])
