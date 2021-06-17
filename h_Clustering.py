@@ -9,12 +9,12 @@ import seaborn as  sns
 # complete dataset
 """
 gtex_counts = pd.read_csv("Data/GTEx/Normalized/GTExNormalized.tsv", 
-					header=0, index_col=0, sep="\t")
+	header=0, index_col=0, sep="\t")
 """
 # top 1000 genes
 """
 gtex_counts = pd.read_csv("Data/GTEx/Top1000/GTExTop1000Genes.tsv", 
-					header=0, index_col=0, sep="\t")
+	header=0, index_col=0, sep="\t")
 
 gtex_counts = pd.DataFrame(np.log2(gtex_counts + 1))
 
@@ -22,15 +22,20 @@ correlation_matrix = gtex_counts.corr(method="pearson")
 correlation_matrix.to_csv('corr_matrix.tsv', sep="\t")
 """
 
-correlation_matrix = pd.read_csv("corr_matrix_210616.tsv", 
-                            header=0, index_col=0, sep="\t")
+correlation_matrix = pd.read_csv("1000vs1000.tsv", 
+	header=0, index_col=0, sep="\t")
+
+gtex = pd.read_csv("Data/GTEx/Metadata/GTEx.tsv", 
+	header=0, index_col=0, sep="\t")
+
+tissues = gtex["smtsd"]
+
 
 print("correlation matrix loaded")
 
 # Initialize figure by creating upper dendrogram
 fig = ff.create_dendrogram(correlation_matrix, 
-    orientation='bottom', 
-    labels=correlation_matrix.columns)
+    orientation='bottom')
 
 for i in range(len(fig['data'])):
     fig['data'][i]['yaxis'] = 'y2'
@@ -62,7 +67,8 @@ heatmap = [go.Heatmap(
     x = dendro_leaves,
     y = dendro_leaves,
     z = heat_data,
-    colorscale = 'inferno')]
+    colorscale = 'inferno',
+    hoverinfo = "skip")]
 
 heatmap[0]['x'] = fig['layout']['xaxis']['tickvals']
 heatmap[0]['y'] = dendro_side['layout']['yaxis']['tickvals']
@@ -99,3 +105,4 @@ fig.update_layout(yaxis2={'domain':[.825, .975],
 
 # Plot
 fig.show()
+fig.write_html("Plotly_HTML_Files/GTEx/H_Clustering/hcluster.html")
