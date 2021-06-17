@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import plotly.figure_factory as ff
 
 from scipy.spatial.distance import pdist, squareform
+import seaborn as  sns
 
 # complete dataset
 """
@@ -15,13 +16,13 @@ gtex_counts = pd.read_csv("Data/GTEx/Normalized/GTExNormalized.tsv",
 gtex_counts = pd.read_csv("Data/GTEx/Top1000/GTExTop1000Genes.tsv", 
 					header=0, index_col=0, sep="\t")
 
-gtex_counts = pd.DataFrame(np.log2(gtex_counts))
+gtex_counts = pd.DataFrame(np.log2(gtex_counts + 1))
 
 correlation_matrix = gtex_counts.corr(method="pearson")
-correlation_matrix.to_csv('Data/GTEx/CorrelationMatrix/corr_matrix.tsv', sep="\t")
+correlation_matrix.to_csv('corr_matrix.tsv', sep="\t")
 """
 
-correlation_matrix = pd.read_csv("Data/GTEx/CorrelationMatrix/corr_matrix.tsv", 
+correlation_matrix = pd.read_csv("corr_matrix_210616.tsv", 
                             header=0, index_col=0, sep="\t")
 
 print("correlation matrix loaded")
