@@ -16,11 +16,12 @@ gtex_counts_after_filtering = pd.read_csv(
 	header=0, index_col=0, sep="\t")
 
 gtex = pd.read_csv(
-	"Data/GTEx/GTEx.tsv",
+	"Data/GTEx/Metadata/GTEx.tsv",
 	header=0, sep="\t")
 
 # 1- Number of samples per tissue
-samples_per_tissue = gtex.groupby(["smts"]).agg({'run':'count'})
+samples_per_tissue = gtex.groupby(["smtsd"]).agg({'run':'count'})
+samples_per_tissue.sort_values("smtsd")
 
 Plots.histogram(samples_per_tissue, 
 				title="GTEx Number of Samples Per Tissue",
@@ -109,7 +110,8 @@ cpm_after_filtering = cpm_after_filtering.sum(axis=1)
 Plots.boxplot(cpm_after_filtering, title="CPM After Filtering")
 
 # 7- Number of counts per tissue
-runs_per_tissue = gtex.groupby(["smts"]).agg({'run':'unique'})
+runs_per_tissue = gtex.groupby(["smtsd"]).agg({'run':'unique'})
+runs_per_tissue.sort_values("smtsd")
 
 # 7.1- Before Filtering
 counts_per_tissue_sample_before_filtering, mean_counts_per_tissue_sample_before_filtering = [], []

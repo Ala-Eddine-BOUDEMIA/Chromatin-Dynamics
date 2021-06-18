@@ -8,7 +8,6 @@ def histogram(file, title, *args, **kwargs):
 	
 	fig.show()
 
-
 def boxplot(file, title, *args, **kwargs):
 
 	fig = px.box(
