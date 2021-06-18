@@ -5,16 +5,14 @@ import dash_bio as dashbio
 import dash_html_components as html
 import dash_core_components as dcc
 
-correlation_matrix = pd.read_csv("1000vs1000.tsv", 
+correlation_matrix = pd.read_csv("Data/GTEx/CorrelationMatrix/corr_matrix.tsv", 
     header=0, index_col=0, sep="\t")
 
 gtex = pd.read_csv("Data/GTEx/Metadata/GTEx.tsv", 
     header=0, index_col=0, sep="\t")
 
-correlation_matrix.index=correlation_matrix.index+" "+gtex["smtsd"][:1000]
-
 rows = list(correlation_matrix.index)
-columns = rows
+columns = list(correlation_matrix.columns.values)
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -52,6 +50,5 @@ def update_clustergram(rows):
                 [0.5, '#FFFFFF'], [0.75, '#E763FA'], [1.0, '#EF553B']]
         ))
         
-
 if __name__ == '__main__':
     app.run_server(debug=True)

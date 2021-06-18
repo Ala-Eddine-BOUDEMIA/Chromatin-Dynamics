@@ -11,22 +11,15 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
 pd.set_option('display.max_colwidth', None)
 
-# code for testing
-"""
-tissues_set = ["Bladder", "Bone Marrow", "Cervix Uteri", "Fallopian Tube"]
-
-for index in tissues.index:
-	if tissues.loc[index] not in tissues_set:
-		tissues.drop(index, axis=0, inplace=True)
-"""
-"""
+# complete dataset
 gtex_counts = pd.read_csv("Data/GTEx/Normalized/GTExNormalized.tsv", 
 					header=0, index_col=0, sep="\t")
-"""
+
 # top 1000 genes
+"""
 gtex_counts = pd.read_csv("Data/GTEx/Top1000/GTExTop1000Genes.tsv", 
 					header=0, index_col=0, sep="\t")
-
+"""
 gtex_counts = pd.DataFrame(np.log2(gtex_counts + 1))
 
 gtex = pd.read_csv("Data/GTEx/Metadata/GTEx.tsv", 
@@ -53,9 +46,8 @@ print("PC1: ", round(ratio[0],2))
 print("PC2: ", round(ratio[1],2))
 
 """
-d.to_csv("Data/GTEx/PCA/pca.tsv", sep="\t")
-"""
-"""
+d.to_csv("Data/GTEx/PCA/pca_full.tsv", sep="\t")
+
 d = pd.read_csv("Data/GTEx/PCA/pca.tsv", 
 	header=0, index_col=0, sep="\t")
 """
@@ -68,7 +60,7 @@ fig = px.scatter(
     #size="lib_size",
     title="GTEx PCA")
 fig.show()
-fig.write_html("Plotly_HTML_Files/GTEx/PCA/pca.html")
+fig.write_html("Plotly_HTML_Files/GTEx/PCA/pca_full.html")
 
 # Leading genes
 loading_scores = pd.Series(pca.components_[0], index=gtex_counts.index)
@@ -86,6 +78,13 @@ df = df.join(tissues)
 df = df.join(lib_size)
 df.sort_values("smtsd", inplace=True)
 
+"""
+df.to_csv("Data/GTEx/T-Sne/t_sne_full.tsv", sep="\t")
+
+d = pd.read_csv("Data/GTEx/T-Sne/t_sne_full.tsv", 
+	header=0, index_col=0, sep="\t")
+"""
+
 fig = px.scatter(
     df.dropna(), 
     x="T1", y="T2",
@@ -94,4 +93,4 @@ fig = px.scatter(
     #size="lib_size",
     title="GTEx t-sne")
 fig.show()
-fig.write_html("Plotly_HTML_Files/GTEx/T-Sne/tsne.html")
+fig.write_html("Plotly_HTML_Files/GTEx/T-Sne/tsne_full.html")
