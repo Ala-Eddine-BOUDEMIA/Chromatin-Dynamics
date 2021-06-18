@@ -1,10 +1,9 @@
 import numpy as np
 import pandas as pd
-import plotly.graph_objects as go
-import plotly.figure_factory as ff
-
-from scipy.spatial.distance import pdist, squareform
 import seaborn as  sns
+
+from matplotlib.patches import Patch
+from scipy.spatial.distance import pdist, squareform
 
 # metadata
 gtex = pd.read_csv("Data/GTEx/Metadata/GTEx.tsv", 
@@ -29,15 +28,26 @@ correlation_matrix.to_csv('Data/GTEx/CorrelationMatrix/corr_matrix.tsv', sep="\t
 correlation_matrix = pd.read_csv("Data/GTEx/CorrelationMatrix/corr_matrix.tsv",
 	header=0, index_col=0, sep="\t")
 
-correlation_matrix = correlation_matrix.join(gtex["smtsd"])
-tissues = correlation_matrix.pop("smtsd")
+correlation_matrix = correlation_matrix.join(gtex["smts"])
+correlation_matrix = correlation_matrix.dropna()
+tissues = correlation_matrix.pop("smts")
 
-lut = dict(zip(set(tissues.unique()), sns.hls_palette(len(set(tissues)))))
+palette1 = sns.hls_palette(10)
+palette2 = sns.color_palette("bwr",10)
+palette3 = sns.color_palette("inferno",10)
+palette = palette1 + palette2 + palette3
+lut = dict(zip(set(tissues.unique()), palette))
 colors = tissues.map(lut)
 
-g=sns.clustermap(correlation_matrix, vmin=-1, vmax=1, 
-                 row_colors=colors, col_colors=colors, 
-                 xticklabels=False, yticklabels=False,
-                 method="complete")
+g = sns.clustermap(correlation_matrix, 
+                vmin=0, vmax=1, 
+                cmap="icefire", standard_scale=1,
+                row_colors=colors, col_colors=colors, 
+                xticklabels=False, yticklabels=False,
+                method="single")
+
+handles = [Patch(facecolor=lut[name]) for name in lut]
+g.ax_row_dendrogram.legend(handles, lut, title='Tissues',
+        bbox_to_anchor=(0, 1), loc='best')
 
 g.savefig("Images/GTEx/Clustermap/Clustergram_full.png", dpi = 300)
