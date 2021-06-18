@@ -1,4 +1,9 @@
-Data/GTEx/CorrelationMatrix
+Data/TCGA/CorrelationMatrix/
+Data/TCGA/AfterFiltering/
+Data/TCGA/BeforeFiltering/
+Data/TCGA/Normalized/
+Data/TCGA/pca/
+Data/GTEx/CorrelationMatrix/
 Data/GTEx/AfterFiltering/
 Data/GTEx/BeforeFiltering/
 Data/GTEx/Normalized/
