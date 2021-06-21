@@ -12,8 +12,10 @@ pd.set_option('display.width', None)
 pd.set_option('display.max_colwidth', None)
 
 # complete dataset
-gtex_counts = pd.read_csv("Data/GTEx/Normalized/GTExNormalized.tsv", 
+gtex_counts = pd.read_csv("Data/GTEx/v_c/hc_hv.tsv", 
 					header=0, index_col=0, sep="\t")
+
+genes = gtex_counts.pop("Gene Official Symbol")
 
 # top 1000 genes
 """
@@ -24,6 +26,7 @@ gtex_counts = pd.DataFrame(np.log2(gtex_counts + 1))
 
 gtex = pd.read_csv("Data/GTEx/Metadata/GTEx.tsv", 
 					header=0, index_col=0, sep="\t")
+
 
 tissues = gtex["smtsd"]
 lib_size = gtex_counts.sum(axis=0).to_frame(name="lib_size")
@@ -38,8 +41,8 @@ ratio = pca.explained_variance_ratio_ * 100
 d = pd.DataFrame(index=gtex_counts.T.index)
 d["PC1"] = P[:, 0]
 d["PC2"] = P[:, 1]
-d = d.join(tissues)
 d = d.join(lib_size)
+d = d.join(tissues)
 d.sort_values("smtsd", inplace=True)
 
 print("PC1: ", round(ratio[0],2))
@@ -60,7 +63,7 @@ fig = px.scatter(
     #size="lib_size",
     title="GTEx PCA")
 fig.show()
-fig.write_html("Plotly_HTML_Files/GTEx/PCA/pca_full.html")
+fig.write_html("Plotly_HTML_files/GTEx/PCA/hc_hv.html")
 
 # Leading genes
 loading_scores = pd.Series(pca.components_[0], index=gtex_counts.index)
@@ -74,8 +77,8 @@ T = tsne.fit_transform(std_counts)
 df = pd.DataFrame(index=gtex_counts.T.index)
 df["T1"] = T[:, 0]
 df["T2"] = T[:, 1]
-df = df.join(tissues)
 df = df.join(lib_size)
+df = df.join(tissues)
 df.sort_values("smtsd", inplace=True)
 
 """
@@ -89,8 +92,8 @@ fig = px.scatter(
     df.dropna(), 
     x="T1", y="T2",
     color="smtsd", 
-    hover_data=[d.dropna().index, "lib_size"],
+    hover_data=[df.dropna().index, "lib_size"],
     #size="lib_size",
     title="GTEx t-sne")
 fig.show()
-fig.write_html("Plotly_HTML_Files/GTEx/T-Sne/tsne_full.html")
+fig.write_html("Plotly_HTML_files/GTEx/T-Sne/hc_hv.html")
