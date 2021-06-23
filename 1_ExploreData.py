@@ -13,8 +13,10 @@ def explore_data(
 	generalTop1000Plotly, generalCvPlotly, generalRawPlotly, generalFilteredPlotly):
 	
 	counts = [raw_counts, filtered_counts, counts_norm, top1000, cv_counts]
-	rand_files = Tools.parse_dir(rand)
-	counts.append(rand_files)
+	
+	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
+	for path in rand_files:
+		counts.append(path)
 
 	images = [generalRawImages, generalFilteredImages, generalNormImages, generalTop1000Images, generalCvImages]
 	htmls = [generalRawPlotly, generalFilteredPlotly, generalNormPlotly, generalTop1000Plotly, generalCvPlotly]
@@ -98,7 +100,8 @@ def explore_data(
 				title = t)
 
 			fig.write_html(str(html.joinpath(t.replace(" ", "_") + ".html")))
-			fig.write_image(str(image.joinpath(t.replace(" ", "_") + ".png")))
+			fig.write_image(str(image.joinpath(t.replace(" ", "_") + ".png")), 
+				width = 2048, height = 1024)
 			fig.show()
 
 if __name__ == '__main__':	
