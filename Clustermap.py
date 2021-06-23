@@ -5,11 +5,14 @@ import dash_bio as dashbio
 import dash_html_components as html
 import dash_core_components as dcc
 
-correlation_matrix = pd.read_csv("Data/GTEx/CorrelationMatrix/corr_matrix.tsv", 
+correlation_matrix = pd.read_csv("Data/GTEx/CorrelationMatrix/correlation_matrix_variants_chaperones_genes.tsv", 
     header=0, index_col=0, sep="\t")
 
 gtex = pd.read_csv("Data/GTEx/Metadata/GTEx.tsv", 
     header=0, index_col=0, sep="\t")
+
+metadata = pd.read_csv("Data/variants_chaperones/complete_list.csv", 
+    header=0, index_col="EnsemblGeneId", sep="\t")
 
 rows = list(correlation_matrix.index)
 columns = list(correlation_matrix.columns.values)
