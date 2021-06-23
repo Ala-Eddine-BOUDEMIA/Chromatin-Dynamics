@@ -1,10 +1,12 @@
-import numpy as np
+import sys
 import pandas as pd
 import seaborn as  sns
 
 from matplotlib.patches import Patch
 
 import Config
+
+sys.setrecursionlimit(1000000)
 
 def clustering_samples(
     meta, s_corr_norm, s_corr_top1000, s_corr_rand, s_corr_cv,
@@ -20,7 +22,7 @@ def clustering_samples(
         images.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
-
+    
     for m, i in (corr_matices, images):
         f = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
@@ -64,25 +66,32 @@ def clustering_genes(
 
     metadata = pd.read_csv(cv_list, header = 0, index_col = 0, sep = "\t")
     
+    c = 0
     for m, i in (corr_matices, images):
         f = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
-        correlation_matrix = f.join(metadata["Class"])
-        correlation_matrix = f.join(metadata["GeneName"])
-        correlation_matrix = correlation_matrix.dropna()
-        classes = correlation_matrix.pop("Class")
+        if c < 3:
+            correlation_matrix = f.join(metadata["Class"])
+            correlation_matrix = f.join(metadata["GeneName"])
+            correlation_matrix = correlation_matrix.dropna()
+            classes = correlation_matrix.pop("Class")
 
-        palette = sns.hls_palette(len(classes))
-        lut = dict(zip(set(classes.unique()), palette))
-        colors = classes.map(lut)
+            palette = sns.hls_palette(len(classes))
+            lut = dict(zip(set(classes.unique()), palette))
+            colors = classes.map(lut)
+            labels = correlation_matrix["GeneName"]
 
-        g = sns.clustermap(correlation_matrix.iloc[:, correlation_matrix.columns != "GeneName"], 
+            data = correlation_matrix.iloc[:, correlation_matrix.columns != "GeneName"]
+        else :
+            colors, labels = False,  False
+            data = correlation_matrix
+
+        g = sns.clustermap(data, 
             vmin = max(correlation_matrix.max(axis = 1)), 
             vmax = min(correlation_matrix.min(axis = 1)), 
             cmap = "icefire", standard_scale = 1,
             row_colors = colors, col_colors = colors, 
-            xticklabels = correlation_matrix["GeneName"], 
-            yticklabels = correlation_matrix["GeneName"],
+            xticklabels = labels, yticklabels = labels,
             method = "single")
         
         handles = [Patch(facecolor = lut[name]) for name in lut]
@@ -90,7 +99,7 @@ def clustering_genes(
             bbox_to_anchor = (0, 1), loc='best')
 
         g.savefig(str(i), dpi = 300)
-
+        c += 1
 
 if __name__ == '__main__':
 
