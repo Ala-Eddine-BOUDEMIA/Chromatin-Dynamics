@@ -3,20 +3,31 @@ import plotly.express as px
 
 from pathlib import Path
 
+import Tools
 import Config
 
 def explore_data(
-	meta, #raw_counts, filtered_counts, 
-	counts_norm, top1000, 
-	cv_counts, #rand, 
-	generalNormImages, #generalRandImages,
-	generalTop1000Images, generalCvImages, generalNormPlotly, 
-	#generalRandPlotly, 
-	generalTop1000Ploty, generalCvPlotly):
+	meta, raw_counts, filtered_counts, counts_norm, top1000, cv_counts, rand, 
+	generalRawImages, generalFilteredImages, generalNormImages, generalRandImages,
+	generalTop1000Images, generalCvImages, generalNormPlotly, generalRandPlotly, 
+	generalTop1000Plotly, generalCvPlotly, generalRawPlotly, generalFilteredPlotly):
 	
-	counts = [counts_norm, top1000, cv_counts]
-	images = [generalNormImages, generalTop1000Images, generalCvImages]
-	htmls = [generalNormPlotly, generalTop1000Ploty, generalCvPlotly]
+	counts = [raw_counts, filtered_counts, counts_norm, top1000, cv_counts]
+	rand_files = Tools.parse_dir(rand)
+	counts.append(rand_files)
+
+	images = [generalRawImages, generalFilteredImages, generalNormImages, generalTop1000Images, generalCvImages]
+	htmls = [generalRawPlotly, generalFilteredPlotly, generalNormPlotly, generalTop1000Plotly, generalCvPlotly]
+	
+	for i in range(len(rand_files)):
+		link_img = generalRandImages.joinpath("random" + str(i))
+		link_p = generalRandPlotly.joinpath("random" + str(i))
+		
+		Tools.create_folder(link_img)
+		Tools.create_folder(link_p)
+		
+		images.append(link_img)
+		htmls.append(link_p)
 
 	# read metadata file
 	metadata = pd.read_csv(meta, header = 0, sep = "\t")
@@ -94,17 +105,21 @@ if __name__ == '__main__':
 	
 	explore_data(
 		meta = Config.args.meta,
-		#raw_counts = Config.args.bf,
-		#filtered_counts = Config.args.af,
+		raw_counts = Config.args.bf,
+		filtered_counts = Config.args.af,
 		counts_norm = Config.args.norm,
 		top1000 = Config.args.top1000,
 		cv_counts = Config.args.cv,
-		#rand = Config.args.rand,
+		rand = Config.args.rand,
+		generalRawImages = Config.args.IgeneralRaw,
+		generalFilteredImages = Config.args.IgeneralFiltered,
 		generalNormImages = Config.args.IgeneralNorm,
-		#generalRandImages = Config.args.IgeneralRand,
+		generalRandImages = Config.args.IgeneralRand,
 		generalTop1000Images = Config.args.IgeneralTop,
 		generalCvImages = Config.args.IgeneralCV,
 		generalNormPlotly = Config.args.PgeneralNorm,
-		#generalRandPlotly = Config.args.PgeneralRand,
-		generalTop1000Ploty = Config.args.PgeneralTop,
-		generalCvPlotly = Config.args.PgeneralCV)
+		generalRandPlotly = Config.args.PgeneralRand,
+		generalTop1000Plotly = Config.args.PgeneralTop,
+		generalCvPlotly = Config.args.PgeneralCV,
+		generalRawPlotly = Config.args.PgeneralRaw,
+		generalFilteredPlotly = Config.args.PgeneralFiltered)
