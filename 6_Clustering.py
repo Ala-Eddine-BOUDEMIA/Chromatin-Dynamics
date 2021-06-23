@@ -12,12 +12,12 @@ def clustering_samples(
     meta, s_corr_norm, s_corr_top1000, s_corr_rand, s_corr_cv,
     s_img_clstrRand, s_img_clstrNorm, s_img_clstrTop, s_img_clstrCv):
     
-    corr_matices = [s_corr_norm, s_corr_top1000, s_corr_cv]
+    corr_matices = [s_corr_top1000, s_corr_cv]#s_corr_norm, 
     rand_files = sorted([f for f in s_corr_rand.iterdir() if f.is_file()])
     for path in rand_files:
         corr_matices.append(path)
 
-    images = [s_img_clstrNorm, s_img_clstrTop, s_img_clstrCv]
+    images = [s_img_clstrTop, s_img_clstrCv]#s_img_clstrNorm, 
     for i in range(len(rand_files)):
         images.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
@@ -67,7 +67,7 @@ def clustering_genes(
     metadata = pd.read_csv(cv_list, header = 0, index_col = 0, sep = "\t")
     
     c = 0
-    for m, i in (corr_matices, images):
+    for m, i in zip(corr_matices, images):
         f = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
         if c < 2:
