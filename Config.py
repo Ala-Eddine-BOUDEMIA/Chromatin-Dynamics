@@ -12,6 +12,7 @@ parser.add_argument("--dataset",
 # Data
 choice = parser.parse_args()
 
+## Counts
 parser.add_argument("--bf",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/BeforeFiltering/PairedEndRounded.tsv"),
@@ -42,6 +43,7 @@ parser.add_argument("--cv",
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/variants_chaperones/variants_chaperones_counts.tsv"),
 	help = "Location where the counts of the histones chaperone and histone variant genes are stored")
 
+## Metadata
 parser.add_argument("--list",
 	type = Path,
 	default = Path("Data/variants_chaperones/complete_list.csv"),
@@ -52,6 +54,7 @@ parser.add_argument("--meta",
 	default = Path("Data/").joinpath(choice.dataset + "/Metadata/" + choice.dataset + ".tsv"),
 	help = "Location where the list of histone and chaperone genes is stored")
 
+## Correlation
 parser.add_argument("--corrNormG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Normalized/corr_matrix.tsv"),
@@ -92,6 +95,22 @@ parser.add_argument("--corrRandS",
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Random/"),
 	help = "Location where the correlation matrix of the random selected gene counts is stored")
 
+## PCA
+parser.add_argument("--pcaRaw",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/BeforeFiltering/pca.tsv"),
+	help = "Location where the pca matrix of the raw counts is stored")
+
+parser.add_argument("--pcaFiltered",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/AfterFiltering/pca.tsv"),
+	help = "Location where the pca matrix of the filtered non normalized counts is stored")
+
+parser.add_argument("--pcaRand",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/Random/"),
+	help = "Location where the pca matrix of the randomly selected geen counts is stored")
+
 parser.add_argument("--pcaNorm",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/PCA/Normalized/pca.tsv"),
@@ -106,6 +125,22 @@ parser.add_argument("--pcaCV",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/PCA/variants_chaperones/pca.tsv"),
 	help = "Location where the pca matrix of the variant and chaperone gene counts is stored")
+
+## T-SNE
+parser.add_argument("--tsneRaw",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/BeforeFiltering/T-Sne.tsv"),
+	help = "Location where the T-Sne matrix of the raw counts is stored")
+
+parser.add_argument("--tsneFiltered",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/AfterFiltering/T-Sne.tsv"),
+	help = "Location where the T-Sne matrix of the filtered non normalized counts is stored")
+
+parser.add_argument("--tsneRand",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/Random/"),
+	help = "Location where the T-Sne matrix of the randomly selected geen counts is stored")
 
 parser.add_argument("--tsneNorm",
 	type = Path,
@@ -123,6 +158,17 @@ parser.add_argument("--tsneCV",
 	help = "Location where the t-sne matrix of the variant and chaperone gene counts is stored")
 
 # Images
+## General
+parser.add_argument("--IgeneralRaw",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/General/BeforeFiltering/"),
+	help = "Location where QC images for the raw dataset are stored")
+
+parser.add_argument("--IgeneralFiltered",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/General/AfterFiltering/"),
+	help = "Location where QC images for the filtered dataset are stored")
+
 parser.add_argument("--IgeneralNorm",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/General/Normalized/"),
@@ -143,6 +189,17 @@ parser.add_argument("--IgeneralCV",
 	default = Path("Images/").joinpath(choice.dataset + "/General/variants_chaperones/"),
 	help = "Location where QC images for the chaperone and variants dataset are stored")
 
+## Mean Variance
+parser.add_argument("--ImvRaw",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/BeforeFiltering/mv.png"),
+	help = "Location where the mean-variance image of the raw dataset is stored")
+
+parser.add_argument("--ImvFiltered",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/AfterFiltering/mv.png"),
+	help = "Location where the mean-variance image of the filtered dataset is stored")
+
 parser.add_argument("--ImvNorm",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Normalized/mv.png"),
@@ -150,7 +207,7 @@ parser.add_argument("--ImvNorm",
 
 parser.add_argument("--ImvRand",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Random/mv.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Random/"),
 	help = "Location where the mean-variance image of the random datasets is stored")
 
 parser.add_argument("--ImvTop",
@@ -163,9 +220,25 @@ parser.add_argument("--ImvCV",
 	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/variants_chaperones/mv.png"),
 	help = "Location where the mean-variance image of the variants and chaperones is stored")
 
+## PCA
+parser.add_argument("--IpcaRaw",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/BeforeFiltering/pca.png"),
+	help = "Location where the pca image of the rawcounts is stored")
+
+parser.add_argument("--IpcaFiltered",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/AfterFiltering/pca.png"),
+	help = "Location where the pca image of the filtered non normalized counts is stored")
+
+parser.add_argument("--IpcaRand",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/Random/"),
+	help = "Location where the pca image of the randomly selected gene counts is stored")
+
 parser.add_argument("--IpcaNorm",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Normalized/pca.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/Normalized/pca.png"),
 	help = "Location where the pca image of the filtered normalized counts is stored")
 
 parser.add_argument("--IpcaTop",
@@ -177,6 +250,22 @@ parser.add_argument("--IpcaCV",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/PCA/variants_chaperones/pca.png"),
 	help = "Location where the pca image of the variant and chaperone gene counts is stored")
+
+## T-SNE
+parser.add_argument("--ItsneRaw",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/BeforeFiltering/T-Sne.png"),
+	help = "Location where the T-Sne image of the rawcounts is stored")
+
+parser.add_argument("--ItsneFiltered",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/AfterFiltering/T-Sne.png"),
+	help = "Location where the T-Sne image of the filtered non normalized counts is stored")
+
+parser.add_argument("--ItsneRand",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Random/"),
+	help = "Location where the T-Sne image of the randomly selected gene counts is stored")
 
 parser.add_argument("--ItsneNorm",
 	type = Path,
@@ -194,6 +283,17 @@ parser.add_argument("--ItsneCV",
 	help = "Location where the t-sne image of the variant and chaperone gene counts is stored")
 
 # Plotly
+## General
+parser.add_argument("--PgeneralRaw",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/BeforeFiltering/"),
+	help = "Location where QC html files for the raw dataset are stored")
+
+parser.add_argument("--PgeneralFiltered",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/AfterFiltering/"),
+	help = "Location where QC html files for the filtered dataset are stored")
+
 parser.add_argument("--PgeneralNorm",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/Normalized/"),
@@ -214,54 +314,97 @@ parser.add_argument("--PgeneralCV",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/variants_chaperones/"),
 	help = "Location where QC html files for the chaperone and variants dataset are stored")
 
+## Mean Variance
+parser.add_argument("--PmvRaw",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/BeforeFiltering/mv.html"),
+	help = "Location where the mean-variance html file of the raw dataset is stored")
+
+parser.add_argument("--PmvFiltered",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/AfterFiltering/mv.html"),
+	help = "Location where the mean-variance html file of the filtered dataset is stored")
+
 parser.add_argument("--PmvNorm",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Normalized/mv.png"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Normalized/mv.html"),
 	help = "Location where the mean-variance html file of the normalized dataset is stored")
 
 parser.add_argument("--PmvRand",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Random/mv.png"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Random/"),
 	help = "Location where the mean-variance html files of the random datasets is stored")
 
 parser.add_argument("--PmvTop",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Top1000/mv.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Top1000/mv.html"),
 	help = "Location where the mean-variance html file of the top1000 dataset is stored")
 
 parser.add_argument("--PmvCV",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/variants_chaperones/mv.png"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/variants_chaperones/mv.html"),
 	help = "Location where the mean-variance html file of the variants and chaperones is stored")
+
+## PCA
+parser.add_argument("--PpcaRaw",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/BeforeFiltering/pca.html"),
+	help = "Location where the pca html file of the raw counts is stored")
+
+parser.add_argument("--PpcaFiltered",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/AfterFiltering/pca.html"),
+	help = "Location where the pca html file of the filtered non normalized counts is stored")
+
+parser.add_argument("--PpcaRand",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Random/"),
+	help = "Location where the pca html file of the random generated files is stored")
 
 parser.add_argument("--PpcaNorm",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Normalized/pca.png"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Normalized/pca.html"),
 	help = "Location where the pca html file of the filtered normalized counts is stored")
 
 parser.add_argument("--PpcaTop",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Top1000/pca.png"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Top1000/pca.html"),
 	help = "Location where the pca html file of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--PpcaCV",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/variants_chaperones/pca.png"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/variants_chaperones/pca.html"),
 	help = "Location where the pca html file of the variant and chaperone gene counts is stored")
+
+## T-SNE
+parser.add_argument("--PtsneRaw",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/BeforeFiltering/T-Sne.html"),
+	help = "Location where the t-sne html file of the raw counts is stored")
+
+parser.add_argument("--PtsneFiltered",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/AfterFiltering/T-Sne.html"),
+	help = "Location where the t-sne html file of the filtered non normalized counts is stored")
+
+parser.add_argument("--PtsneRand",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Random/"),
+	help = "Location where the t-sne html file of the randomly selected gene counts is stored")
 
 parser.add_argument("--PtsneNorm",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Normalized/T-Sne.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Normalized/T-Sne.html"),
 	help = "Location where the t-sne html file of the filtered normalized counts is stored")
 
 parser.add_argument("--PtsneTop",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Top1000/T-Sne.png"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Top1000/T-Sne.html"),
 	help = "Location where the t-sne html fileof the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--PtsneCV",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/variants_chaperones/T-Sne.png"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/variants_chaperones/T-Sne.html"),
 	help = "Location where the t-sne html file of the variant and chaperone gene counts is stored")
 
 args = parser.parse_args()
