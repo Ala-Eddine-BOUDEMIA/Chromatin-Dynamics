@@ -77,17 +77,17 @@ parser.add_argument("--corrRandG",
 
 parser.add_argument("--corrNormS",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Sampels/Normalized/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Normalized/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the filtered normalized gene counts is stored")
 
 parser.add_argument("--corrTopS",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Sampels/Top1000/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Top1000/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--corrCVs",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Sampels/variants_chaperones/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/variants_chaperones/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the variant and chaperone gene counts is stored")
 
 parser.add_argument("--corrRandS",
