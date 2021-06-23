@@ -5,18 +5,17 @@ import plotly.express as px
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
-import Tools
 import Config
 
 def pca(
-    meta, raw_counts, filtered_counts, counts_norm, top1000, cv_counts, rand, file_pcaRaw,
-    file_pcaFiltered, file_pca_rand, file_pcaNorm, file_pcaTop, file_pcaCV, img_pca_raw, img_pca_filtered, 
-    img_pca_rand, img_pca_norm, img_pca_top, img_pca_cv, p_pca_raw, p_pca_filtered, p_pca_rand, p_pca_norm,
-    p_pca_top, p_pca_cv):
+    meta, raw_counts, filtered_counts, counts_norm, top1000, cv_counts, rand, file_pcaRaw, file_pcaFiltered, 
+    file_pca_rand, file_pcaNorm, file_pcaTop, file_pcaCV, img_pca_raw, img_pca_filtered, img_pca_rand, img_pca_norm, 
+    img_pca_top, img_pca_cv, p_pca_raw, p_pca_filtered, p_pca_rand, p_pca_norm, p_pca_top, p_pca_cv):
     
     counts = [raw_counts, filtered_counts, counts_norm, top1000, cv_counts]
-    rand_files = Tools.parse_dir(rand)
-    counts.append(rand_files)
+    rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
+    for path in rand_files:
+        counts.append(path)
 
     tsvs = [file_pcaRaw, file_pcaFiltered, file_pcaNorm, file_pcaTop, file_pcaCV]
     images = [img_pca_raw, img_pca_filtered, img_pca_norm, img_pca_top, img_pca_cv]
@@ -25,15 +24,16 @@ def pca(
     for i in range(len(rand_files)):
         tsvs.append(file_pca_rand.joinpath("random" + str(i) + ".tsv"))
         images.append(img_pca_rand.joinpath("random" + str(i) + ".png"))
-        htmls.append(p_pca_rand.joinpath("random" + str(i)) + ".html")
+        htmls.append(p_pca_rand.joinpath("random" + str(i) + ".html"))
 
-    metadata = pd.read_csv(meta, sep = '\t')
+    metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     tissues = metadata["smtsd"]
 
     for c, t, i, h in zip(counts, tsvs, images, htmls):
-        f = pd.read_csv(c, sep = "\t")
-        
+        f = pd.read_csv(c, header = 0, index_col = 0, sep = "\t")
         lib_size = f.sum(axis = 0).to_frame(name = "lib_size")
+        f = pd.DataFrame(np.log2(f + 1))
+        
         scaler = StandardScaler()
         std_counts = scaler.fit_transform(f.dropna().T)
 
@@ -46,7 +46,7 @@ def pca(
         d["PC2"] = P[:, 1]
         d = d.join(lib_size)
         d = d.join(tissues)
-        d.sort_values("smtsd", inplace=True)
+        d.sort_values("smtsd", inplace = True)
 
         print("PC1: ", round(ratio[0],2))
         print("PC2: ", round(ratio[1],2))
@@ -55,16 +55,17 @@ def pca(
         sorted_loading_scores = loading_scores.abs().sort_values(ascending = False)
         top_10_genes = sorted_loading_scores[0:10].index.values
         print(loading_scores[top_10_genes])
+        
         fig = px.scatter(
-            d.dropna(), 
-            x="PC1", y="PC2",
-            color="smtsd", 
-            hover_data=[d.dropna().index, "lib_size"],
-            #size="lib_size",
-            title="GTEx PCA")
+            data_frame = d.dropna(), 
+            x = "PC1", y = "PC2",
+            color = "smtsd", 
+            hover_data = [d.dropna().index, "lib_size"],
+            #size = "lib_size",
+            title = "GTEx PCA")
 
         fig.write_html(str(h))
-        fig.write_image(str(i))
+        fig.write_image(str(i), width = 2048, height = 1024)
         fig.show()
 
         d.to_csv(t, sep="\t")
