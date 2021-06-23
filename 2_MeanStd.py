@@ -53,11 +53,11 @@ if __name__ == '__main__':
 		filtered_mv_i = Config.args.ImvFiltered,
 		counts_norm_mv_image = Config.args.ImvNorm,
 		rand_images = Config.args.ImvRand,
-		top1000_mv_image = Config.args.ImvNorm,
+		top1000_mv_image = Config.args.ImvTop,
 		cv_mv_image = Config.args.ImvCV,
 		counts_norm_mv_p = Config.args.PmvNorm,
 		rand_p = Config.args.PmvRand,
-		top1000_mv_p = Config.args.PmvNorm,
+		top1000_mv_p = Config.args.PmvTop,
 		cv_mv_p = Config.args.PmvCV,
 		raw_mv_p = Config.args.PmvRaw,
 		filtered_mv_p = Config.args.PmvFiltered)
