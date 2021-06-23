@@ -12,12 +12,12 @@ def clustering_samples(
     meta, s_corr_norm, s_corr_top1000, s_corr_rand, s_corr_cv,
     s_img_clstrRand, s_img_clstrNorm, s_img_clstrTop, s_img_clstrCv):
     
-    corr_matices = [s_corr_top1000, s_corr_cv]#s_corr_norm, 
+    corr_matices = [s_corr_norm, s_corr_top1000, s_corr_cv]
     rand_files = sorted([f for f in s_corr_rand.iterdir() if f.is_file()])
     for path in rand_files:
         corr_matices.append(path)
 
-    images = [s_img_clstrTop, s_img_clstrCv]#s_img_clstrNorm, 
+    images = [s_img_clstrNorm, s_img_clstrTop, s_img_clstrCv]
     for i in range(len(rand_files)):
         images.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
@@ -55,12 +55,12 @@ def clustering_genes(
     cv_list, g_corr_norm, g_corr_top1000, g_corr_cv, g_corr_rand,
     g_img_clstrRand, g_img_clstrNorm, g_img_clstrTop, g_img_clstrCv):
     
-    corr_matices = [g_corr_top1000, g_corr_cv]#g_corr_norm, 
+    corr_matices = [g_corr_norm, g_corr_top1000, g_corr_cv] 
     rand_files = sorted([f for f in g_corr_rand.iterdir() if f.is_file()])
     for path in rand_files:
         corr_matices.append(path)
 
-    images = [g_img_clstrTop, g_img_clstrCv]#g_img_clstrNorm, 
+    images = [g_img_clstrNorm, g_img_clstrTop, g_img_clstrCv]
     for i in range(len(rand_files)):
         images.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
