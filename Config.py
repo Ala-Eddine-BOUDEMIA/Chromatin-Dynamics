@@ -20,7 +20,7 @@ parser.add_argument("--bf",
 
 parser.add_argument("--af",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Counts/Afteriltering/FilteredCPM10S36.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/Counts/AfterFiltering/FilteredCPM10S36.tsv"),
 	help = "Location where the filtered counts are stored")
 
 parser.add_argument("--norm",
@@ -282,6 +282,47 @@ parser.add_argument("--ItsneCV",
 	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/variants_chaperones/T-Sne.png"),
 	help = "Location where the t-sne image of the variant and chaperone gene counts is stored")
 
+## Clustermap
+parser.add_argument("--IclusterRandS",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Random/"),
+	help = "Location where the clustermap image of the randomly selected gene counts is stored")
+
+parser.add_argument("--IclusterNormS",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Normalized/clustermap.png"),
+	help = "Location where the clustermap image of the filtered normalized counts is stored")
+
+parser.add_argument("--IclusterTopS",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Top1000/clustermap.png"),
+	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
+
+parser.add_argument("--IclusterCVs",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/variants_chaperones/clustermap.png"),
+	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
+
+parser.add_argument("--IclusterRandG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Random/"),
+	help = "Location where the clustermap image of the randomly selected gene counts is stored")
+
+parser.add_argument("--IclusterNormG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Normalized/clustermap.png"),
+	help = "Location where the clustermap image of the filtered normalized counts is stored")
+
+parser.add_argument("--IclusterTopG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Top1000/clustermap.png"),
+	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
+
+parser.add_argument("--IclusterCVG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/variants_chaperones/clustermap.png"),
+	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
+
 # Plotly
 ## General
 parser.add_argument("--PgeneralRaw",
@@ -406,5 +447,46 @@ parser.add_argument("--PtsneCV",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/variants_chaperones/T-Sne.html"),
 	help = "Location where the t-sne html file of the variant and chaperone gene counts is stored")
+
+## Clustermap
+parser.add_argument("--PclusterRandS",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/Clustermap/Samples/Random/"),
+	help = "Location where the clustermap html file of the randomly selected gene counts is stored")
+
+parser.add_argument("--PclusterNormS",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/Clustermap/Samples/Normalized/clustermap.png"),
+	help = "Location where the clustermap html file of the filtered normalized counts is stored")
+
+parser.add_argument("--PclusterTopS",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/Clustermap/Samples/Top1000/clustermap.png"),
+	help = "Location where the clustermap html file of the top 1000 expressed gene counts is stored")
+
+parser.add_argument("--PclusterCVs",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/Clustermap/Samples/variants_chaperones/clustermap.png"),
+	help = "Location where the clustermap html file of the variant and chaperone gene counts is stored")
+
+parser.add_argument("--PclusterRandG",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/Clustermap/Genes/Random/"),
+	help = "Location where the clustermap html file of the randomly selected gene counts is stored")
+
+parser.add_argument("--PclusterNormG",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/Clustermap/Genes/Normalized/clustermap.png"),
+	help = "Location where the clustermap html file of the filtered normalized counts is stored")
+
+parser.add_argument("--PclusterTopG",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/Clustermap/Genes/Top1000/clustermap.png"),
+	help = "Location where the clustermap html file of the top 1000 expressed gene counts is stored")
+
+parser.add_argument("--PclusterCVG",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/Clustermap/Genes/variants_chaperones/clustermap.png"),
+	help = "Location where the clustermap html file of the variant and chaperone gene counts is stored")
 
 args = parser.parse_args()
