@@ -23,7 +23,7 @@ def clustering_samples(
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     
-    for m, i in (corr_matices, images):
+    for m, i in zip(corr_matices, images):
         f = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
         correlation_matrix = f.join(metadata["smts"])
@@ -55,12 +55,12 @@ def clustering_genes(
     cv_list, g_corr_norm, g_corr_top1000, g_corr_cv, g_corr_rand,
     g_img_clstrRand, g_img_clstrNorm, g_img_clstrTop, g_img_clstrCv):
     
-    corr_matices = [g_corr_norm, g_corr_top1000, g_corr_cv]
+    corr_matices = [g_corr_top1000, g_corr_cv]#g_corr_norm, 
     rand_files = sorted([f for f in g_corr_rand.iterdir() if f.is_file()])
     for path in rand_files:
         corr_matices.append(path)
 
-    images = [g_img_clstrNorm, g_img_clstrTop, g_img_clstrCv]
+    images = [g_img_clstrTop, g_img_clstrCv]#g_img_clstrNorm, 
     for i in range(len(rand_files)):
         images.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
@@ -70,7 +70,7 @@ def clustering_genes(
     for m, i in (corr_matices, images):
         f = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
-        if c < 3:
+        if c < 2:
             correlation_matrix = f.join(metadata["Class"])
             correlation_matrix = f.join(metadata["GeneName"])
             correlation_matrix = correlation_matrix.dropna()

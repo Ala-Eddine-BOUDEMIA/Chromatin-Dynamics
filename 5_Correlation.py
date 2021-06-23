@@ -8,13 +8,13 @@ def correlation(
 	g_corr_norm, g_corr_top1000, g_corr_cv, g_corr_rand,
 	s_corr_norm, s_corr_top1000, s_corr_rand, s_corr_cv):
 	
-	counts = [top1000, cv_counts] #counts_norm,
+	counts = [counts_norm, top1000, cv_counts]
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
 		counts.append(path)
 
-	g_corr = [g_corr_top1000, g_corr_cv] #g_corr_norm, 
-	s_corr = [s_corr_top1000, s_corr_cv] #s_corr_norm,
+	g_corr = [g_corr_norm, g_corr_top1000, g_corr_cv]
+	s_corr = [s_corr_norm, s_corr_top1000, s_corr_cv]
 
 	for i in range(len(rand_files)):
 		g_corr.append(g_corr_rand.joinpath("random" + str(i) + ".tsv"))
@@ -29,7 +29,6 @@ def correlation(
 		# Samples
 		s_f_log2 = f_log2.corr()
 		s_f_log2.to_csv(s, sep = "\t")
-
 		# Genes
 		g_f_log2 = f_log2.T.corr()
 		g_f_log2.to_csv(g, sep = "\t")
