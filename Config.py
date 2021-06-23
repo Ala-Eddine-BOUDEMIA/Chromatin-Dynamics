@@ -378,7 +378,7 @@ parser.add_argument("--PmvRand",
 
 parser.add_argument("--PmvTop",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Top1000/mv.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Top1000/mv.html"),
 	help = "Location where the mean-variance html file of the top1000 dataset is stored")
 
 parser.add_argument("--PmvCV",
@@ -420,22 +420,22 @@ parser.add_argument("--PpcaCV",
 ## T-SNE
 parser.add_argument("--PtsneRaw",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/BeforeFiltering/T-Sne.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/BeforeFiltering/T-Sne.html"),
 	help = "Location where the t-sne html file of the raw counts is stored")
 
 parser.add_argument("--PtsneFiltered",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/AfterFiltering/T-Sne.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/AfterFiltering/T-Sne.html"),
 	help = "Location where the t-sne html file of the filtered non normalized counts is stored")
 
 parser.add_argument("--PtsneRand",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Random/"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Random/"),
 	help = "Location where the t-sne html file of the randomly selected gene counts is stored")
 
 parser.add_argument("--PtsneNorm",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Normalized/T-Sne.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Normalized/T-Sne.html"),
 	help = "Location where the t-sne html file of the filtered normalized counts is stored")
 
 parser.add_argument("--PtsneTop",
