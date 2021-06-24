@@ -171,12 +171,14 @@ def clustering_samples_genes(
             bbox_to_anchor = (0, 1), loc = 'best', 
             bbox_transform = plt.gcf().transFigure)
 
-        handlesX = [Patch(facecolor = lutX[name]) for name in lutX]
-        g.ax_row_dendrogram.legend(handlesX, lutX, title = 'Class',
-            bbox_to_anchor = (0, 0), loc = 'best', 
-            bbox_transform = plt.gcf().transFigure)
+        if c == 2:
+            handlesX = [Patch(facecolor = lutX[name]) for name in lutX]
+            g.ax_row_dendrogram.legend(handlesX, lutX, title = 'Class',
+                bbox_to_anchor = (0, 0), loc = 'best', 
+                bbox_transform = plt.gcf().transFigure)
 
         g.savefig(str(i), dpi = 300)
+        c += 1 
 
 if __name__ == '__main__':
 
