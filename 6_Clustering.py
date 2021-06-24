@@ -144,18 +144,19 @@ def clustering_samples_genes(
             count = count.join(cv_list["GeneName"])
             count = count.join(cv_list["Class"])
             classes = count.pop("Class")
-            genes = c.pop("GeneName")
 
             paletteX = sns.color_palette("Set2" ,len(classes))
             lutX = dict(zip(set(classes.unique()), paletteX))
             row_colors = classes.map(lutX)
 
-            yticklabels = genes
+            yticklabels = count["GeneName"]
+            data = count.iloc[:, count.columns != "GeneName"]
 
         else:
             row_colors, yticklabels = False, False
+            data = count
 
-        g = sns.clustermap(count, 
+        g = sns.clustermap(data, 
             vmin = max(count.max(axis = 1)), 
             vmax = min(count.min(axis = 1)), 
             row_colors = row_colors,
