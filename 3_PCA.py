@@ -8,9 +8,11 @@ from sklearn.preprocessing import StandardScaler
 import Config
 
 def pca(
-    meta, raw_counts, filtered_counts, counts_norm, top1000, cv_counts, rand, file_pcaRaw, file_pcaFiltered, 
-    file_pca_rand, file_pcaNorm, file_pcaTop, file_pcaCV, img_pca_raw, img_pca_filtered, img_pca_rand, img_pca_norm, 
-    img_pca_top, img_pca_cv, p_pca_raw, p_pca_filtered, p_pca_rand, p_pca_norm, p_pca_top, p_pca_cv):
+    meta, raw_counts, filtered_counts, counts_norm, top1000, cv_counts, rand, 
+    file_pcaRaw, file_pcaFiltered, file_pca_rand, file_pcaNorm, file_pcaTop, 
+    file_pcaCV, img_pca_raw, img_pca_filtered, img_pca_rand, img_pca_norm, 
+    img_pca_top, img_pca_cv, p_pca_raw, p_pca_filtered, p_pca_rand, p_pca_norm, 
+    p_pca_top, p_pca_cv):
     
     counts = [raw_counts, filtered_counts, counts_norm, top1000, cv_counts]
     rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
