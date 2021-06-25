@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 import pandas as pd
 import seaborn as  sns
 import matplotlib.pyplot as plt
@@ -96,11 +97,12 @@ def clustering_genes(
             row_colors = colors, col_colors = colors, 
             xticklabels = labels, yticklabels = labels,
             method = "single")
-        
-        handles = [Patch(facecolor = lut[name]) for name in lut]
-        g.ax_row_dendrogram.legend(handles, lut, title = 'Class',
-            bbox_to_anchor = (0, 1), loc = 'best', 
-            bbox_transform = plt.gcf().transFigure)
+
+        if c == 2:
+            handles = [Patch(facecolor = lut[name]) for name in lut]
+            g.ax_row_dendrogram.legend(handles, lut, title = 'Class',
+                bbox_to_anchor = (0, 1), loc = 'best', 
+                bbox_transform = plt.gcf().transFigure)
 
         g.savefig(str(i), dpi = 300)
         c += 1
@@ -112,13 +114,13 @@ def clustering_samples_genes(
     sg_img_clstrTop, sg_img_clstrCv):
     
     counts = [counts_norm, top1000, cv_counts] 
-    rand_files = sorted([f for f in g_corr_rand.iterdir() if f.is_file()])
+    rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
     for path in rand_files:
-        corr_matices.append(path)
+        counts.append(path)
 
     images = [sg_img_clstrNorm, sg_img_clstrTop, sg_img_clstrCv]
     for i in range(len(rand_files)):
-        images.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))  
+        images.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))  
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     cv_list = pd.read_csv(cv_list, header = 0, index_col = 0, sep = "\t") 
