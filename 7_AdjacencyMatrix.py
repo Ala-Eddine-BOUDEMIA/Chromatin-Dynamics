@@ -35,8 +35,7 @@ def adjacencyMatrix(
 	G = nx.from_pandas_adjacency(adjacency_matrix)
 	print(nx.info(G))
 	G.name = "Graph from pandas adjacency matrix"
-	#pos=nx.graphviz_layout(G,prog='dot')
-	nx.draw_random(G, 
+	nx.draw_circular(G, 
 		with_labels = True, 
 		edge_cmap = "inferno")
 	
