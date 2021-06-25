@@ -5,22 +5,28 @@ from pathlib import Path
 
 import Config
 
-def generate_data(normalized_counts, top1000, 
-	rand, cv, meta, cv_list):
+def generate_data(
+	normalized_counts, 
+	top1000, top76, 
+	rand, cv, cv_list):
 	
 	counts = pd.read_csv(normalized_counts,
 		header = 0, index_col = 0, sep = "\t")
 
 	chaperones_variants = pd.read_csv(cv_list,
-		header = 0, index_col = "EnsemblGeneId", sep = "\t")
+		header = 0, index_col = 0, sep = "\t")
 
+	# Generate the top 76 expressed genes
 	# Generate the top1000 expressed genes
 	counts["total"] = counts.sum(axis = 0)
 	counts = counts.sort_values("total")
 	counts.pop("total")
 
-	top = counts.iloc[:1000,:]
-	top.to_csv(top1000, sep = "\t")
+	top76_g = counts.iloc[:76,:]
+	top76_g.to_csv(top76, sep = "\t")
+
+	top1000_g = counts.iloc[:1000,:]
+	top1000_g.to_csv(top1000, sep = "\t")
 
 	# Generate chaperones and variants dataframe
 	for i in counts.index.to_list():
@@ -50,7 +56,7 @@ if __name__ == '__main__':
 	generate_data(
 		normalized_counts = Config.args.norm,
 		top1000 = Config.args.top1000,
+		top76 = Config.args.top76,
 		rand = Config.args.rand,
 		cv = Config.args.cv,
-		meta = Config.args.meta,
 		cv_list = Config.args.list)
