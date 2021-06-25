@@ -6,9 +6,8 @@ from pathlib import Path
 import Config
 
 def generate_data(
-	normalized_counts, 
-	top1000, top76, 
-	rand, cv, cv_list):
+	normalized_counts, top1000, top76, 
+	rand, cv, nonRcv, cv_list, nonRcv_list):
 	
 	counts = pd.read_csv(normalized_counts,
 		header = 0, index_col = 0, sep = "\t")
@@ -16,6 +15,9 @@ def generate_data(
 	chaperones_variants = pd.read_csv(cv_list,
 		header = 0, index_col = 0, sep = "\t")
 
+	chaperone_nonRv = pd.read_csv(nonRcv_list,
+		header = 0, index_col = 0, sep = "\t")
+	
 	# Generate the top 76 expressed genes
 	# Generate the top1000 expressed genes
 	counts["total"] = counts.sum(axis = 0)
@@ -29,28 +31,35 @@ def generate_data(
 	top1000_g.to_csv(top1000, sep = "\t")
 
 	# Generate chaperones and variants dataframe
+	# Generate chaperones and non replicative variants dataframe
 	for i in counts.index.to_list():
 		counts.rename(index = {i:i.split('.')[0]}, inplace=True)
-
+	
 	cv_df = pd.DataFrame(columns = counts.columns)
+	nonRv_df = pd.DataFrame(columns = counts.columns)
 	
 	for i in counts.index.to_list():
 		for j in chaperones_variants.index.to_list():
 			if i.strip() == j.strip():
 				cv_df = cv_df.append(counts.loc[i])
 
-	cv_df.to_csv(cv, sep = "\t")
+		for k in chaperone_nonRv.index.to_list():
+			if i.strip() == k.strip():
+				nonRv_df = nonRv_df.append(counts.loc[i])
+
+	cv_df.to_csv(str(cv), sep = "\t")
+	nonRv_df.to_csv(str(nonRcv), sep = "\t")
 
 	# Generate random sets
 	for c in range(10):
 		rng = default_rng()
-		r = rng.choice(len(counts), size=76, replace=False)
-		df_random = pd.DataFrame(columns=counts.columns)
+		r = rng.choice(len(counts), size = 76, replace = False)
+		df_random = pd.DataFrame(columns = counts.columns)
 		
 		for i in r:
 			df_random = df_random.append(counts.iloc[i])
 
-		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep="\t")
+		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")
 
 if __name__ == '__main__':
 	generate_data(
@@ -59,4 +68,6 @@ if __name__ == '__main__':
 		top76 = Config.args.top76,
 		rand = Config.args.rand,
 		cv = Config.args.cv,
-		cv_list = Config.args.list)
+		nonRcv = Config.args.nonRcv,
+		cv_list = Config.args.list,
+		nonRcv_list = Config.args.nonReplicative)
