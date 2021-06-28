@@ -16,18 +16,20 @@ def clustering_samples(
     s_img_clstrRand, s_img_clstrNorm, s_img_clstrTop, 
     s_img_clstr76, s_img_clstrCv, s_img_clstr_nrcv):
     
-    corr_matices = [s_corr_norm, s_corr_top1000, s_corr_top76, s_corr_cv, s_corr_nrcv] 
+    corr_matrices = [s_corr_norm, s_corr_top1000, s_corr_top76, s_corr_cv, s_corr_nrcv] 
+
+    # Make sure there are not hidden files in the folder
     rand_files = sorted([f for f in s_corr_rand.iterdir() if f.is_file()])
     for path in rand_files:
-        corr_matices.append(path)
+        corr_matrices.append(path)
 
-    images = [s_img_clstrNorm, s_img_clstrTop, s_img_clstr76, s_img_clstrCv, s_img_clstr_nrcv]  
+    images = [s_img_clstrNorm, s_img_clstrTop, s_img_clstr76, s_img_clstrCv, s_img_clstr_nrcv] 
     for i in range(len(rand_files)):
         images.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     
-    for m, i in zip(corr_matices, images):
+    for m, i in zip(corr_matrices, images):
         f = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
         correlation_matrix = f.join(metadata["smts"])
@@ -42,8 +44,8 @@ def clustering_samples(
         colors = tissues.map(lut)
 
         g = sns.clustermap(correlation_matrix, 
-            vmin = max(correlation_matrix.max(axis = 1)), 
-            vmax = min(correlation_matrix.min(axis = 1)), 
+            vmin = min(correlation_matrix.min(axis = 1)), 
+            vmax = max(correlation_matrix.max(axis = 1)), 
             cmap = "icefire", standard_scale = 1,
             row_colors = colors, col_colors = colors, 
             xticklabels = False, yticklabels = False,
@@ -95,12 +97,12 @@ def clustering_genes(
             data = correlation_matrix
 
         g = sns.clustermap(data, 
-            vmin = max(correlation_matrix.max(axis = 1)), 
-            vmax = min(correlation_matrix.min(axis = 1)), 
+            vmin = min(data.min(axis = 1)), 
+            vmax = max(data.max(axis = 1)), 
             cmap = "icefire", standard_scale = 1,
             row_colors = colors, col_colors = colors, 
             xticklabels = labels, yticklabels = labels,
-            method = "single")
+            method = "complete")
 
         if c == 3 or c == 4:
             handles = [Patch(facecolor = lut[name]) for name in lut]
@@ -145,7 +147,7 @@ def clustering_samples_genes(
         lut = dict(zip(set(tissues.unique()), palette))
         col_colors = tissues.map(lut)
 
-        if c == 3 or c==4:
+        if c == 3 or c == 4:
             count = count.T
             count = count.join(cv_list["GeneName"])
             count = count.join(cv_list["Class"])
@@ -163,14 +165,14 @@ def clustering_samples_genes(
             data = count
 
         g = sns.clustermap(data, 
-            vmin = max(count.max(axis = 1)), 
-            vmax = min(count.min(axis = 1)), 
+            vmin = max(data.max(axis = 1)), 
+            vmax = min(data.min(axis = 1)), 
             row_colors = row_colors,
             col_colors = col_colors,
             cmap = "icefire",
             xticklabels = False, 
             yticklabels = yticklabels,
-            method = "weighted",
+            method = "complete",
             figsize = [15, 15])
 
         handles = [Patch(facecolor = lut[name]) for name in lut]
@@ -200,7 +202,7 @@ if __name__ == '__main__':
         s_img_clstrRand = Config.args.IclusterRandS,
         s_img_clstrNorm = Config.args.IclusterNormS,
         s_img_clstrTop = Config.args.IclusterTopS,
-        s_img_clstr76 = Config.args.IclusterTop76s,
+        s_img_clstr76 = Config.args.IclusterTop76S,
         s_img_clstrCv = Config.args.IclusterCVs,
         s_img_clstr_nrcv = Config.args.IclstrNonRcvS)
 
