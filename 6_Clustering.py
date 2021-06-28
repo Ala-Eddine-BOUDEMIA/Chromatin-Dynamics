@@ -30,9 +30,9 @@ def clustering_samples(
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     
     for m, i in zip(corr_matrices, images):
-        f = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
+        correlation_matrix  = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
-        correlation_matrix = f.join(metadata["smts"])
+        correlation_matrix = correlation_matrix .join(metadata["smts"])
         correlation_matrix = correlation_matrix.dropna()
         tissues = correlation_matrix.pop("smts")
 
@@ -77,11 +77,11 @@ def clustering_genes(
     
     c = 0
     for m, i in zip(corr_matices, images):
-        f = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
+        correlation_matrix = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
-        if c == 3 or c==4:
-            correlation_matrix = f.join(metadata["Class"])
-            correlation_matrix = f.join(metadata["GeneName"])
+        if c == 3 or c== 4:
+            correlation_matrix = correlation_matrix.join(metadata["Class"])
+            correlation_matrix = correlation_matrix.join(metadata["GeneName"])
             correlation_matrix = correlation_matrix.dropna()
             classes = correlation_matrix.pop("Class")
 
@@ -133,10 +133,11 @@ def clustering_samples_genes(
     
     c = 0
     for m, i in zip(counts, images):
-        f = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
-        f = pd.DataFrame(np.log2(f + 1))
+        count = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
+        count = pd.DataFrame(np.log2(f + 1))
 
-        count = f.T.join(metadata["smts"])
+        count = count.T
+        count = count.join(metadata["smts"])
         count = count.dropna()
         tissues = count.pop("smts")
 
