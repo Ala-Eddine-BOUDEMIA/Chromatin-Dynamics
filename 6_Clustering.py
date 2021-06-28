@@ -16,14 +16,14 @@ def clustering_samples(
     s_img_clstrRand, s_img_clstrNorm, s_img_clstrTop, 
     s_img_clstr76, s_img_clstrCv, s_img_clstr_nrcv):
     
-    corr_matrices = [s_corr_norm, s_corr_top1000, s_corr_top76, s_corr_cv, s_corr_nrcv] 
+    corr_matrices = []#s_corr_norm, s_corr_top1000, s_corr_top76, s_corr_cv, s_corr_nrcv] 
 
     # Make sure there are not hidden files in the folder
     rand_files = sorted([f for f in s_corr_rand.iterdir() if f.is_file()])
     for path in rand_files:
         corr_matrices.append(path)
 
-    images = [s_img_clstrNorm, s_img_clstrTop, s_img_clstr76, s_img_clstrCv, s_img_clstr_nrcv] 
+    images = []#s_img_clstrNorm, s_img_clstrTop, s_img_clstr76, s_img_clstrCv, s_img_clstr_nrcv] 
     for i in range(len(rand_files)):
         images.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
