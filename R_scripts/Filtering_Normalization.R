@@ -1,6 +1,7 @@
 library(vsn)
 library(edgeR)
 library(recount)
+library(BatchQC)
 library(org.Hs.eg.db)
 
 gtex_raw_counts = load(
@@ -15,10 +16,10 @@ tissues = factor(tissues)
 
 y = DGEList(c1, group=tissues, genes=c1[,1,drop=FALSE])
 
-y$genes$Symbol = mapIds(org.Mm.eg.db,
-                        rownames(y), 
-                        keytype='ENSEMBL', 
-                        column='SYMBOL')
+y$genes$Symbol = mapIds(org.Hs.eg.db,
+                        keys = rownames(y), 
+                        keytype = 'ENSEMBL', 
+                        column = 'SYMBOL')
 head(y$genes)
 y = y[!is.na(y$genes$Symbol), ]
 dim(y)
