@@ -345,7 +345,7 @@ parser.add_argument("--IclusterCVs",
 
 parser.add_argument("--IclstrNonRcvS",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Clustermap/Samples/nonReplicative/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/nonReplicative/clustermap.png"),
 	help = "Location where the clustermap of the histones chaperone and non replicative histone variant genes are stored")
 
 parser.add_argument("--IclusterRandG",
@@ -370,7 +370,7 @@ parser.add_argument("--IclusterTop76G",
 
 parser.add_argument("--IclstrNonRcvG",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Clustermap/Genes/nonReplicative/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/nonReplicative/clustermap.png"),
 	help = "Location where the clustermap of the histones chaperone and non replicative histone variant genes are stored")
 
 parser.add_argument("--IclusterCVG",
@@ -405,7 +405,7 @@ parser.add_argument("--IclusterCVsg",
 
 parser.add_argument("--IclstrNonRcvSG",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/nonReplicative/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/nonReplicative/clustermap.png"),
 	help = "Location where the clustermap of the histones chaperone and non replicative histone variant genes are stored")
 
 # Plotly

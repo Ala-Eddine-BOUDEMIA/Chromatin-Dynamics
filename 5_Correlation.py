@@ -12,13 +12,14 @@ def correlation(
 	s_corr_rand, s_corr_nrcv, s_corr_cv):
 	
 	counts = [counts_norm, top1000, top76, cv_counts, nrcv_counts] 
+	
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
 		counts.append(path)
-
+	
 	g_corr = [g_corr_norm, g_corr_top1000, g_corr_top76, g_corr_cv, g_corr_nrcv] 
-	s_corr = [s_corr_norm, s_corr_top1000, s_corr_top76, s_corr_cv, s_corr_nrcv]
-
+	s_corr = [s_corr_norm, s_corr_top1000, s_corr_top76, s_corr_cv, s_corr_nrcv] 
+	
 	for i in range(len(rand_files)):
 		g_corr.append(g_corr_rand.joinpath("random" + str(i) + ".tsv"))
 		s_corr.append(s_corr_rand.joinpath("random" + str(i) + ".tsv"))
