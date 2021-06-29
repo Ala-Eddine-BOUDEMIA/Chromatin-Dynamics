@@ -17,7 +17,6 @@ def generate_data(
 
 	chaperone_nonRv = pd.read_csv(nonRcv_list,
 		header = 0, index_col = 0, sep = "\t")
-	print(chaperone_nonRv.head())
 	
 	# Generate the top 76 expressed genes
 	# Generate the top1000 expressed genes
@@ -30,7 +29,7 @@ def generate_data(
 	
 	top1000_g = counts.iloc[:1000, :]
 	top1000_g.to_csv(top1000, sep = "\t")
-
+	
 	# Generate chaperones and variants dataframe
 	# Generate chaperones and non replicative variants dataframe
 	for i in counts.index.to_list():
@@ -50,9 +49,8 @@ def generate_data(
 				nonRv_df = nonRv_df.append(counts.loc[i])
 
 	cv_df.to_csv(str(cv), sep = "\t")
-	print(nonRv_df.head())
 	nonRv_df.to_csv(str(nonRcv), sep = "\t")
-
+	
 	# Generate random sets
 	for c in range(10):
 		rng = default_rng()
