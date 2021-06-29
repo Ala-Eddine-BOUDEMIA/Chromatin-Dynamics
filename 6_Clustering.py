@@ -90,7 +90,7 @@ def clustering_genes(
             correlation_matrix = correlation_matrix.dropna()
             classes = correlation_matrix.pop("Class")
 
-            palette = sns.hls_palette(len(classes))
+            palette = sns.color_palette("Set2" ,len(classes))
             lut = dict(zip(set(classes.unique()), palette))
             colors = classes.map(lut)
             labels = correlation_matrix["GeneName"]
