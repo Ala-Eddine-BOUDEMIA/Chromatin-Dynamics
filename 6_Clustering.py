@@ -189,7 +189,7 @@ def clustering_samples_genes(
                 bbox_transform = plt.gcf().transFigure)
 
         else:
-            g = sns.clustermap(count, 
+            g = sns.clustermap(count.T, 
                 vmin = max(count.max(axis = 1)), 
                 vmax = min(count.min(axis = 1)), 
                 col_colors = col_colors,
@@ -236,7 +236,7 @@ if __name__ == '__main__':
         g_img_clstr76 = Config.args.IclusterTop76G,
         g_img_clstrCv = Config.args.IclusterCVG,
         g_img_clstr_nrcv = Config.args.IclstrNonRcvG)
-
+    
     clustering_samples_genes(
         meta = Config.args.meta,
         cv_list = Config.args.list,
