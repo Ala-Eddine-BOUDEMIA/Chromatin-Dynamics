@@ -4,8 +4,8 @@ import pandas as pd
 import Config 
 
 def correlation(
-	counts_norm, top1000, top76, 
-	cv_counts, nrcv_counts, rand, 
+	corr_method , counts_norm, top1000, 
+	top76, cv_counts, nrcv_counts, rand, 
 	g_corr_norm, g_corr_top1000, g_corr_top76, 
 	g_corr_cv, g_corr_nrcv, g_corr_rand,
 	s_corr_norm, s_corr_top1000, s_corr_top76, 
@@ -30,16 +30,17 @@ def correlation(
 		f_log2 = pd.DataFrame(np.log2(f + 1))
 
 		# Samples
-		s_f_log2 = f_log2.corr()
+		s_f_log2 = f_log2.corr(corr_method)
 		s_f_log2.to_csv(s, sep = "\t")
 
 		# Genes
-		g_f_log2 = f_log2.T.corr()
+		g_f_log2 = f_log2.T.corr(corr_method)
 		g_f_log2.to_csv(g, sep = "\t")
 
 if __name__ == '__main__':
 
 	correlation(
+		corr_method = Config.args.corrMethod,
 		counts_norm = Config.args.norm,
 		top1000 = Config.args.top1000,
 		top76 = Config.args.top76,
