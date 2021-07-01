@@ -69,65 +69,74 @@ parser.add_argument("--meta",
 	default = Path("Data/").joinpath(choice.dataset + "/Metadata/" + choice.dataset + ".tsv"),
 	help = "Location where the metadata file is stored")
 
+## Spearman or Pearson
+parser.add_argument("--corrMethod",
+	type = str,
+	default = "spearman",
+	help = "The method by which the correlation matrix will be computed")
+
+corr_method = parser.parse_args()
+corr_method = corr_method.corrMethod
+
 ## Correlation
 parser.add_argument("--corrNormG",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Normalized/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Genes/Normalized/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the filtered normalized gene counts is stored")
 
 parser.add_argument("--corrTopG",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Top1000/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Genes/Top1000/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--corr76G",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Top76/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Genes/Top76/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the top 76 expressed genes are stored")
 
 parser.add_argument("--corrCVg",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/variants_chaperones/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Genes/variants_chaperones/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the variant and chaperone gene counts is stored")
 
 parser.add_argument("--corrNonRcvG",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/nonReplicative/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Genes/nonReplicative/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the histones chaperone and non replicative histone variant genes are stored")
 
 parser.add_argument("--corrRandG",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Random/"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Genes/Random/"),
 	help = "Location where the correlation matrix of the random selected gene counts is stored")
 
 parser.add_argument("--corrNormS",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Normalized/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Samples/Normalized/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the filtered normalized gene counts is stored")
 
 parser.add_argument("--corrTopS",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Top1000/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Samples/Top1000/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--corr76S",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Top76/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Samples/Top76/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the top 76 expressed genes are stored")
 
 parser.add_argument("--corrCVs",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/variants_chaperones/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Samples/variants_chaperones/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the variant and chaperone gene counts is stored")
 
 parser.add_argument("--corrNonRcvS",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/nonReplicative/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Samples/nonReplicative/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the histones chaperone and non replicative histone variant genes are stored")
 
 parser.add_argument("--corrRandS",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Random/"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/" + corr_method + "/Samples/Random/"),
 	help = "Location where the correlation matrix of the random selected gene counts is stored")
 
 ## PCA
@@ -325,62 +334,62 @@ parser.add_argument("--ItsneCV",
 ## Clustermap
 parser.add_argument("--IclusterRandS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Random/"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Samples/Random/"),
 	help = "Location where the clustermap image of the randomly selected gene counts is stored")
 
 parser.add_argument("--IclusterNormS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Normalized/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "Samples/Normalized/clustermap.png"),
 	help = "Location where the clustermap image of the filtered normalized counts is stored")
 
 parser.add_argument("--IclusterTopS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Top1000/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Samples/Top1000/clustermap.png"),
 	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--IclusterTop76S",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Top76/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Samples/Top76/clustermap.png"),
 	help = "Location where the clustermap image of the top 76 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVs",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/variants_chaperones/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Samples/variants_chaperones/clustermap.png"),
 	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
 
 parser.add_argument("--IclstrNonRcvS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/nonReplicative/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Samples/nonReplicative/clustermap.png"),
 	help = "Location where the clustermap of the histones chaperone and non replicative histone variant genes are stored")
 
 parser.add_argument("--IclusterRandG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Random/"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Genes/Random/"),
 	help = "Location where the clustermap image of the randomly selected gene counts is stored")
 
 parser.add_argument("--IclusterNormG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Normalized/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Genes/Normalized/clustermap.png"),
 	help = "Location where the clustermap image of the filtered normalized counts is stored")
 
 parser.add_argument("--IclusterTopG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Top1000/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Genes/Top1000/clustermap.png"),
 	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--IclusterTop76G",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Top76/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Genes/Top76/clustermap.png"),
 	help = "Location where the clustermap image of the top 76 expressed gene counts is stored")
 
 parser.add_argument("--IclstrNonRcvG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/nonReplicative/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Genes/nonReplicative/clustermap.png"),
 	help = "Location where the clustermap of the histones chaperone and non replicative histone variant genes are stored")
 
 parser.add_argument("--IclusterCVG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/variants_chaperones/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Genes/variants_chaperones/clustermap.png"),
 	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
 
 parser.add_argument("--IclusterRandSG",

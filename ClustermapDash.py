@@ -14,7 +14,7 @@ metadata = pd.read_csv(Config.args.meta,
     header = 0, index_col = 0, sep = "\t")
 
 cv_list = pd.read_csv(Config.args.list,
-    header = 0, index_col = 0, sep = "\t")
+    header = 0, index_col = 0, sep = ";")
 
 counts = counts.join(cv_list["GeneName"])
 
@@ -47,12 +47,12 @@ def update_clustergram(rows):
 
     return dcc.Graph(
         figure = dashbio.Clustergram(
-        data = counts.iloc[:, :100].values,
+        data = counts.iloc[:, 8000:9000].values,
         column_labels = columns,
         row_labels = rows,
         color_threshold = {'row': 250, 'col': 700},
         hidden_labels = ['col'],
-        height = 800, width = 1000,
+        height = 1200, width = 1400,
         optimal_leaf_order = True,
         color_map = [[0.0, '#636EFA'], [0.25, '#AB63FA'],
                 [0.5, '#FFFFFF'], [0.75, '#E763FA'], [1.0, '#EF553B']]
