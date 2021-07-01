@@ -72,7 +72,7 @@ parser.add_argument("--meta",
 ## Spearman or Pearson
 parser.add_argument("--corrMethod",
 	type = str,
-	default = "spearman",
+	default = "pearson",
 	help = "The method by which the correlation matrix will be computed")
 
 corr_method = parser.parse_args()
