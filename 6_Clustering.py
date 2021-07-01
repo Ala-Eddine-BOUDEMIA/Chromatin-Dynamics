@@ -72,7 +72,7 @@ def clustering_genes(
         corr_matices.append(path)
 
     images = [g_img_clstrNorm, g_img_clstrTop, g_img_clstr76, 
-        g_img_clstrCv, g_img_clstr_nrcv]
+        g_img_clstrCv, g_img_clstr_nrcv]  
 
     for i in range(len(rand_files)):
         images.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))
@@ -178,6 +178,7 @@ def clustering_samples_genes(
                 row_colors = row_colors,
                 col_colors = col_colors,
                 cmap = "icefire",
+                metric = "correlation",
                 xticklabels = False, 
                 yticklabels = yticklabels,
                 method = "complete",
@@ -193,7 +194,7 @@ def clustering_samples_genes(
                 vmin = max(count.max(axis = 1)), 
                 vmax = min(count.min(axis = 1)), 
                 col_colors = col_colors,
-                cmap = "icefire",
+                cmap = "icefire", metric = "correlation",
                 xticklabels = False, yticklabels = False,
                 method = "complete", figsize = [15, 15])
 
