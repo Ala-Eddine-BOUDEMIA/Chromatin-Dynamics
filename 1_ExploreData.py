@@ -7,19 +7,26 @@ import Tools
 import Config
 
 def explore_data(
-	meta, raw_counts, filtered_counts, counts_norm, top1000, cv_counts, rand, 
-	generalRawImages, generalFilteredImages, generalNormImages, generalRandImages,
-	generalTop1000Images, generalCvImages, generalNormPlotly, generalRandPlotly, 
-	generalTop1000Plotly, generalCvPlotly, generalRawPlotly, generalFilteredPlotly):
+	meta, raw_counts, filtered_counts, counts_norm, 
+	top1000, cv_counts, nrcv_counts, rand, generalRawImages, 
+	generalFilteredImages, generalNormImages, generalRandImages,
+	generalTop1000Images, generalCvImages, generalNrCvImages, 
+	generalNormPlotly, generalRandPlotly, generalTop1000Plotly, 
+	generalCvPlotly, generalNrCvPlotly, generalRawPlotly, 
+	generalFilteredPlotly):
 	
-	counts = [raw_counts, filtered_counts, counts_norm, top1000, cv_counts]
+	counts = [raw_counts, filtered_counts, counts_norm, 
+		top1000, cv_counts, nrcv_counts]
 	
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
 		counts.append(path)
 
-	images = [generalRawImages, generalFilteredImages, generalNormImages, generalTop1000Images, generalCvImages]
-	htmls = [generalRawPlotly, generalFilteredPlotly, generalNormPlotly, generalTop1000Plotly, generalCvPlotly]
+	images = [generalRawImages, generalFilteredImages, generalNormImages, 
+		generalTop1000Images, generalCvImages, generalNrCvImages]
+	
+	htmls = [generalRawPlotly, generalFilteredPlotly, generalNormPlotly, 
+		generalTop1000Plotly, generalCvPlotly, generalNrCvPlotly]
 	
 	for i in range(len(rand_files)):
 		link_img = generalRandImages.joinpath("random" + str(i))
@@ -113,6 +120,7 @@ if __name__ == '__main__':
 		counts_norm = Config.args.norm,
 		top1000 = Config.args.top1000,
 		cv_counts = Config.args.cv,
+		nrcv_counts = Config.args.nonRcv,
 		rand = Config.args.rand,
 		generalRawImages = Config.args.IgeneralRaw,
 		generalFilteredImages = Config.args.IgeneralFiltered,
@@ -120,9 +128,11 @@ if __name__ == '__main__':
 		generalRandImages = Config.args.IgeneralRand,
 		generalTop1000Images = Config.args.IgeneralTop,
 		generalCvImages = Config.args.IgeneralCV,
+		generalNrCvImages = Config.args.IgeneralNrCV,
 		generalNormPlotly = Config.args.PgeneralNorm,
 		generalRandPlotly = Config.args.PgeneralRand,
 		generalTop1000Plotly = Config.args.PgeneralTop,
 		generalCvPlotly = Config.args.PgeneralCV,
+		generalNrCvPlotly = Config.args.PgeneralNrCV,
 		generalRawPlotly = Config.args.PgeneralRaw,
 		generalFilteredPlotly = Config.args.PgeneralFiltered)

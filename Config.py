@@ -224,6 +224,11 @@ parser.add_argument("--IgeneralCV",
 	default = Path("Images/").joinpath(choice.dataset + "/General/variants_chaperones/"),
 	help = "Location where QC images for the chaperone and variants dataset are stored")
 
+parser.add_argument("--IgeneralNrCV",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/General/NonReplicativeHistones/"),
+	help = "Location where QC images for the chaperone and non replicative variants dataset are stored")
+
 ## Mean Variance
 parser.add_argument("--ImvRaw",
 	type = Path,
@@ -439,6 +444,11 @@ parser.add_argument("--PgeneralCV",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/variants_chaperones/"),
 	help = "Location where QC html files for the chaperone and variants dataset are stored")
+
+parser.add_argument("--PgeneralNrCV",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/NonReplicativeHistones/"),
+	help = "Location where QC html files for the chaperone and non replicative variants dataset are stored")
 
 ## Mean Variance
 parser.add_argument("--PmvRaw",
