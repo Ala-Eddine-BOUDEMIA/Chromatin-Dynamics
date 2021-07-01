@@ -153,8 +153,8 @@ def clustering_samples_genes(
         tissues = count.pop("smts")
 
         palette1 = sns.hls_palette(10)
-        palette2 = sns.color_palette("bwr",10)
-        palette3 = sns.color_palette("inferno",10)
+        palette2 = sns.color_palette("bwr", 10)
+        palette3 = sns.color_palette("inferno", 10)
         palette = palette1 + palette2 + palette3
         lut = dict(zip(set(tissues.unique()), palette))
         col_colors = tissues.map(lut)
@@ -178,10 +178,10 @@ def clustering_samples_genes(
                 row_colors = row_colors,
                 col_colors = col_colors,
                 cmap = "icefire",
-                metric = "correlation",
+                metric = "euclidean",
                 xticklabels = False, 
                 yticklabels = yticklabels,
-                method = "complete",
+                method = "weighted",
                 figsize = [15, 15])
 
             handlesX = [Patch(facecolor = lutX[name]) for name in lutX]
@@ -194,9 +194,9 @@ def clustering_samples_genes(
                 vmin = max(count.max(axis = 1)), 
                 vmax = min(count.min(axis = 1)), 
                 col_colors = col_colors,
-                cmap = "icefire", metric = "correlation",
+                cmap = "icefire", metric = "euclidean",
                 xticklabels = False, yticklabels = False,
-                method = "complete", figsize = [15, 15])
+                method = "weighted", figsize = [15, 15])
 
         handles = [Patch(facecolor = lut[name]) for name in lut]
         g.ax_col_dendrogram.legend(handles, lut, title = 'Tissues',
@@ -207,7 +207,7 @@ def clustering_samples_genes(
         c += 1 
 
 if __name__ == '__main__':
-    
+    """
     clustering_samples(
         meta = Config.args.meta,
         s_corr_norm = Config.args.corrNormS,
@@ -236,7 +236,7 @@ if __name__ == '__main__':
         g_img_clstrTop = Config.args.IclusterTopG,
         g_img_clstr76 = Config.args.IclusterTop76G,
         g_img_clstrCv = Config.args.IclusterCVG,
-        g_img_clstr_nrcv = Config.args.IclstrNonRcvG)
+        g_img_clstr_nrcv = Config.args.IclstrNonRcvG)"""
     
     clustering_samples_genes(
         meta = Config.args.meta,
