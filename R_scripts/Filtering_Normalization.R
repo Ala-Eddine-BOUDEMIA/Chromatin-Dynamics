@@ -28,18 +28,18 @@ dim(y)
 meanSdPlot(y$counts)
 
 # Filter to remove low counts
-keep = rowSums(cpm(y) > 10) >= 36  
+keep = rowSums(cpm(y) > 10) >= 18  
 table(keep)
 x = y[keep, ,keep.lib.sizes=FALSE]
-write.table(x, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExFilteredCPM10S36.tsv", sep="\t")
+write.table(x, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExFilteredCPM10S18.tsv", sep="\t")
 
 # Mean-variance plot
 meanSdPlot(x$counts)
 
 # Normalization
-x = calcNormFactors(x)
-x$samples
-write.table(x$counts, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExNormalized.tsv", sep="\t")
+x = calcNormFactors(x, method="TMM")
+tmm = cpm(x)
+write.table(tmm, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExNormalized.tsv", sep="\t")
 
 # Mean-variance plot
 meanSdPlot(x$counts)
