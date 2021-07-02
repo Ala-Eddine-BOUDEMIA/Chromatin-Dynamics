@@ -68,7 +68,7 @@ def pca(
 
         fig.write_html(str(h))
         fig.write_image(str(i), width = 2048, height = 1024)
-        fig.show()
+        #fig.show()
 
         d.to_csv(t, sep="\t")
 

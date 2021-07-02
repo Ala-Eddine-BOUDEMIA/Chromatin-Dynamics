@@ -109,7 +109,7 @@ def explore_data(
 			fig.write_html(str(html.joinpath(t.replace(" ", "_") + ".html")))
 			fig.write_image(str(image.joinpath(t.replace(" ", "_") + ".png")), 
 				width = 2048, height = 1024)
-			fig.show()
+			#fig.show()
 
 if __name__ == '__main__':	
 	

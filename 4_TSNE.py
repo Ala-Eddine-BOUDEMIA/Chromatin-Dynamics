@@ -58,7 +58,7 @@ def tsne(
 
         fig.write_html(str(h))
         fig.write_image(str(i), width = 2048, height = 1024)
-        fig.show()
+        #fig.show()
 
         df.to_csv(t, sep="\t")
 

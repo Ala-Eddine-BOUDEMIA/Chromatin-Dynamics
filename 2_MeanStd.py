@@ -38,7 +38,7 @@ def mean_std(
 
 		fig.write_html(str(html))
 		fig.write_image(str(image), width = 2048, height = 1024)
-		fig.show()
+		#fig.show()
 
 if __name__ == '__main__':
 	
