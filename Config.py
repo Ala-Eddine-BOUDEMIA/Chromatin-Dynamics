@@ -339,7 +339,7 @@ parser.add_argument("--IclusterRandS",
 
 parser.add_argument("--IclusterNormS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "Samples/Normalized/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + corr_method + "/Samples/Normalized/clustermap.png"),
 	help = "Location where the clustermap image of the filtered normalized counts is stored")
 
 parser.add_argument("--IclusterTopS",
