@@ -33,9 +33,9 @@ parser.add_argument("--top1000",
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/Top1000/Top1000Genes.tsv"),
 	help = "Location where the counts of the top 1000 expressed genes are stored")
 
-parser.add_argument("--top76",
+parser.add_argument("--top81",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Counts/Top76/Top76Genes.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/Counts/Top81/Top81Genes.tsv"),
 	help = "Location where the counts of the top 76 expressed genes are stored")
 
 parser.add_argument("--rand",
@@ -77,7 +77,7 @@ parser.add_argument("--corrTopG",
 
 parser.add_argument("--corr76G",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Top76/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Top81/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the top 76 expressed genes are stored")
 
 parser.add_argument("--corrCVg",
@@ -102,7 +102,7 @@ parser.add_argument("--corrTopS",
 
 parser.add_argument("--corr76S",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Top76/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Top81/corr_matrix.tsv"),
 	help = "Location where the correlation matrix of the top 76 expressed genes are stored")
 
 parser.add_argument("--corrCVs",
@@ -325,7 +325,7 @@ parser.add_argument("--IclusterTopS",
 
 parser.add_argument("--IclusterTop76S",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Top76/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Top81/clustermap.png"),
 	help = "Location where the clustermap image of the top 76 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVs",
@@ -350,7 +350,7 @@ parser.add_argument("--IclusterTopG",
 
 parser.add_argument("--IclusterTop76G",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Top76/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Top81/clustermap.png"),
 	help = "Location where the clustermap image of the top 76 expressed gene counts is stored")
 
 parser.add_argument("--IclstrNonRcvG",
@@ -375,7 +375,7 @@ parser.add_argument("--IclusterTopSG",
 
 parser.add_argument("--IclusterTop76SG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/Top76/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/Top81/clustermap.png"),
 	help = "Location where the clustermap image of the top 76 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVsg",

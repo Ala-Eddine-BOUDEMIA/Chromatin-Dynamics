@@ -101,10 +101,10 @@ def clustering_genes(
             g = sns.clustermap(data, 
                 vmin = min(data.min(axis = 1)), 
                 vmax = max(data.max(axis = 1)), 
-                cmap = "icefire", metric = "cityblock",
+                cmap = "icefire", metric = "correlation",
                 row_colors = colors, col_colors = colors, 
                 xticklabels = labels, yticklabels = labels,
-                method = "complete", figsize = [15, 15])
+                method = "average", figsize = [15, 15])
 
             handles = [Patch(facecolor = lut[name]) for name in lut]
             g.ax_row_dendrogram.legend(handles, lut, title = 'Class',
@@ -114,9 +114,9 @@ def clustering_genes(
             g = sns.clustermap(correlation_matrix, 
                 vmin = min(correlation_matrix.min(axis = 1)), 
                 vmax = max(correlation_matrix.max(axis = 1)), 
-                cmap = "icefire", metric = "cityblock",
+                cmap = "icefire", metric = "correlation",
                 xticklabels = False, yticklabels = False,
-                method = "complete", figsize = [15, 15])
+                method = "average", figsize = [15, 15])
 
         g.savefig(str(i), dpi = 300)
         c += 1
