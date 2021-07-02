@@ -13,13 +13,14 @@ def generate_data(
 		header = 0, index_col = 0, sep = "\t")
 
 	chaperones_variants = pd.read_csv(cv_list,
-		header = 0, index_col = 0, sep = "\t")
+		header = 0, index_col = 0, sep = ";")
 
 	chaperone_nonRv = pd.read_csv(nonRcv_list,
 		header = 0, index_col = 0, sep = "\t")
 	
 	# Generate the top 76 expressed genes
 	# Generate the top1000 expressed genes
+	
 	counts["total"] = counts.sum(axis = 0)
 	counts = counts.sort_values("total")
 	counts.pop("total")
@@ -43,7 +44,7 @@ def generate_data(
 		for j in chaperones_variants.index.to_list():
 			if i.strip() == j.strip():
 				cv_df = cv_df.append(counts.loc[i])
-
+	
 		for k in chaperone_nonRv.index.to_list():
 			if i.strip() == k.strip():
 				nonRv_df = nonRv_df.append(counts.loc[i])
