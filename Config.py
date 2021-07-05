@@ -259,11 +259,6 @@ parser.add_argument("--IgeneralNrCV",
 	default = Path("Images/").joinpath(choice.dataset + "/General/NonReplicativeHistones/"),
 	help = "Location where QC images for the chaperone and non replicative variants dataset are stored")
 
-parser.add_argument("--IgeneralTissue",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/General/ByTissue/"),
-	help = "Location where QC images for the counts by tissue type are stored")
-
 ## Mean Variance
 parser.add_argument("--ImvRaw",
 	type = Path,
@@ -542,11 +537,6 @@ parser.add_argument("--PgeneralNrCV",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/NonReplicativeHistones/"),
 	help = "Location where QC html files for the chaperone and non replicative variants dataset are stored")
-
-parser.add_argument("--PgeneralTissue",
-	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/ByTissue/"),
-	help = "Location where QC html files for the gene counts by tissue are stored")
 
 ## Mean Variance
 parser.add_argument("--PmvRaw",

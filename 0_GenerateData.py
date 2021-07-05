@@ -24,7 +24,6 @@ def generate_data(
 	
 	# Generate the top 88 expressed genes
 	# Generate the top1000 expressed genes
-	
 	counts["total"] = counts.sum(axis = 0)
 	counts = counts.sort_values("total")
 	counts.pop("total")
@@ -76,6 +75,7 @@ def generate_data(
 		df = pd.DataFrame(columns = counts.columns)
 		df = df.append(counts[counts["smts"] == t])
 		df.pop("smts")
+		df = df.T
 		df.to_csv(tissue_counts.joinpath(t + ".tsv"), sep = '\t')
 
 if __name__ == '__main__':
