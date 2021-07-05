@@ -30,10 +30,6 @@ def mean_std(
 	htmls = [raw_mv_p, filtered_mv_p, counts_norm_mv_p, 
 		top1000_mv_p, top88_mv_p, cv_mv_p]
 
-	for i in range(len(rand_files)):
-		images.append(rand_images.joinpath("random" + str(i) + ".png"))
-		htmls.append(rand_p.joinpath("random" + str(i) + ".html"))
-
 	for i in range(len(tissue_files)):
 		tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
 		link_img = tissues_images.joinpath(tissue_name)
@@ -44,6 +40,10 @@ def mean_std(
 
 		images.append(link_img.joinpath(tissue_name + ".png"))
 		htmls.append(link_p.joinpath(tissue_name + ".html"))
+	
+	for i in range(len(rand_files)):
+		images.append(rand_images.joinpath("random" + str(i) + ".png"))
+		htmls.append(rand_p.joinpath("random" + str(i) + ".html"))
 
 	for file, image, html in zip(counts, images, htmls):
 		f = pd.read_csv(file, header = 0, index_col = 0, sep = "\t")

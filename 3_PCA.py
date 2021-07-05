@@ -97,14 +97,14 @@ def pca(
         fig = px.scatter(
             data_frame = d.dropna(), 
             x = "PC1", y = "PC2",
-            color = "smtsd", 
+            color = d["smtsd"], 
             hover_data = [d.dropna().index, "lib_size"],
             #size = "lib_size",
             title = "GTEx PCA")
 
         fig.write_html(h.joinpath("pca.html"))
         fig.write_image(i.joinpath("pca.png"), width = 2048, height = 1024)
-        fig.show()
+        #fig.show()
 
         d.to_csv(t.joinpath("pca.tsv"), sep="\t")
 
@@ -125,6 +125,6 @@ if __name__ == '__main__':
         file_pca_rand = Config.args.pcaRand, img_pca_rand = Config.args.IpcaRand, 
         p_pca_top88 = Config.args.PpcaTop88, file_pcaTop88 = Config.args.pcaTop88, 
         img_pca_top88 = Config.args.IpcaTop88, p_pca_tissue = Config.args.PpcaTissue,
-        file_pca_tissues = Config.args.pcaTissue, img_pca_tissues = Config.args.IpcaTissue,
+        file_pca_tissue = Config.args.pcaTissue, img_pca_tissues = Config.args.IpcaTissue,
         p_pca_filtered = Config.args.PpcaFiltered, file_pcaFiltered = Config.args.pcaFiltered,
         img_pca_filtered = Config.args.IpcaFiltered)
