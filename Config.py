@@ -123,12 +123,12 @@ parser.add_argument("--corrRandS",
 ## PCA
 parser.add_argument("--pcaRaw",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/PCA/BeforeFiltering/pca.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/BeforeFiltering/"),
 	help = "Location where the pca matrix of the raw counts is stored")
 
 parser.add_argument("--pcaFiltered",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/PCA/AfterFiltering/pca.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/AfterFiltering/"),
 	help = "Location where the pca matrix of the filtered non normalized counts is stored")
 
 parser.add_argument("--pcaRand",
@@ -138,17 +138,17 @@ parser.add_argument("--pcaRand",
 
 parser.add_argument("--pcaNorm",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/PCA/Normalized/pca.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/Normalized/"),
 	help = "Location where the pca matrix of the filtered normalized counts is stored")
 
 parser.add_argument("--pcaTop",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/PCA/Top1000/pca.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/Top1000/"),
 	help = "Location where the pca matrix of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--pcaCV",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/PCA/variants_chaperones/pca.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/variants_chaperones/"),
 	help = "Location where the pca matrix of the variant and chaperone gene counts is stored")
 
 ## T-SNE
@@ -253,12 +253,12 @@ parser.add_argument("--ImvCV",
 ## PCA
 parser.add_argument("--IpcaRaw",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/PCA/BeforeFiltering/pca.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/BeforeFiltering/"),
 	help = "Location where the pca image of the rawcounts is stored")
 
 parser.add_argument("--IpcaFiltered",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/PCA/AfterFiltering/pca.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/AfterFiltering/"),
 	help = "Location where the pca image of the filtered non normalized counts is stored")
 
 parser.add_argument("--IpcaRand",
@@ -268,17 +268,17 @@ parser.add_argument("--IpcaRand",
 
 parser.add_argument("--IpcaNorm",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/PCA/Normalized/pca.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/Normalized/"),
 	help = "Location where the pca image of the filtered normalized counts is stored")
 
 parser.add_argument("--IpcaTop",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/PCA/Top1000/pca.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/Top1000/"),
 	help = "Location where the pca image of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--IpcaCV",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/PCA/variants_chaperones/pca.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/variants_chaperones/"),
 	help = "Location where the pca image of the variant and chaperone gene counts is stored")
 
 ## T-SNE
@@ -312,80 +312,88 @@ parser.add_argument("--ItsneCV",
 	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/variants_chaperones/T-Sne.png"),
 	help = "Location where the t-sne image of the variant and chaperone gene counts is stored")
 
+## Metric
+parser.add_argument("--distance",
+	type = str,
+	default = "euclidean",
+	help = "Distance metric")
+
+distance_metric = parser.parse_args().distance
+
 ## Clustermap
 parser.add_argument("--IclusterRandS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Random/"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + distance_metric + "/Samples/Random/"),
 	help = "Location where the clustermap image of the randomly selected gene counts is stored")
 
 parser.add_argument("--IclusterTopS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Top1000/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/" + distance_metric + "/Top1000/clustermap.png"),
 	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--IclusterTop81S",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/Top81/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/" + distance_metric + "/Top81/clustermap.png"),
 	help = "Location where the clustermap image of the top 81 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVs",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/variants_chaperones/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/" + distance_metric + "/variants_chaperones/clustermap.png"),
 	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
 
 parser.add_argument("--IclstrNonRcvS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/nonReplicative/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/" + distance_metric + "/nonReplicative/clustermap.png"),
 	help = "Location where the clustermap of the histones chaperone and non replicative histone variant genes are stored")
 
 parser.add_argument("--IclusterRandG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Random/"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/Random/"),
 	help = "Location where the clustermap image of the randomly selected gene counts is stored")
 
 parser.add_argument("--IclusterTopG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Top1000/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/Top1000/clustermap.png"),
 	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--IclusterTop81G",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/Top81/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/Top81/clustermap.png"),
 	help = "Location where the clustermap image of the top 81 expressed gene counts is stored")
 
 parser.add_argument("--IclstrNonRcvG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/nonReplicative/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/nonReplicative/clustermap.png"),
 	help = "Location where the clustermap of the histones chaperone and non replicative histone variant genes are stored")
 
 parser.add_argument("--IclusterCVG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/variants_chaperones/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/variants_chaperones/clustermap.png"),
 	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
 
 parser.add_argument("--IclusterRandSG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/Random/"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/Random/"),
 	help = "Location where the clustermap image of the randomly selected gene counts is stored")
 
 parser.add_argument("--IclusterTopSG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/Top1000/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/Top1000/clustermap.png"),
 	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--IclusterTop81SG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/Top81/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/Top81/clustermap.png"),
 	help = "Location where the clustermap image of the top 81 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVsg",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/variants_chaperones/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/variants_chaperones/clustermap.png"),
 	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
 
 parser.add_argument("--IclstrNonRcvSG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/nonReplicative/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/nonReplicative/clustermap.png"),
 	help = "Location where the clustermap of the histones chaperone and non replicative histone variant genes are stored")
 
 # Plotly
@@ -459,12 +467,12 @@ parser.add_argument("--PmvCV",
 ## PCA
 parser.add_argument("--PpcaRaw",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/BeforeFiltering/pca.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/BeforeFiltering/"),
 	help = "Location where the pca html file of the raw counts is stored")
 
 parser.add_argument("--PpcaFiltered",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/AfterFiltering/pca.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/AfterFiltering/"),
 	help = "Location where the pca html file of the filtered non normalized counts is stored")
 
 parser.add_argument("--PpcaRand",
@@ -474,17 +482,17 @@ parser.add_argument("--PpcaRand",
 
 parser.add_argument("--PpcaNorm",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Normalized/pca.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Normalized/"),
 	help = "Location where the pca html file of the filtered normalized counts is stored")
 
 parser.add_argument("--PpcaTop",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Top1000/pca.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Top1000/"),
 	help = "Location where the pca html file of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--PpcaCV",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/variants_chaperones/pca.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/variants_chaperones/"),
 	help = "Location where the pca html file of the variant and chaperone gene counts is stored")
 
 ## T-SNE
