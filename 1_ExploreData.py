@@ -7,27 +7,48 @@ import Tools
 import Config
 
 def explore_data(
-	meta, raw_counts, filtered_counts, counts_norm, 
-	top1000, cv_counts, nrcv_counts, rand, generalRawImages, 
-	generalFilteredImages, generalNormImages, generalRandImages,
-	generalTop1000Images, generalCvImages, generalNrCvImages, 
-	generalNormPlotly, generalRandPlotly, generalTop1000Plotly, 
-	generalCvPlotly, generalNrCvPlotly, generalRawPlotly, 
-	generalFilteredPlotly):
+	meta, rand, top88, 
+	cv_counts, raw_counts, top1000, 
+	counts_norm, filtered_counts, 
+	nrcv_counts, tissue_counts,
+	generalCvImages, generalCvPlotly, 
+	generalRawImages, generalRawPlotly, 
+	generalNrCvImages, generalNrCvPlotly,
+	generalNormImages, generalNormPlotly, 
+	generalRandImages, generalRandPlotly, 
+	generalTop88Images, generalTop88Plotly, 
+	generalTop1000Images, generalTop1000Plotly,
+	generalTissueImages, generalTissuePlotly, 
+	generalFilteredImages, generalFilteredPlotly):
 	
 	counts = [raw_counts, filtered_counts, counts_norm, 
-		top1000, cv_counts, nrcv_counts]
+		top1000, top88, cv_counts, nrcv_counts]
+
+	tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
+	for path in tissue_files:
+		counts.append(path)
 	
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
 		counts.append(path)
 
 	images = [generalRawImages, generalFilteredImages, generalNormImages, 
-		generalTop1000Images, generalCvImages, generalNrCvImages]
+		generalTop1000Images, generalTop88Images, generalCvImages, generalNrCvImages]
 	
 	htmls = [generalRawPlotly, generalFilteredPlotly, generalNormPlotly, 
-		generalTop1000Plotly, generalCvPlotly, generalNrCvPlotly]
+		generalTop1000Plotly, generalTop88Plotly, generalCvPlotly, generalNrCvPlotly]
 	
+	for i in range(len(tissue_files)):
+		tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
+		link_img = generalTissueImages.joinpath(tissue_name)
+		link_p = generalTissuePlotly.joinpath(tissue_name)
+
+		Tools.create_folder(link_img)
+		Tools.create_folder(link_p)
+
+		images.append(link_img)
+		htmls.append(link_p)
+
 	for i in range(len(rand_files)):
 		link_img = generalRandImages.joinpath("random" + str(i))
 		link_p = generalRandPlotly.joinpath("random" + str(i))
@@ -114,25 +135,31 @@ def explore_data(
 if __name__ == '__main__':	
 	
 	explore_data(
-		meta = Config.args.meta,
-		raw_counts = Config.args.bf,
-		filtered_counts = Config.args.af,
-		counts_norm = Config.args.norm,
-		top1000 = Config.args.top1000,
-		cv_counts = Config.args.cv,
-		nrcv_counts = Config.args.nonRcv,
+		meta = Config.args.meta, 
 		rand = Config.args.rand,
-		generalRawImages = Config.args.IgeneralRaw,
-		generalFilteredImages = Config.args.IgeneralFiltered,
-		generalNormImages = Config.args.IgeneralNorm,
-		generalRandImages = Config.args.IgeneralRand,
-		generalTop1000Images = Config.args.IgeneralTop,
-		generalCvImages = Config.args.IgeneralCV,
-		generalNrCvImages = Config.args.IgeneralNrCV,
-		generalNormPlotly = Config.args.PgeneralNorm,
-		generalRandPlotly = Config.args.PgeneralRand,
-		generalTop1000Plotly = Config.args.PgeneralTop,
+		top88 = Config.args.top88, 
+		cv_counts = Config.args.cv,
+		raw_counts = Config.args.bf, 
+		top1000 = Config.args.top1000,
+		counts_norm = Config.args.norm, 
+		filtered_counts = Config.args.af,
+		nrcv_counts = Config.args.nonRcv, 
+		tissue_counts = Config.args.tissue,
+		generalCvImages = Config.args.IgeneralCV, 
 		generalCvPlotly = Config.args.PgeneralCV,
-		generalNrCvPlotly = Config.args.PgeneralNrCV,
+		generalRawImages = Config.args.IgeneralRaw,
 		generalRawPlotly = Config.args.PgeneralRaw,
-		generalFilteredPlotly = Config.args.PgeneralFiltered)
+		generalNrCvImages = Config.args.IgeneralNrCV,
+		generalNrCvPlotly = Config.args.PgeneralNrCV,
+		generalNormImages = Config.args.IgeneralNorm,
+		generalNormPlotly = Config.args.PgeneralNorm,
+		generalRandImages = Config.args.IgeneralRand,
+		generalRandPlotly = Config.args.PgeneralRand,
+		generalTop88Images = Config.args.IgeneralTop88,
+		generalTop88Plotly = Config.args.PgeneralTop88,
+		generalTop1000Images = Config.args.IgeneralTop,
+		generalTop1000Plotly = Config.args.PgeneralTop,
+		generalTissueImages = Config.args.IgeneralTissue,
+		generalTissuePlotly = Config.args.PgeneralTissue,
+		generalFilteredImages = Config.args.IgeneralFiltered,
+		generalFilteredPlotly = Config.args.PgeneralFiltered,)

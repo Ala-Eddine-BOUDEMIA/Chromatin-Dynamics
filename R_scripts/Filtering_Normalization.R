@@ -7,31 +7,16 @@ library(org.Hs.eg.db)
 gtex_raw_counts = load(
 	"/Users/labo/Documents/Data/gtex/rdata/PairedEndRounded.Rdata") 
 
-gtex_metadata = read.delim(
-	"/Users/labo/Documents/Data/gtex/tsv/GTEx.tsv", 
-	header=TRUE, sep="\t")
-
-tissues = gtex_metadata$smts
-tissues = factor(tissues)
-
-y = DGEList(c1, group=tissues, genes=c1[,1,drop=FALSE])
-
-y$genes$Symbol = mapIds(org.Hs.eg.db,
-                        keys = rownames(y), 
-                        keytype = 'ENSEMBL', 
-                        column = 'SYMBOL')
-head(y$genes)
-y = y[!is.na(y$genes$Symbol), ]
-dim(y)
+y = DGEList(c1)
 
 # Mean-variance plot
 meanSdPlot(y$counts)
 
 # Filter to remove low counts
-keep = rowSums(cpm(y) > 10) >= 18  
+keep = rowSums(cpm(y) > 5) >= 18  
 table(keep)
 x = y[keep, ,keep.lib.sizes=FALSE]
-write.table(x, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExFilteredCPM10S18.tsv", sep="\t")
+write.table(x, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExFilteredCPM5S18.tsv", sep="\t")
 
 # Mean-variance plot
 meanSdPlot(x$counts)
