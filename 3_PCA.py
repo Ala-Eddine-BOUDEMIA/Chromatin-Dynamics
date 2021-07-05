@@ -52,9 +52,9 @@ def pca(
         htmls.append(link_p)
 
     for i in range(len(rand_files)):
-        link_tsv = file_pca_rand.joinpath("random" + str(i) + "/")
-        link_img = img_pca_rand.joinpath("random" + str(i) + "/")
-        link_html = p_pca_rand.joinpath("random" + str(i) + "/")
+        link_tsv = file_pca_rand.joinpath("random" + str(i))
+        link_img = img_pca_rand.joinpath("random" + str(i))
+        link_html = p_pca_rand.joinpath("random" + str(i))
 
         Tools.create_folder(link_tsv)
         Tools.create_folder(link_img)
