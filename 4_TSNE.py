@@ -80,7 +80,7 @@ def tsne(
         fig = px.scatter(
             data_frame = df.dropna(), 
             x = "T1", y = "T2",
-            color = "smtsd", 
+            color = df["smtsd"], 
             hover_data = [df.dropna().index, "lib_size"],
             #size = "lib_size",
             title = "GTEx t-sne")

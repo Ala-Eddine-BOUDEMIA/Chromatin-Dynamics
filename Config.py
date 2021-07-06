@@ -58,6 +58,11 @@ parser.add_argument("--tissue",
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/CountsByTissue/"),
 	help = "Location where the counts for each tissue are stored")
 
+parser.add_argument("--onlyNormal",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/Counts/Normal/counts.tsv"),
+	help = "Location where the counts for all the tissues except the transformed cells are stored")
+
 ## Metadata
 parser.add_argument("--list",
 	type = Path,

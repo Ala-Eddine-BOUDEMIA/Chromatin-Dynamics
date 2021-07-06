@@ -17,7 +17,7 @@ def pca(
     file_pcaTop88, img_pca_top88, file_pca_tissue, p_pca_tissue, 
     img_pca_tissues, p_pca_filtered, file_pcaFiltered, img_pca_filtered):
     
-    counts = [raw_counts, filtered_counts, counts_norm, 
+    counts = [
         top1000, top88, cv_counts]
 
     tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
@@ -28,13 +28,13 @@ def pca(
     for path in rand_files:
         counts.append(path)
 
-    tsvs = [file_pcaRaw, file_pcaFiltered, file_pcaNorm, 
+    tsvs = [
         file_pcaTop, file_pcaTop88, file_pcaCV]
     
-    images = [img_pca_raw, img_pca_filtered, img_pca_norm, 
+    images = [
         img_pca_top, img_pca_top88, img_pca_cv]
     
-    htmls = [p_pca_raw, p_pca_filtered, p_pca_norm, 
+    htmls = [ 
         p_pca_top, p_pca_top88, p_pca_cv]
 
     for i in range(len(tissue_files)):
@@ -70,7 +70,7 @@ def pca(
     for c, t, i, h in zip(counts, tsvs, images, htmls):
         f = pd.read_csv(c, header = 0, index_col = 0, sep = "\t")
         lib_size = f.sum(axis = 0).to_frame(name = "lib_size")
-        f = pd.DataFrame(np.log2(f + 1)).T
+        f = pd.DataFrame(np.log2(f + 1))
 
         scaler = StandardScaler()
         std_counts = scaler.fit_transform(f.T.dropna())

@@ -6,9 +6,9 @@ from pathlib import Path
 import Config
 
 def generate_data(
-	cv, meta, rand, top88, cv_list, nonRcv,
-	top1000, tissue_counts, normalized_counts,
-	nonRcv_list):
+	cv, meta, rand, top88, cv_list, 
+	nonRcv, top1000, normal, tissue_counts, 
+	normalized_counts, nonRcv_list):
 	
 	counts = pd.read_csv(normalized_counts,
 		header = 0, index_col = 0, sep = "\t")
@@ -67,13 +67,13 @@ def generate_data(
 		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")
 
 	# Generate counts by tissue
-	counts = counts.T
-	counts = counts.join(metadata["smts"])
+	counts_by_tissue = counts.T
+	counts_by_tissue = counts_by_tissue.join(metadata["smts"])
 	tissue_types = pd.unique(metadata["smts"])
 
 	for t in tissue_types:
-		df = pd.DataFrame(columns = counts.columns)
-		df = df.append(counts[counts["smts"] == t])
+		df = pd.DataFrame(columns = counts_by_tissue.columns)
+		df = df.append(counts_by_tissue[counts_by_tissue["smts"] == t])
 		df.pop("smts")
 		df = df.T
 		df.to_csv(tissue_counts.joinpath(t + ".tsv"), sep = '\t')
@@ -88,6 +88,7 @@ if __name__ == '__main__':
 		cv_list = Config.args.list,
 		nonRcv = Config.args.nonRcv,
 		top1000 = Config.args.top1000,
+		normal = Config.args.onlyNormal,
 		tissue_counts = Config.args.tissue,
 		normalized_counts = Config.args.norm,
 		nonRcv_list = Config.args.nonReplicative)
