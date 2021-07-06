@@ -8,25 +8,23 @@ import Config
 
 def explore_data(
 	meta, rand, top88, cv_counts, raw_counts, 
-	top1000, counts_norm, filtered_counts, nrcv_counts,
+	top1000, counts_norm, normal, filtered_counts, nrcv_counts,
 	generalCvImages, generalCvPlotly, generalRawImages, generalRawPlotly, 
 	generalNrCvImages, generalNrCvPlotly, generalNormImages, generalNormPlotly, 
 	generalRandImages, generalRandPlotly, generalTop88Images, generalTop88Plotly, 
-	generalTop1000Images, generalTop1000Plotly, generalFilteredImages, generalFilteredPlotly):
+	generalTop1000Images, generalTop1000Plotly, generalNormalImages, generalNormalPlotly,
+	generalFilteredImages, generalFilteredPlotly):
 	
-	counts = [raw_counts, filtered_counts, counts_norm, 
-		top1000, top88, cv_counts, nrcv_counts]
-	
+	counts = [normal]
+	"""
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
-		counts.append(path)
+		counts.append(path)"""
 
-	images = [generalRawImages, generalFilteredImages, generalNormImages, 
-		generalTop1000Images, generalTop88Images, generalCvImages, generalNrCvImages]
+	images = [generalNormalImages]
 	
-	htmls = [generalRawPlotly, generalFilteredPlotly, generalNormPlotly, 
-		generalTop1000Plotly, generalTop88Plotly, generalCvPlotly, generalNrCvPlotly]
-
+	htmls = [generalNormalPlotly]
+	"""
 	for i in range(len(rand_files)):
 		link_img = generalRandImages.joinpath("random" + str(i))
 		link_p = generalRandPlotly.joinpath("random" + str(i))
@@ -35,7 +33,7 @@ def explore_data(
 		Tools.create_folder(link_p)
 		
 		images.append(link_img)
-		htmls.append(link_p)
+		htmls.append(link_p)"""
 
 	# read metadata file
 	metadata = pd.read_csv(meta, header = 0, sep = "\t")
@@ -62,7 +60,7 @@ def explore_data(
 		cpm = f
 		total = counts_per_sample.div(1e6)
 		cpm = cpm.loc[:,:].div(total) 
-		cpm_sum = cpm.sum(axis=1)
+		cpm_sum = cpm.sum(axis = 1)
 
 		# Number of counts per tissue
 		counts_per_tissue_sample = []		
@@ -70,14 +68,17 @@ def explore_data(
 
 		for tissue in runs_per_tissue.index:
 			for runs in runs_per_tissue.loc[tissue]:
-				# per sample
-				counts_per_sample_per_tissue = f.loc[:, runs].sum(axis = 0)
-				counts_per_tissue_sample.append([list(counts_per_sample_per_tissue), tissue])
+				try:
+					# per sample
+					counts_per_sample_per_tissue = f.loc[:, runs].sum(axis = 0)
+					counts_per_tissue_sample.append([list(counts_per_sample_per_tissue), tissue])
 
-				# per gene
-				counts_per_gene_per_tissue = f.loc[:, runs].sum(axis = 1)
-				counts_per_tissue_gene.append((counts_per_gene_per_tissue, tissue))
-				
+					# per gene
+					counts_per_gene_per_tissue = f.loc[:, runs].sum(axis = 1)
+					counts_per_tissue_gene.append((counts_per_gene_per_tissue, tissue))
+				except:
+					pass
+					
 		# per sample
 		df_counts_per_tissue_sample = pd.DataFrame(
 			[x[0] for x in counts_per_tissue_sample], 
@@ -120,6 +121,7 @@ if __name__ == '__main__':
 		raw_counts = Config.args.bf, 
 		top1000 = Config.args.top1000,
 		counts_norm = Config.args.norm, 
+		normal = Config.args.onlyNormal,
 		filtered_counts = Config.args.af,
 		nrcv_counts = Config.args.nonRcv, 
 		generalCvImages = Config.args.IgeneralCV, 
@@ -136,5 +138,7 @@ if __name__ == '__main__':
 		generalTop88Plotly = Config.args.PgeneralTop88,
 		generalTop1000Images = Config.args.IgeneralTop,
 		generalTop1000Plotly = Config.args.PgeneralTop,
+		generalNormalImages = Config.args.IgeneralNormal,
+		generalNormalPlotly = Config.args.PgeneralNormal,
 		generalFilteredImages = Config.args.IgeneralFiltered,
-		generalFilteredPlotly = Config.args.PgeneralFiltered,)
+		generalFilteredPlotly = Config.args.PgeneralFiltered)

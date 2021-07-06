@@ -78,6 +78,28 @@ def generate_data(
 		df = df.T
 		df.to_csv(tissue_counts.joinpath(t + ".tsv"), sep = '\t')
 
+	# Generate counts without transformed cells
+	counts_wo_tcells = counts.T
+	counts_wo_tcells = counts_wo_tcells.join(metadata["smts"])
+	counts_wo_tcells = counts_wo_tcells.join(metadata["smtsd"])
+	tissue_types = pd.unique(metadata["smtsd"])
+
+	toDiscard = ["Cells - EBV-transformed lymphocytes",
+				"Cells - Leukemia cell line (CML)",
+				"Cells - Transformed fibroblasts"]
+
+	df = pd.DataFrame(columns = counts_wo_tcells.columns)
+	for t in tissue_types:
+		for d in toDiscard:
+			if str(t) != d:
+				df = df.append(counts_wo_tcells[counts_wo_tcells["smtsd"] == t])
+		
+	df.pop("smts")
+	df.pop("smtsd")
+	df = df.T
+	print(df.head())
+	df.to_csv(str(normal), sep = '\t')
+
 if __name__ == '__main__':
 
 	generate_data(
