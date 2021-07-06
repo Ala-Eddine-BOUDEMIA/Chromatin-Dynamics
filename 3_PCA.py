@@ -47,9 +47,9 @@ def pca(
         Tools.create_folder(link_img)
         Tools.create_folder(link_p)
         
-        tsvs.append(link_tsv)
-        images.append(link_img)
-        htmls.append(link_p)
+        tsvs.append(link_tsv.joinpath("pca.tsv"))
+        images.append(link_img.joinpath("pca.png"))
+        htmls.append(link_p.joinpath("pca.html"))
 
     for i in range(len(rand_files)):
         link_tsv = file_pca_rand.joinpath("random" + str(i))
@@ -60,9 +60,9 @@ def pca(
         Tools.create_folder(link_img)
         Tools.create_folder(link_html)
 
-        tsvs.append(link_tsv)
-        images.append(link_img)
-        htmls.append(link_html)
+        tsvs.append(link_tsv.joinpath("pca.tsv"))
+        images.append(link_img.joinpath("pca.png"))
+        htmls.append(link_html.joinpath("pca.html"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     sub_tissues = metadata["smtsd"]
@@ -102,11 +102,11 @@ def pca(
             #size = "lib_size",
             title = "GTEx PCA")
 
-        fig.write_html(h.joinpath("pca.html"))
-        fig.write_image(i.joinpath("pca.png"), width = 2048, height = 1024)
+        fig.write_html(str(h))
+        fig.write_image(str(i), width = 2048, height = 1024)
         #fig.show()
 
-        d.to_csv(t.joinpath("pca.tsv"), sep="\t")
+        d.to_csv(str(t), sep="\t")
 
 if __name__ == '__main__':	
     
