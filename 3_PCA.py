@@ -17,9 +17,9 @@ def pca(
     file_pcaTop88, img_pca_top88, file_pca_tissue, p_pca_tissue, 
     img_pca_tissues, p_pca_filtered, file_pcaFiltered, img_pca_filtered):
     
-    counts = [
+    counts = [raw_counts, filtered_counts, counts_norm, 
         top1000, top88, cv_counts]
-
+    
     tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
     for path in tissue_files:
         counts.append(path)
@@ -28,15 +28,15 @@ def pca(
     for path in rand_files:
         counts.append(path)
 
-    tsvs = [
+    tsvs = [file_pcaRaw, file_pcaFiltered, file_pcaNorm, 
         file_pcaTop, file_pcaTop88, file_pcaCV]
     
-    images = [
-        img_pca_top, img_pca_top88, img_pca_cv]
+    images = [img_pca_raw, img_pca_filtered, img_pca_norm,
+    img_pca_top, img_pca_top88, img_pca_cv]
     
-    htmls = [ 
+    htmls = [p_pca_raw, p_pca_filtered, p_pca_norm, 
         p_pca_top, p_pca_top88, p_pca_cv]
-
+    
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link_tsv = file_pca_tissue.joinpath(tissue_name)
