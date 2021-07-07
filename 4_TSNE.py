@@ -20,7 +20,7 @@ def tsne(
     
     counts = [raw_counts, filtered_counts, counts_norm, 
         top1000, top88, cv_counts]
-
+    
     tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
     for path in tissue_files:
         counts.append(path)
@@ -37,7 +37,7 @@ def tsne(
 
     htmls = [p_tsne_raw, p_tsne_filtered, p_tsne_norm, 
         p_tsne_top, p_tsne_top88, p_tsne_cv]
-
+    
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link_tsv = file_tsne_tissues.joinpath(tissue_name)

@@ -184,12 +184,12 @@ parser.add_argument("--pcaTissue",
 ## T-SNE
 parser.add_argument("--tsneRaw",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/T_Sne/BeforeFiltering/T-Sne.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/BeforeFiltering/T-Sne.tsv"),
 	help = "Location where the T-Sne matrix of the raw counts is stored")
 
 parser.add_argument("--tsneFiltered",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/T_Sne/AfterFiltering/T-Sne.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/AfterFiltering/T-Sne.tsv"),
 	help = "Location where the T-Sne matrix of the filtered non normalized counts is stored")
 
 parser.add_argument("--tsneRand",
@@ -199,22 +199,22 @@ parser.add_argument("--tsneRand",
 
 parser.add_argument("--tsneNorm",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/T_Sne/Normalized/T-Sne.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/Normalized/T-Sne.tsv"),
 	help = "Location where the t-sne matrix of the filtered normalized counts is stored")
 
 parser.add_argument("--tsneTop",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/T_Sne/Top1000/T-Sne.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/Top1000/T-Sne.tsv"),
 	help = "Location where the t-sne matrix of the top 1000 expressed gene counts is stored")
 
 parser.add_argument("--tsneTop88",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/T_Sne/Top88/T-Sne.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/Top88/T-Sne.tsv"),
 	help = "Location where the t-sne matrix of the top 88 expressed gene counts is stored")
 
 parser.add_argument("--tsneCV",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/T_Sne/variants_chaperones/T-Sne.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/variants_chaperones/T-Sne.tsv"),
 	help = "Location where the t-sne matrix of the variant and chaperone gene counts is stored")
 
 parser.add_argument("--tsneTissue",
