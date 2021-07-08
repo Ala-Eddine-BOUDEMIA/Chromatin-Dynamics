@@ -12,10 +12,11 @@ def mean_std(
 	rand_images, tissue_counts, normal_mv_p, tissues_mv_p, 
 	normal_mv_img, top88_mv_image, top1000_mv_image, 
 	counts_norm_mv_p, tissues_images, filtered_mv_p, 
-	filtered_mv_i, counts_norm_mv_image):
+	filtered_mv_i, counts_norm_mv_image, counts_without_tissues,
+	counts_without_tissues_mv_p, counts_without_tissues_mv_image):
 	
-	counts = [raw_counts, filtered_counts, counts_norm, 
-		normal, top1000, top88, cv_counts]
+	counts = [raw_counts, filtered_counts, counts_norm, normal, 
+		counts_without_tissues, top1000, top88, cv_counts]
 	
 	tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
 	for path in tissue_files:
@@ -25,11 +26,11 @@ def mean_std(
 	for path in rand_files:
 		counts.append(path)
 
-	images = [raw_mv_i, filtered_mv_i, counts_norm_mv_image, 
-		normal_mv_img, top1000_mv_image, top88_mv_image, cv_mv_image]
+	images = [raw_mv_i, filtered_mv_i, counts_norm_mv_image, normal_mv_img, 
+		counts_without_tissues_mv_image, top1000_mv_image, top88_mv_image, cv_mv_image]
 
-	htmls = [raw_mv_p, filtered_mv_p, counts_norm_mv_p, 
-		normal_mv_p, top1000_mv_p, top88_mv_p, cv_mv_p]
+	htmls = [raw_mv_p, filtered_mv_p, counts_norm_mv_p, normal_mv_p, 
+		counts_without_tissues_mv_p, top1000_mv_p, top88_mv_p, cv_mv_p]
 	
 	for i in range(len(tissue_files)):
 		tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -94,4 +95,7 @@ if __name__ == '__main__':
 		tissues_images = Config.args.ImvTissue,
 		filtered_mv_p = Config.args.PmvFiltered,
 		filtered_mv_i = Config.args.ImvFiltered,
-		counts_norm_mv_image = Config.args.ImvNorm)
+		counts_norm_mv_image = Config.args.ImvNorm,
+		counts_without_tissues = Config.args.WoTissues,
+		counts_without_tissues_mv_p = Config.args.PmvWoTissues,
+		counts_without_tissues_mv_image = Config.args.ImvWoTissues)

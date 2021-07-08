@@ -28,6 +28,16 @@ parser.add_argument("--norm",
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/Normalized/Normalized.tsv"),
 	help = "Location where the normalized filtered counts are stored")
 
+parser.add_argument("--onlyNormal",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/Counts/Normal/counts.tsv"),
+	help = "Location where the counts for all the tissues except the transformed cells are stored")
+
+parser.add_argument("--WoTissues",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/Counts/WithoutTissues/counts.tsv"),
+	help = "Location where the counts for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
+
 parser.add_argument("--top1000",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/Top1000/Top1000Genes.tsv"),
@@ -37,11 +47,6 @@ parser.add_argument("--top88",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/Top88/Top88Genes.tsv"),
 	help = "Location where the counts of the top 88 expressed genes are stored")
-
-parser.add_argument("--rand",
-	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Counts/Random/"),
-	help = "Location where the random selected gene counts are stored")
 
 parser.add_argument("--cv",
 	type = Path,
@@ -58,12 +63,17 @@ parser.add_argument("--tissue",
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/CountsByTissue/"),
 	help = "Location where the counts for each tissue are stored")
 
-parser.add_argument("--onlyNormal",
+parser.add_argument("--rand",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Counts/Normal/counts.tsv"),
-	help = "Location where the counts for all the tissues except the transformed cells are stored")
+	default = Path("Data/").joinpath(choice.dataset + "/Counts/Random/"),
+	help = "Location where the random selected gene counts are stored")
 
 ## Metadata
+parser.add_argument("--meta",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/Metadata/" + choice.dataset + ".tsv"),
+	help = "Location where the metadata file is stored")
+
 parser.add_argument("--list",
 	type = Path,
 	default = Path("Data/variants_chaperones/complete_list.csv"),
@@ -73,11 +83,6 @@ parser.add_argument("--nonReplicative",
 	type = Path,
 	default = Path("Data/variants_chaperones/withoutR.txt"),
 	help = "Location where the list of non replicative histone genes and chaperone genes is stored")
-
-parser.add_argument("--meta",
-	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Metadata/" + choice.dataset + ".tsv"),
-	help = "Location where the metadata file is stored")
 
 ## Correlation
 parser.add_argument("--corrTopG",
@@ -151,15 +156,20 @@ parser.add_argument("--pcaFiltered",
 	default = Path("Data/").joinpath(choice.dataset + "/PCA/AfterFiltering/pca.tsv"),
 	help = "Location where the pca matrix of the filtered non normalized counts is stored")
 
-parser.add_argument("--pcaRand",
-	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/PCA/Random/"),
-	help = "Location where the pca matrix of the randomly selected geen counts is stored")
-
 parser.add_argument("--pcaNorm",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/PCA/Normalized/pca.tsv"),
 	help = "Location where the pca matrix of the filtered normalized counts is stored")
+
+parser.add_argument("--pcaNormal",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/Normal/pca.tsv"),
+	help = "Location where the pca matrix of the dataset without transformed cells is stored")
+
+parser.add_argument("--pcaWoTissues",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/WithoutTissues/pca.tsv"),
+	help = "Location where the pca matrix for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--pcaTop",
 	type = Path,
@@ -181,10 +191,10 @@ parser.add_argument("--pcaTissue",
 	default = Path("Data/").joinpath(choice.dataset + "/PCA/PCAbyTissue/"),
 	help = "Location where the pca matrix of the gene counts by tissue are stored")
 
-parser.add_argument("--pcaNormal",
+parser.add_argument("--pcaRand",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/PCA/Normal/pca.tsv"),
-	help = "Location where the pca matrix of the dataset without transformed cells is stored")
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/Random/"),
+	help = "Location where the pca matrix of the randomly selected geen counts is stored")
 
 ## T-SNE
 parser.add_argument("--tsneRaw",
@@ -197,15 +207,20 @@ parser.add_argument("--tsneFiltered",
 	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/AfterFiltering/T-Sne.tsv"),
 	help = "Location where the T-Sne matrix of the filtered non normalized counts is stored")
 
-parser.add_argument("--tsneRand",
-	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/T_Sne/Random/"),
-	help = "Location where the T-Sne matrix of the randomly selected geen counts is stored")
-
 parser.add_argument("--tsneNorm",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/Normalized/T-Sne.tsv"),
 	help = "Location where the t-sne matrix of the filtered normalized counts is stored")
+
+parser.add_argument("--tsneNormal",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/Normal/tsne.tsv"),
+	help = "Location where the t-sne matrix of the dataset without transformed cells is stored")
+
+parser.add_argument("--tsneWoTissues",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/WithoutTissues/tsne.tsv"),
+	help = "Location where the t-sne matrix for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--tsneTop",
 	type = Path,
@@ -227,10 +242,10 @@ parser.add_argument("--tsneTissue",
 	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/TSNEbyTissue/"),
 	help = "Location where the t-sne matrix of the gene counts by tissue are stored")
 
-parser.add_argument("--tsneNormal",
+parser.add_argument("--tsneRand",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/Normal/tsne.tsv"),
-	help = "Location where the t-sne matrix of the dataset without transformed cells is stored")
+	default = Path("Data/").joinpath(choice.dataset + "/T_Sne/Random/"),
+	help = "Location where the T-Sne matrix of the randomly selected geen counts is stored")
 
 # Images
 ## General
@@ -249,10 +264,15 @@ parser.add_argument("--IgeneralNorm",
 	default = Path("Images/").joinpath(choice.dataset + "/General/Normalized/"),
 	help = "Location where QC images for the normalized dataset are stored")
 
-parser.add_argument("--IgeneralRand",
+parser.add_argument("--IgeneralNormal",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/General/Random/"),
-	help = "Location where QC images for the Random dataset are stored")
+	default = Path("Images/").joinpath(choice.dataset + "/General/Normal/"),
+	help = "Location where QC images for the dataset without transformed cells are stored")
+
+parser.add_argument("--IgeneralWoTissues",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/General/WithoutTissues/"),
+	help = "Location where QC images for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--IgeneralTop",
 	type = Path,
@@ -274,10 +294,10 @@ parser.add_argument("--IgeneralNrCV",
 	default = Path("Images/").joinpath(choice.dataset + "/General/NonReplicativeHistones/"),
 	help = "Location where QC images for the chaperone and non replicative variants dataset are stored")
 
-parser.add_argument("--IgeneralNormal",
+parser.add_argument("--IgeneralRand",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/General/Normal/"),
-	help = "Location where QC images for the dataset without transformed cells are stored")
+	default = Path("Images/").joinpath(choice.dataset + "/General/Random/"),
+	help = "Location where QC images for the Random dataset are stored")
 
 ## Mean Variance
 parser.add_argument("--ImvRaw",
@@ -295,10 +315,15 @@ parser.add_argument("--ImvNorm",
 	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Normalized/mv.png"),
 	help = "Location where the mean-variance image of the normalized dataset is stored")
 
-parser.add_argument("--ImvRand",
+parser.add_argument("--ImvNormal",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Random/"),
-	help = "Location where the mean-variance image of the random datasets is stored")
+	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Normal/mv.png"),
+	help = "Location where the mean-variance image of the dataset without transformed cells is stored")
+
+parser.add_argument("--ImvWoTissues",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/WithoutTissues/mv.png"),
+	help = "Location where mean-variance images for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--ImvTop",
 	type = Path,
@@ -320,10 +345,10 @@ parser.add_argument("--ImvTissue",
 	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/ByTissue/"),
 	help = "Location where the mean-variance image of gene counts by tissue are stored")
 
-parser.add_argument("--ImvNormal",
+parser.add_argument("--ImvRand",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Normal/mv.png"),
-	help = "Location where the mean-variance image of the dataset without transformed cells is stored")
+	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Random/"),
+	help = "Location where the mean-variance image of the random datasets is stored")
 
 ## PCA
 parser.add_argument("--IpcaRaw",
@@ -336,15 +361,20 @@ parser.add_argument("--IpcaFiltered",
 	default = Path("Images/").joinpath(choice.dataset + "/PCA/AfterFiltering/pca.png"),
 	help = "Location where the pca image of the filtered non normalized counts is stored")
 
-parser.add_argument("--IpcaRand",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/PCA/Random/pca.png"),
-	help = "Location where the pca image of the randomly selected gene counts is stored")
-
 parser.add_argument("--IpcaNorm",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/PCA/Normalized/pca.png"),
 	help = "Location where the pca image of the filtered normalized counts is stored")
+
+parser.add_argument("--IpcaNormal",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/Normal/pca.png"),
+	help = "Location where the pca image of the dataset without transformed cells is stored")
+
+parser.add_argument("--IpcaWoTissues",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/WithoutTissues/pca.png"),
+	help = "Location where the pca image for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--IpcaTop",
 	type = Path,
@@ -366,10 +396,10 @@ parser.add_argument("--IpcaTissue",
 	default = Path("Images/").joinpath(choice.dataset + "/PCA/PCAbyTissue/"),
 	help = "Location where the pca image of the gene counts by tissue are stored")
 
-parser.add_argument("--IpcaNormal",
+parser.add_argument("--IpcaRand",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/PCA/Normal/pca.png"),
-	help = "Location where the pca image of the dataset without transformed cells is stored")
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/Random/pca.png"),
+	help = "Location where the pca image of the randomly selected gene counts is stored")
 
 ## T-SNE
 parser.add_argument("--ItsneRaw",
@@ -382,15 +412,20 @@ parser.add_argument("--ItsneFiltered",
 	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/AfterFiltering/T-Sne.png"),
 	help = "Location where the T-Sne image of the filtered non normalized counts is stored")
 
-parser.add_argument("--ItsneRand",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Random/"),
-	help = "Location where the T-Sne image of the randomly selected gene counts is stored")
-
 parser.add_argument("--ItsneNorm",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Normalized/T-Sne.png"),
 	help = "Location where the t-sne image of the filtered normalized counts is stored")
+
+parser.add_argument("--ItsneNormal",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Normal/tsne.png"),
+	help = "Location where the t-sne image of the dataset without transformed cells is stored")
+
+parser.add_argument("--ItsneWoTissues",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/WithoutTissues/tsne.png"),
+	help = "Location where the t-sne image for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--ItsneTop",
 	type = Path,
@@ -412,10 +447,10 @@ parser.add_argument("--ItsneTissue",
 	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/TSNEbyTissue/"),
 	help = "Location where the t-sne image of the gene counts by tissue are stored")
 
-parser.add_argument("--ItsneNormal",
+parser.add_argument("--ItsneRand",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Normal/tsne.png"),
-	help = "Location where the t-sne image of the dataset without transformed cells is stored")
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Random/"),
+	help = "Location where the T-Sne image of the randomly selected gene counts is stored")
 
 ## Metric
 parser.add_argument("--distance",
@@ -426,10 +461,10 @@ parser.add_argument("--distance",
 distance_metric = parser.parse_args().distance
 
 ## Clustermap
-parser.add_argument("--IclusterRandS",
+parser.add_argument("--IclstrNormS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + distance_metric + "/Samples/Random/"),
-	help = "Location where the clustermap image of the randomly selected gene counts is stored")
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/" + distance_metric + "/Normalized/clustermap.png"),
+	help = "Location where the clustermap of the normalized gene counts is stored")
 
 parser.add_argument("--IclusterTopS",
 	type = Path,
@@ -456,15 +491,15 @@ parser.add_argument("--IclstrTissueS",
 	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/" + distance_metric + "/ByTissue/"),
 	help = "Location where the clustermap of the gene counts by tissue are stored")
 
-parser.add_argument("--IclstrNormS",
+parser.add_argument("--IclusterRandS",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples/" + distance_metric + "/Normalized/clustermap.png"),
-	help = "Location where the clustermap of the normalized gene counts is stored")
-
-parser.add_argument("--IclusterRandG",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/Random/"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/" + distance_metric + "/Samples/Random/"),
 	help = "Location where the clustermap image of the randomly selected gene counts is stored")
+
+parser.add_argument("--IclstrNormG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/Normalized/clustermap.png"),
+	help = "Location where the clustermap of the normalized gene counts is stored")
 
 parser.add_argument("--IclusterTopG",
 	type = Path,
@@ -476,6 +511,11 @@ parser.add_argument("--IclusterTop88G",
 	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/Top88/clustermap.png"),
 	help = "Location where the clustermap image of the top 88 expressed gene counts is stored")
 
+parser.add_argument("--IclusterCVG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/variants_chaperones/clustermap.png"),
+	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
+
 parser.add_argument("--IclstrNonRcvG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/nonReplicative/clustermap.png"),
@@ -486,20 +526,15 @@ parser.add_argument("--IclstrTissueG",
 	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/ByTissue/"),
 	help = "Location where the clustermap of the gene counts by tissue are stored")
 
-parser.add_argument("--IclstrNormG",
+parser.add_argument("--IclusterRandG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/Normalized/clustermap.png"),
-	help = "Location where the clustermap of the normalized gene counts is stored")
-
-parser.add_argument("--IclusterCVG",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/variants_chaperones/clustermap.png"),
-	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
-
-parser.add_argument("--IclusterRandSG",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/Random/"),
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Genes/" + distance_metric + "/Random/"),
 	help = "Location where the clustermap image of the randomly selected gene counts is stored")
+
+parser.add_argument("--IclstrNormSG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/Normalized/clustermap.png"),
+	help = "Location where the clustermap of the normalized gene counts is stored")
 
 parser.add_argument("--IclusterTopSG",
 	type = Path,
@@ -516,11 +551,6 @@ parser.add_argument("--IclusterCVsg",
 	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/variants_chaperones/clustermap.png"),
 	help = "Location where the clustermap image of the variant and chaperone gene counts is stored")
 
-parser.add_argument("--IclstrNormSG",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/Normalized/clustermap.png"),
-	help = "Location where the clustermap of the normalized gene counts is stored")
-
 parser.add_argument("--IclstrNonRcvSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/nonReplicative/clustermap.png"),
@@ -530,6 +560,11 @@ parser.add_argument("--IclusterTissueSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/ByTissue/"),
 	help = "Location where the clustermap image of the gene counts by tissue are stored")
+
+parser.add_argument("--IclusterRandSG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/Clustermap/Samples_Genes/" + distance_metric + "/Random/"),
+	help = "Location where the clustermap image of the randomly selected gene counts is stored")
 
 # Plotly
 ## General
@@ -548,10 +583,15 @@ parser.add_argument("--PgeneralNorm",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/Normalized/"),
 	help = "Location where QC html files for the normalized dataset are stored")
 
-parser.add_argument("--PgeneralRand",
+parser.add_argument("--PgeneralNormal",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/Random/"),
-	help = "Location where QC html files for the Random dataset are stored")
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/Normal/"),
+	help = "Location where QC images for the dataset without transformed cells are stored")
+
+parser.add_argument("--PgeneralWoTissues",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/WithoutTissues/"),
+	help = "Location where QC html files for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--PgeneralTop",
 	type = Path,
@@ -573,10 +613,10 @@ parser.add_argument("--PgeneralNrCV",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/NonReplicativeHistones/"),
 	help = "Location where QC html files for the chaperone and non replicative variants dataset are stored")
 
-parser.add_argument("--PgeneralNormal",
+parser.add_argument("--PgeneralRand",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/Normal/"),
-	help = "Location where QC images for the dataset without transformed cells are stored")
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/General/Random/"),
+	help = "Location where QC html files for the Random dataset are stored")
 
 ## Mean Variance
 parser.add_argument("--PmvRaw",
@@ -594,10 +634,15 @@ parser.add_argument("--PmvNorm",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Normalized/mv.html"),
 	help = "Location where the mean-variance html file of the normalized dataset is stored")
 
-parser.add_argument("--PmvRand",
+parser.add_argument("--PmvNormal",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Random/"),
-	help = "Location where the mean-variance html files of the random datasets is stored")
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Normal/mv.html"),
+	help = "Location where the mean-variance html file of the dataset without transformed cells is stored")
+
+parser.add_argument("--PmvWoTissues",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/WithoutTissues/mv.html"),
+	help = "Location where mean-variance html file for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--PmvTop",
 	type = Path,
@@ -619,10 +664,10 @@ parser.add_argument("--PmvTissue",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/ByTissue/"),
 	help = "Location where the mean-variance html file of the gene counts by tissue are stored")
 
-parser.add_argument("--PmvNormal",
+parser.add_argument("--PmvRand",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Normal/mv.html"),
-	help = "Location where the mean-variance html file of the dataset without transformed cells is stored")
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Random/"),
+	help = "Location where the mean-variance html files of the random datasets is stored")
 
 ## PCA
 parser.add_argument("--PpcaRaw",
@@ -635,15 +680,20 @@ parser.add_argument("--PpcaFiltered",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/AfterFiltering/pca.html"),
 	help = "Location where the pca html file of the filtered non normalized counts is stored")
 
-parser.add_argument("--PpcaRand",
-	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Random/"),
-	help = "Location where the pca html file of the random generated files is stored")
-
 parser.add_argument("--PpcaNorm",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Normalized/pca.html"),
 	help = "Location where the pca html file of the filtered normalized counts is stored")
+
+parser.add_argument("--PpcaNormal",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Normal/pca.html"),
+	help = "Location where the pca html file of the dataset without transformed cells is stored")
+
+parser.add_argument("--PpcaWoTissues",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/WithoutTissues/pca.html"),
+	help = "Location where the pca html file for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--PpcaTop",
 	type = Path,
@@ -665,10 +715,10 @@ parser.add_argument("--PpcaTissue",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/PCAbyTissue/"),
 	help = "Location where the pca html files of the gene counts by tissue are stored")
 
-parser.add_argument("--PpcaNormal",
+parser.add_argument("--PpcaRand",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Normal/pca.html"),
-	help = "Location where the pca html file of the dataset without transformed cells is stored")
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Random/"),
+	help = "Location where the pca html file of the random generated files is stored")
 
 ## T-SNE
 parser.add_argument("--PtsneRaw",
@@ -681,15 +731,20 @@ parser.add_argument("--PtsneFiltered",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/AfterFiltering/T-Sne.html"),
 	help = "Location where the t-sne html file of the filtered non normalized counts is stored")
 
-parser.add_argument("--PtsneRand",
-	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Random/"),
-	help = "Location where the t-sne html file of the randomly selected gene counts is stored")
-
 parser.add_argument("--PtsneNorm",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Normalized/T-Sne.html"),
 	help = "Location where the t-sne html file of the filtered normalized counts is stored")
+
+parser.add_argument("--PtsneNormal",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Normal/tsne.html"),
+	help = "Location where the t-sne html file of the dataset without transformed cells is stored")
+
+parser.add_argument("--PtsneWoTissues",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/WithoutTissues/tsne.html"),
+	help = "Location where the t-sne html file for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
 
 parser.add_argument("--PtsneTop",
 	type = Path,
@@ -711,9 +766,9 @@ parser.add_argument("--PtsneTissue",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/TSNEbyTissue"),
 	help = "Location where the t-sne html file of the gene counts by tissue are stored")
 
-parser.add_argument("--PtsneNormal",
+parser.add_argument("--PtsneRand",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Normal/tsne.html"),
-	help = "Location where the t-sne html file of the dataset without transformed cells is stored")
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Random/"),
+	help = "Location where the t-sne html file of the randomly selected gene counts is stored")
 
 args = parser.parse_args()

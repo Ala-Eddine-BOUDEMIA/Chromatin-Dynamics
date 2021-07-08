@@ -8,28 +8,31 @@ import Config
 
 def explore_data(
 	meta, rand, top88, cv_counts, raw_counts, 
-	top1000, counts_norm, normal, filtered_counts, nrcv_counts,
-	generalCvImages, generalCvPlotly, generalRawImages, generalRawPlotly, 
-	generalNrCvImages, generalNrCvPlotly, generalNormImages, generalNormPlotly, 
-	generalRandImages, generalRandPlotly, generalTop88Images, generalTop88Plotly, 
-	generalTop1000Images, generalTop1000Plotly, generalNormalImages, generalNormalPlotly,
-	generalFilteredImages, generalFilteredPlotly):
+	top1000, counts_norm, normal, filtered_counts, 
+	nrcv_counts, generalCvImages, generalCvPlotly, 
+	wo_bbbpst_tissues, generalRawImages, generalRawPlotly, 
+	generalNrCvImages, generalNrCvPlotly, generalNormImages, 
+	generalNormPlotly, generalRandImages, generalRandPlotly, 
+	generalTop88Images, generalTop88Plotly, generalTop1000Images, 
+	generalTop1000Plotly, generalNormalImages, generalNormalPlotly, 
+	generalFilteredImages, generalFilteredPlotly, generalWithoutTissuesImages, 
+	generalWithoutTissuesPlotly):
 	
-	counts = [raw_counts, filtered_counts, counts_norm, normal,
-		top1000, top88, cv_counts, nrcv_counts]
+	counts = [raw_counts, filtered_counts, counts_norm, normal, 
+		wo_bbbpst_tissues, top1000, top88, cv_counts, nrcv_counts]
 	
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
 		counts.append(path)
 
 	images = [generalRawImages, generalFilteredImages, generalNormImages, 
-		generalNormalImages, generalTop1000Images, generalTop88Images,
-		generalCvImages, generalNrCvImages]
+		generalNormalImages, generalWithoutTissuesImages, generalTop1000Images, 
+		generalTop88Images, generalCvImages, generalNrCvImages]
 	
 	htmls = [generalRawPlotly, generalFilteredPlotly, generalNormPlotly, 
-		generalNormalPlotly, generalTop1000Plotly, generalTop88Plotly,
-		generalCvPlotly, generalNrCvPlotly]
-
+		generalNormalPlotly, generalWithoutTissuesPlotly, generalTop1000Plotly, 
+		generalTop88Plotly, generalCvPlotly, generalNrCvPlotly]
+	
 	for i in range(len(rand_files)):
 		link_img = generalRandImages.joinpath("random" + str(i))
 		link_p = generalRandPlotly.joinpath("random" + str(i))
@@ -131,6 +134,7 @@ if __name__ == '__main__':
 		nrcv_counts = Config.args.nonRcv, 
 		generalCvImages = Config.args.IgeneralCV, 
 		generalCvPlotly = Config.args.PgeneralCV,
+		wo_bbbpst_tissues = Config.args.WoTissues,
 		generalRawImages = Config.args.IgeneralRaw,
 		generalRawPlotly = Config.args.PgeneralRaw,
 		generalNrCvImages = Config.args.IgeneralNrCV,
@@ -146,4 +150,6 @@ if __name__ == '__main__':
 		generalNormalImages = Config.args.IgeneralNormal,
 		generalNormalPlotly = Config.args.PgeneralNormal,
 		generalFilteredImages = Config.args.IgeneralFiltered,
-		generalFilteredPlotly = Config.args.PgeneralFiltered)
+		generalFilteredPlotly = Config.args.PgeneralFiltered,
+		generalWithoutTissuesImages = Config.args.IgeneralWoTissues,
+		generalWithoutTissuesPlotly = Config.args.PgeneralWoTissues)

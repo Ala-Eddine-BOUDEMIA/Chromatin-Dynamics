@@ -8,7 +8,7 @@ import Config
 def generate_data(
 	cv, meta, rand, top88, cv_list, 
 	nonRcv, top1000, normal, tissue_counts, 
-	normalized_counts, nonRcv_list):
+	normalized_counts, nonRcv_list, wo_bbbpst_tissues):
 	
 	counts = pd.read_csv(normalized_counts,
 		header = 0, index_col = 0, sep = "\t")
@@ -24,7 +24,6 @@ def generate_data(
 	
 	# Generate the top 88 expressed genes
 	# Generate the top1000 expressed genes
-	"""
 	counts["total"] = counts.sum(axis = 0)
 	counts = counts.sort_values("total")
 	counts.pop("total")
@@ -65,7 +64,7 @@ def generate_data(
 		for i in r:
 			df_random = df_random.append(counts.iloc[i])
 
-		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")"""
+		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")
 
 	# Generate counts by tissue
 	counts_by_tissue = counts.T
@@ -102,6 +101,25 @@ def generate_data(
 	print(df.head())
 	df.to_csv(str(normal), sep = '\t')
 
+	# Generate counts without Brain, Blood, Bone Marrow, Pituitary, Spleen, Testis
+	counts_wo_bbbpst = counts.T
+	counts_wo_bbbpst = counts_wo_bbbpst.join(metadata["smts"])
+	tissue_types = list(pd.unique(metadata["smts"]))
+
+	toDiscard = ["Brain", "Blood", "Bone Marrow", 
+		"Pituitary", "Spleen", "Testis"]
+
+	for discard in toDiscard:
+		tissue_types.remove(discard)
+
+	df = pd.DataFrame(columns = counts_wo_bbbpst.columns)
+	for t in tissue_types:
+		df = df.append(counts_wo_bbbpst[counts_wo_bbbpst["smts"] == t])
+		
+	df.pop("smts")
+	df = df.T
+	df.to_csv(str(wo_bbbpst_tissues), sep = '\t')
+
 if __name__ == '__main__':
 
 	generate_data(
@@ -115,4 +133,5 @@ if __name__ == '__main__':
 		normal = Config.args.onlyNormal,
 		tissue_counts = Config.args.tissue,
 		normalized_counts = Config.args.norm,
-		nonRcv_list = Config.args.nonReplicative)
+		nonRcv_list = Config.args.nonReplicative,
+		wo_bbbpst_tissues = Config.args.WoTissues)
