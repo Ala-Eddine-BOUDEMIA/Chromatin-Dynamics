@@ -181,6 +181,11 @@ parser.add_argument("--pcaTissue",
 	default = Path("Data/").joinpath(choice.dataset + "/PCA/PCAbyTissue/"),
 	help = "Location where the pca matrix of the gene counts by tissue are stored")
 
+parser.add_argument("--pcaNormal",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/PCA/Normal/pca.tsv"),
+	help = "Location where the pca matrix of the dataset without transformed cells is stored")
+
 ## T-SNE
 parser.add_argument("--tsneRaw",
 	type = Path,
@@ -219,8 +224,13 @@ parser.add_argument("--tsneCV",
 
 parser.add_argument("--tsneTissue",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/T_Sne/TSNEbyTissue/"),
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/TSNEbyTissue/"),
 	help = "Location where the t-sne matrix of the gene counts by tissue are stored")
+
+parser.add_argument("--tsneNormal",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/T-Sne/Normal/tsne.tsv"),
+	help = "Location where the t-sne matrix of the dataset without transformed cells is stored")
 
 # Images
 ## General
@@ -310,6 +320,11 @@ parser.add_argument("--ImvTissue",
 	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/ByTissue/"),
 	help = "Location where the mean-variance image of gene counts by tissue are stored")
 
+parser.add_argument("--ImvNormal",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/MV_Plots/Normal/mv.png"),
+	help = "Location where the mean-variance image of the dataset without transformed cells is stored")
+
 ## PCA
 parser.add_argument("--IpcaRaw",
 	type = Path,
@@ -351,6 +366,11 @@ parser.add_argument("--IpcaTissue",
 	default = Path("Images/").joinpath(choice.dataset + "/PCA/PCAbyTissue/"),
 	help = "Location where the pca image of the gene counts by tissue are stored")
 
+parser.add_argument("--IpcaNormal",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/PCA/Normal/pca.png"),
+	help = "Location where the pca image of the dataset without transformed cells is stored")
+
 ## T-SNE
 parser.add_argument("--ItsneRaw",
 	type = Path,
@@ -391,6 +411,11 @@ parser.add_argument("--ItsneTissue",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/TSNEbyTissue/"),
 	help = "Location where the t-sne image of the gene counts by tissue are stored")
+
+parser.add_argument("--ItsneNormal",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/T-Sne/Normal/tsne.png"),
+	help = "Location where the t-sne image of the dataset without transformed cells is stored")
 
 ## Metric
 parser.add_argument("--distance",
@@ -594,6 +619,11 @@ parser.add_argument("--PmvTissue",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/ByTissue/"),
 	help = "Location where the mean-variance html file of the gene counts by tissue are stored")
 
+parser.add_argument("--PmvNormal",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/MV_Plots/Normal/mv.html"),
+	help = "Location where the mean-variance html file of the dataset without transformed cells is stored")
+
 ## PCA
 parser.add_argument("--PpcaRaw",
 	type = Path,
@@ -635,6 +665,11 @@ parser.add_argument("--PpcaTissue",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/PCAbyTissue/"),
 	help = "Location where the pca html files of the gene counts by tissue are stored")
 
+parser.add_argument("--PpcaNormal",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/PCA/Normal/pca.html"),
+	help = "Location where the pca html file of the dataset without transformed cells is stored")
+
 ## T-SNE
 parser.add_argument("--PtsneRaw",
 	type = Path,
@@ -675,5 +710,10 @@ parser.add_argument("--PtsneTissue",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/TSNEbyTissue"),
 	help = "Location where the t-sne html file of the gene counts by tissue are stored")
+
+parser.add_argument("--PtsneNormal",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/T-Sne/Normal/tsne.html"),
+	help = "Location where the t-sne html file of the dataset without transformed cells is stored")
 
 args = parser.parse_args()

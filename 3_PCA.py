@@ -14,11 +14,12 @@ def pca(
     file_pcaCV, img_pca_cv, p_pca_raw, file_pcaRaw, img_pca_raw, 
     p_pca_top, file_pcaTop, img_pca_top, p_pca_norm, file_pcaNorm, 
     img_pca_norm, p_pca_rand, file_pca_rand, img_pca_rand, p_pca_top88, 
-    file_pcaTop88, img_pca_top88, file_pca_tissue, p_pca_tissue, 
-    img_pca_tissues, p_pca_filtered, file_pcaFiltered, img_pca_filtered):
+    file_pcaTop88, img_pca_top88, file_pca_tissue, p_pca_tissue, normal,
+    p_pca_normal, file_pca_normal, img_pca_normal, img_pca_tissues, 
+    p_pca_filtered, file_pcaFiltered, img_pca_filtered):
     
-    counts = [raw_counts, filtered_counts, counts_norm, 
-        top1000, top88, cv_counts]
+    counts = [raw_counts, filtered_counts, counts_norm,
+        normal, top1000, top88, cv_counts]
     
     tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
     for path in tissue_files:
@@ -29,14 +30,14 @@ def pca(
         counts.append(path)
 
     tsvs = [file_pcaRaw, file_pcaFiltered, file_pcaNorm, 
-        file_pcaTop, file_pcaTop88, file_pcaCV]
+        file_pca_normal, file_pcaTop, file_pcaTop88, file_pcaCV]
     
-    images = [img_pca_raw, img_pca_filtered, img_pca_norm,
-    img_pca_top, img_pca_top88, img_pca_cv]
+    images = [img_pca_raw, img_pca_filtered, img_pca_norm, 
+        img_pca_normal, img_pca_top, img_pca_top88, img_pca_cv]
     
     htmls = [p_pca_raw, p_pca_filtered, p_pca_norm, 
-        p_pca_top, p_pca_top88, p_pca_cv]
-    
+        p_pca_normal, p_pca_top, p_pca_top88, p_pca_cv]
+
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link_tsv = file_pca_tissue.joinpath(tissue_name)
@@ -124,7 +125,9 @@ if __name__ == '__main__':
         img_pca_norm = Config.args.IpcaNorm, p_pca_rand = Config.args.PpcaRand,
         file_pca_rand = Config.args.pcaRand, img_pca_rand = Config.args.IpcaRand, 
         p_pca_top88 = Config.args.PpcaTop88, file_pcaTop88 = Config.args.pcaTop88, 
-        img_pca_top88 = Config.args.IpcaTop88, p_pca_tissue = Config.args.PpcaTissue,
-        file_pca_tissue = Config.args.pcaTissue, img_pca_tissues = Config.args.IpcaTissue,
-        p_pca_filtered = Config.args.PpcaFiltered, file_pcaFiltered = Config.args.pcaFiltered,
+        img_pca_top88 = Config.args.IpcaTop88, p_pca_tissue = Config.args.PpcaTissue, 
+        normal = Config.args.onlyNormal, p_pca_normal = Config.args.PpcaNormal, 
+        file_pca_normal = Config.args.pcaNormal, img_pca_normal = Config.args.IpcaNormal, 
+        file_pca_tissue = Config.args.pcaTissue, img_pca_tissues = Config.args.IpcaTissue, 
+        p_pca_filtered = Config.args.PpcaFiltered, file_pcaFiltered = Config.args.pcaFiltered, 
         img_pca_filtered = Config.args.IpcaFiltered)

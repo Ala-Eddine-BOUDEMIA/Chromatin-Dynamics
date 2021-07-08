@@ -15,16 +15,21 @@ def explore_data(
 	generalTop1000Images, generalTop1000Plotly, generalNormalImages, generalNormalPlotly,
 	generalFilteredImages, generalFilteredPlotly):
 	
-	counts = [normal]
-	"""
+	counts = [raw_counts, filtered_counts, counts_norm, normal,
+		top1000, top88, cv_counts, nrcv_counts]
+	
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
-		counts.append(path)"""
+		counts.append(path)
 
-	images = [generalNormalImages]
+	images = [generalRawImages, generalFilteredImages, generalNormImages, 
+		generalNormalImages, generalTop1000Images, generalTop88Images,
+		generalCvImages, generalNrCvImages]
 	
-	htmls = [generalNormalPlotly]
-	"""
+	htmls = [generalRawPlotly, generalFilteredPlotly, generalNormPlotly, 
+		generalNormalPlotly, generalTop1000Plotly, generalTop88Plotly,
+		generalCvPlotly, generalNrCvPlotly]
+
 	for i in range(len(rand_files)):
 		link_img = generalRandImages.joinpath("random" + str(i))
 		link_p = generalRandPlotly.joinpath("random" + str(i))
@@ -33,7 +38,7 @@ def explore_data(
 		Tools.create_folder(link_p)
 		
 		images.append(link_img)
-		htmls.append(link_p)"""
+		htmls.append(link_p)
 
 	# read metadata file
 	metadata = pd.read_csv(meta, header = 0, sep = "\t")

@@ -24,6 +24,7 @@ def generate_data(
 	
 	# Generate the top 88 expressed genes
 	# Generate the top1000 expressed genes
+	"""
 	counts["total"] = counts.sum(axis = 0)
 	counts = counts.sort_values("total")
 	counts.pop("total")
@@ -64,7 +65,7 @@ def generate_data(
 		for i in r:
 			df_random = df_random.append(counts.iloc[i])
 
-		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")
+		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")"""
 
 	# Generate counts by tissue
 	counts_by_tissue = counts.T
@@ -82,17 +83,18 @@ def generate_data(
 	counts_wo_tcells = counts.T
 	counts_wo_tcells = counts_wo_tcells.join(metadata["smts"])
 	counts_wo_tcells = counts_wo_tcells.join(metadata["smtsd"])
-	tissue_types = pd.unique(metadata["smtsd"])
+	tissue_types = list(pd.unique(metadata["smtsd"]))
 
 	toDiscard = ["Cells - EBV-transformed lymphocytes",
 				"Cells - Leukemia cell line (CML)",
 				"Cells - Transformed fibroblasts"]
 
+	for discard in toDiscard:
+		tissue_types.remove(discard)
+
 	df = pd.DataFrame(columns = counts_wo_tcells.columns)
 	for t in tissue_types:
-		for d in toDiscard:
-			if str(t) != d:
-				df = df.append(counts_wo_tcells[counts_wo_tcells["smtsd"] == t])
+		df = df.append(counts_wo_tcells[counts_wo_tcells["smtsd"] == t])
 		
 	df.pop("smts")
 	df.pop("smtsd")
