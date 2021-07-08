@@ -73,7 +73,6 @@ def pca(
         f = pd.read_csv(c, header = 0, index_col = 0, sep = "\t")
         lib_size = f.sum(axis = 0).to_frame(name = "lib_size")
         f = pd.DataFrame(np.log2(f + 1))
-
         scaler = StandardScaler()
         std_counts = scaler.fit_transform(f.T.dropna())
 
@@ -81,7 +80,7 @@ def pca(
         P = pca.fit_transform(std_counts)
         ratio = pca.explained_variance_ratio_ * 100
 
-        d = pd.DataFrame(index = f.T.index)
+        d = pd.DataFrame(index = f.T.dropna().index)
         d["PC1"] = P[:, 0]
         d["PC2"] = P[:, 1]
         d = d.join(lib_size)
