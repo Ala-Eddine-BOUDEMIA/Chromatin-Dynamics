@@ -22,8 +22,7 @@ def tsne(
     counts_without_tissues, file_tsne_wo_tissues, 
     img_tsne_wo_tissues, p_tsne_wo_tissues):
     
-    counts = [normal, counts_without_tissues]
-    """[raw_counts, filtered_counts, counts_norm, 
+    counts = [raw_counts, filtered_counts, counts_norm, 
         normal, counts_without_tissues
         top1000, top88, cv_counts]
     
@@ -33,20 +32,17 @@ def tsne(
     
     rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
     for path in rand_files:
-        counts.append(path)"""
+        counts.append(path)
 
-    tsvs = [file_tsne_normal, file_tsne_wo_tissues]
-    """[file_tsneRaw, file_tsneFiltered, file_tsneNorm, 
+    tsvs = [file_tsneRaw, file_tsneFiltered, file_tsneNorm, 
         file_tsne_normal, file_tsne_wo_tissues, file_tsneTop, 
-        file_tsneTop88, file_tsneCV]"""
+        file_tsneTop88, file_tsneCV]
 
-    images = [img_tsne_normal, img_tsne_wo_tissues]
-    """[img_tsne_raw, img_tsne_filtered, img_tsne_norm, 
+    images = [img_tsne_raw, img_tsne_filtered, img_tsne_norm, 
         img_tsne_normal, img_tsne_wo_tissues, img_tsne_top, 
-        img_tsne_top88, img_tsne_cv]"""
+        img_tsne_top88, img_tsne_cv]
 
-    htmls = [p_tsne_normal, p_tsne_wo_tissues]
-    """[p_tsne_raw, p_tsne_filtered, p_tsne_norm, 
+    htmls = [p_tsne_raw, p_tsne_filtered, p_tsne_norm, 
         p_tsne_normal, p_tsne_wo_tissues, p_tsne_top, 
         p_tsne_top88, p_tsne_cv]
     
@@ -67,7 +63,7 @@ def tsne(
     for i in range(len(rand_files)):
         tsvs.append(file_tsne_rand.joinpath("random" + str(i) + ".tsv"))
         images.append(img_tsne_rand.joinpath("random" + str(i) + ".png"))
-        htmls.append(p_tsne_rand.joinpath("random" + str(i) + ".html"))"""
+        htmls.append(p_tsne_rand.joinpath("random" + str(i) + ".html"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     tissues = metadata["smtsd"]

@@ -9,141 +9,141 @@ parser.add_argument("--dataset",
 	default = "GTEx",
 	help = "Dataset to use GTEx or TCGA")
 
-# Data
+# Data 
 choice = parser.parse_args()
 
 ## Counts
 parser.add_argument("--bf",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/BeforeFiltering/PairedEndRounded.tsv"),
-	help = "Location where the raw counts are stored")
+	help = "Raw counts")
 
 parser.add_argument("--af",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/AfterFiltering/FilteredCPM5S18.tsv"),
-	help = "Location where the filtered counts are stored")
+	help = "Filtered counts, you can change the file name to one of these: Filtered + CPM5S18 or CPM10S18 or CPM10S36 + .tsv")
 
 parser.add_argument("--norm",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/Normalized/Normalized.tsv"),
-	help = "Location where the normalized filtered counts are stored")
+	help = "Normalized counts after filtering, these are the counts used to generate the following count files")
 
 parser.add_argument("--onlyNormal",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/Normal/counts.tsv"),
-	help = "Location where the counts for all the tissues except the transformed cells are stored")
+	help = "Counts missing the samples coming from transformed cells")
 
 parser.add_argument("--WoTissues",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/WithoutTissues/counts.tsv"),
-	help = "Location where the counts for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
+	help = "Counts missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
 
 parser.add_argument("--top1000",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/Top1000/Top1000Genes.tsv"),
-	help = "Location where the counts of the top 1000 expressed genes are stored")
+	help = "Counts limited to the top 1000 expressed genes")
 
 parser.add_argument("--top88",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/Top88/Top88Genes.tsv"),
-	help = "Location where the counts of the top 88 expressed genes are stored")
+	help = "Counts limited to the top 88 expressed genes")
 
 parser.add_argument("--cv",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/variants_chaperones/variants_chaperones_counts.tsv"),
-	help = "Location where the counts of the histones chaperone and histone variant genes are stored")
+	help = "Counts limited to the histone chaperones and histone variants genes")
 
 parser.add_argument("--nonRcv",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/variants_chaperones/nonRvariants_chaperones_counts.tsv"),
-	help = "Location where the counts of the histones chaperone and non replicative histone variant genes are stored")
+	help = "Counts limited to the histone chaperones and histone non-replicative variants genes")
 
 parser.add_argument("--tissue",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/CountsByTissue/"),
-	help = "Location where the counts for each tissue are stored")
+	help = "Each tissue's counts are stored in a different file")
 
 parser.add_argument("--rand",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Counts/Random/"),
-	help = "Location where the random selected gene counts are stored")
+	help = "10 randomly generated count files that are limited to the top 88 expressed genes")
 
 ## Metadata
 parser.add_argument("--meta",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/Metadata/" + choice.dataset + ".tsv"),
-	help = "Location where the metadata file is stored")
+	help = "Metadata file")
 
 parser.add_argument("--list",
 	type = Path,
 	default = Path("Data/variants_chaperones/complete_list.csv"),
-	help = "Location where the list of histone and chaperone genes is stored")
+	help = "List of the names and IDs of histone chaperones and histone variants genes")
 
 parser.add_argument("--nonReplicative",
 	type = Path,
 	default = Path("Data/variants_chaperones/withoutR.txt"),
-	help = "Location where the list of non replicative histone genes and chaperone genes is stored")
+	help = "List of the names and IDs of histone chaperones and histone non-replicative variants genes")
 
 ## Correlation
 parser.add_argument("--corrTopG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Top1000/corr_matrix.tsv"),
-	help = "Location where the correlation matrix of the top 1000 expressed gene counts is stored")
+	help = "Correlation matrix between the top 1000 expressed genes")
 
 parser.add_argument("--corr88G",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Top88/corr_matrix.tsv"),
-	help = "Location where the correlation matrix of the top 88 expressed genes are stored")
+	help = "Correlation matrix between the top 88 expressed genes")
 
 parser.add_argument("--corrCVg",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/variants_chaperones/corr_matrix.tsv"),
-	help = "Location where the correlation matrix of the variant and chaperone gene counts is stored")
+	help = "Correlation matrix between the histone chaperones and histone variants genes")
 
 parser.add_argument("--corrNonRcvG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/nonReplicative/corr_matrix.tsv"),
-	help = "Location where the correlation matrix of the histones chaperone and non replicative histone variant genes are stored")
+	help = "Correlation matrix between the histone chaperones and histone non-replicative variants genes")
 
 parser.add_argument("--corrTissueG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/CorrByTissue/"),
-	help = "Location where the correlation matrix of the counts for each tissue are stored")
+	help = "Correlation matrices for each tissue between every gene")
 
 parser.add_argument("--corrRandG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Genes/Random/"),
-	help = "Location where the correlation matrix of the random selected gene counts is stored")
+	help = "Correlation matrices between the randomly selected 88 genes")
 
 parser.add_argument("--corrTopS",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Top1000/corr_matrix.tsv"),
-	help = "Location where the correlation matrix of the top 1000 expressed gene counts is stored")
+	help = "Correlation matrix between all the samples using counts limited to the top 1000 expressed genes")
 
 parser.add_argument("--corr88S",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Top88/corr_matrix.tsv"),
-	help = "Location where the correlation matrix of the top 88 expressed genes are stored")
+	help = "Correlation matrix between all the samples using counts limited to the top 88 expressed genes")
 
 parser.add_argument("--corrCVs",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/variants_chaperones/corr_matrix.tsv"),
-	help = "Location where the correlation matrix of the variant and chaperone gene counts is stored")
+	help = "Correlation matrix between all the samples using counts limited to the histone chaperones and histone variants genes")
 
 parser.add_argument("--corrNonRcvS",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/nonReplicative/corr_matrix.tsv"),
-	help = "Location where the correlation matrix of the histones chaperone and non replicative histone variant genes are stored")
+	help = "Correlation matrix between all the samples using counts limited to the histone chaperones and histone non-replicative variants genes")
 
 parser.add_argument("--corrTissueS",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/CorrByTissue/"),
-	help = "Location where the correlation matrix of the counts for each tissue are stored")
+	help = "Correlation matrices between all the samples using counts limited to each tissue")
 
 parser.add_argument("--corrRandS",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/CorrelationMatrix/Samples/Random/"),
-	help = "Location where the correlation matrix of the random selected gene counts is stored")
+	help = "Correlation matrices between all the samples using the randomly generated files")
 
 ## PCA
 parser.add_argument("--pcaRaw",

@@ -1,11 +1,16 @@
 library(vsn)
 library(edgeR)
 library(recount)
-library(BatchQC)
+library(sva)
 library(org.Hs.eg.db)
 
 gtex_raw_counts = load(
-	"/Users/labo/Documents/Data/gtex/rdata/PairedEndRounded.Rdata") 
+	"/Users/labo/Documents/Data/gtex/rdata/PairedEndRounded.Rdata")
+
+metadata = read.delim('/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/Metadata/GTEx.tsv',
+                      header = TRUE, sep = "\t")
+
+rownames(metadata) = metadata$run
 
 y = DGEList(c1)
 
@@ -16,15 +21,15 @@ meanSdPlot(y$counts)
 keep = rowSums(cpm(y) > 5) >= 18  
 table(keep)
 x = y[keep, ,keep.lib.sizes=FALSE]
-write.table(x, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExFilteredCPM5S18.tsv", sep="\t")
+write.table(x$counts, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExFilteredCPM5S18.tsv", sep="\t")
 
 # Mean-variance plot
 meanSdPlot(x$counts)
 
 # Normalization
-x = calcNormFactors(x, method="TMM")
-tmm = cpm(x)
-write.table(tmm, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExNormalized.tsv", sep="\t")
+z = calcNormFactors(combat_data2, method="TMM")
+tmm = cpm(z)
+write.table(tmm, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExNormalizedCorrected.tsv", sep="\t")
 
 # Mean-variance plot
-meanSdPlot(x$counts)
+meanSdPlot(tmm)
