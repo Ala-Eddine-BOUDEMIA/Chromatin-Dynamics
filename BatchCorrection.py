@@ -1,4 +1,5 @@
 import pandas as pd 
+import numpy as np
 
 from combat.pycombat import pycombat
 
@@ -9,16 +10,16 @@ def batch_correction(meta, filtered_counts):
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
 
     counts = pd.read_csv(filtered_counts, header = 0, index_col = 0, sep = "\t")
-    counts = counts + 1
-    print(counts.head())
+    counts = pd.DataFrame(np.log2(counts + 1))
 
-    batch1 = metadata["smnabtch"]
-    batch2 = metadata["smgebtch"]
+    batch1 = metadata["smnabtch"].astype(str)
+    batch2 = metadata["smgebtch"].astype(str)
 
-    counts_corrected_batch1 = pycombat(counts, batch1)
-    print(counts_corrected_batch1.head())
-    counts_corrected = pycombat(counts_corrected_batch1, batch2)
-    print(counts_corrected.head())
+    counts_corrected1 = pycombat(counts, batch1)
+    counts_corrected1 = counts_corrected1.fillna(0)
+
+    counts_corrected = pycombat(counts_corrected1, batch2)
+    counts_corrected = counts_corrected.fillna(0)
 
     counts_corrected.to_csv("counts_filtered_corrected.tsv", sep = "\t")
 

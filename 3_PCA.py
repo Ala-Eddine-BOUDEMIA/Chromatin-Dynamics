@@ -36,7 +36,7 @@ def pca(
     images = [img_pca_raw, img_pca_filtered, img_pca_norm, img_pca_normal, 
         img_pca_wo_tissues, img_pca_top, img_pca_top88, img_pca_cv]
     
-    htmls = [p_pca_raw, p_pca_filtered, p_pca_norm, p_pca_normal, 
+    htmls =[p_pca_raw, p_pca_filtered, p_pca_norm, p_pca_normal, 
         p_pca_wo_tissues, p_pca_top, p_pca_top88, p_pca_cv]
 
     for i in range(len(tissue_files)):
@@ -72,7 +72,7 @@ def pca(
     for c, t, i, h in zip(counts, tsvs, images, htmls):
         f = pd.read_csv(c, header = 0, index_col = 0, sep = "\t")
         lib_size = f.sum(axis = 0).to_frame(name = "lib_size")
-        f = pd.DataFrame(np.log2(f + 1))
+        #f = pd.DataFrame(np.log2(f + 1))
         scaler = StandardScaler()
         std_counts = scaler.fit_transform(f.T.dropna())
 
