@@ -12,7 +12,7 @@ parser.add_argument("--dataset",
 # Before or After Batch Effect Removal (A/BBER)
 parser.add_argument("--batch",
 	type = str,
-	default = "ABER",
+	default = "BBER",
 	help = "Dataset to use before or after batch effect removal")
 
 # Data 
@@ -26,7 +26,7 @@ parser.add_argument("--bf",
 
 parser.add_argument("--af",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/Counts/AfterFiltering/FilteredCPM5S18.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/Counts/AfterFiltering/FilteredCPM5S18.tsv"),
 	help = "Filtered counts, you can change the file name to one of these: Filtered + CPM5S18 or CPM10S18 or CPM10S36 + .tsv")
 
 parser.add_argument("--norm",
@@ -91,6 +91,21 @@ parser.add_argument("--nonReplicative",
 	help = "List of the names and IDs of histone chaperones and histone non-replicative variants genes")
 
 ## Correlation
+parser.add_argument("--corrNormG",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Genes/Normalized/corr_matrix.tsv"),
+	help = "Correlation matrix between genes of the normalized counts")
+
+parser.add_argument("--corrOnlyNormalG",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Genes/Normal/corr_matrix.tsv"),
+	help = "Correlation matrix between genes of the counts that are missing the samples coming from transformed cells")
+
+parser.add_argument("--corrWoTissuesG",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Genes/WithoutTissues/corr_matrix.tsv"),
+	help = "Correlation matrix between genes of the counts that are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
+
 parser.add_argument("--corrTopG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Genes/Top1000/corr_matrix.tsv"),
@@ -120,6 +135,21 @@ parser.add_argument("--corrRandG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Genes/Random/"),
 	help = "Correlation matrices between the randomly selected 88 genes")
+
+parser.add_argument("--corrNormS",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Samples/Normalized/corr_matrix.tsv"),
+	help = "Correlation matrix between samples of the normalized counts")
+
+parser.add_argument("--corrOnlyNormalS",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Samples/Normal/corr_matrix.tsv"),
+	help = "Correlation matrix between samples of the counts that are missing the samples coming from transformed cells")
+
+parser.add_argument("--corrWoTissuesS",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Samples/WithoutTissues/corr_matrix.tsv"),
+	help = "Correlation matrix between samples of the counts that are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
 
 parser.add_argument("--corrTopS",
 	type = Path,
@@ -472,6 +502,16 @@ parser.add_argument("--IclstrNormS",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples/" + distance_metric + "/Normalized/clustermap.png"),
 	help = "Location where the clustermap of the normalized gene counts is stored")
 
+parser.add_argument("--IclstrOnlyNormalS",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples/" + distance_metric + "/Normal/clustermap.png"),
+	help = "Clustermap of samples where the counts are missing the samples coming from transformed cells")
+
+parser.add_argument("--IclstrTissuesS",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples/" + distance_metric + "/WithoutTissues/clustermap.png"),
+	help = "Clustermap of samples where the counts are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
+
 parser.add_argument("--IclusterTopS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples/" + distance_metric + "/Top1000/clustermap.png"),
@@ -507,6 +547,16 @@ parser.add_argument("--IclstrNormG",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Genes/" + distance_metric + "/Normalized/clustermap.png"),
 	help = "Location where the clustermap of the normalized gene counts is stored")
 
+parser.add_argument("--IclstrOnlyNormalG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Genes/" + distance_metric + "/Normal/clustermap.png"),
+	help = "Clustermap of genes where the counts are missing the samples coming from transformed cells")
+
+parser.add_argument("--IclstrTissuesG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Genes/" + distance_metric + "/WithoutTissues/clustermap.png"),
+	help = "Clustermap of genes where the counts are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
+
 parser.add_argument("--IclusterTopG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Genes/" + distance_metric + "/Top1000/clustermap.png"),
@@ -541,6 +591,16 @@ parser.add_argument("--IclstrNormSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples_Genes/" + distance_metric + "/Normalized/clustermap.png"),
 	help = "Location where the clustermap of the normalized gene counts is stored")
+
+parser.add_argument("--IclstrOnlyNormalSG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples_Genes/" + distance_metric + "/Normal/clustermap.png"),
+	help = "Clustermap of the counts are missing the samples coming from transformed cells")
+
+parser.add_argument("--IclstrTissuesSG",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples_Genes/" + distance_metric + "/WithoutTissues/clustermap.png"),
+	help = "Clustermap of the counts are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
 
 parser.add_argument("--IclusterTopSG",
 	type = Path,
