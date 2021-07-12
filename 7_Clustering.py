@@ -1,3 +1,4 @@
+import gc
 import sys
 import numpy as np
 import pandas as pd
@@ -59,6 +60,11 @@ def clustering_samples(
 
         g.savefig(str(i), dpi = 300)
 
+        # Free memory
+        del(correlation_matrix)
+        del(g)
+        gc.collect()
+
 def clustering_genes(
     cv_list, g_corr_top1000, g_corr_top81, 
     g_corr_cv, g_corr_rand, g_corr_nrcv, g_img_clstrRand, 
@@ -117,6 +123,11 @@ def clustering_genes(
 
         g.savefig(str(i), dpi = 300)
         c += 1
+
+        # Free memory
+        del(correlation_matrix)
+        del(g)
+        gc.collect()
 
 def clustering_samples_genes(
     meta, cv_list, by_tissue, top1000, 
@@ -212,6 +223,11 @@ def clustering_samples_genes(
 
         g.savefig(str(i), dpi = 300)
         c += 1 
+
+        # Free memory
+        del(count)
+        del(g)
+        gc.collect()
 
 if __name__ == '__main__':
     

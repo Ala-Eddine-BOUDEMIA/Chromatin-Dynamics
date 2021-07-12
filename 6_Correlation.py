@@ -1,3 +1,4 @@
+impoer gc
 import numpy as np
 import pandas as pd
 
@@ -44,8 +45,8 @@ def correlation(
 		s_corr.append(s_corr_rand.joinpath("random" + str(i) + ".tsv"))
 
 	# Process each file
-	for file, g, s in zip(counts, g_corr, s_corr):
-		f = pd.read_csv(file, header = 0, index_col = 0, sep = "\t")
+	for filee, g, s in zip(counts, g_corr, s_corr):
+		f = pd.read_csv(filee, header = 0, index_col = 0, sep = "\t")
 		f_log2 = pd.DataFrame(np.log2(f + 1))
 
 		# Samples
@@ -55,6 +56,12 @@ def correlation(
 		# Genes
 		g_f_log2 = f_log2.T.corr('pearson')
 		g_f_log2.to_csv(g, sep = "\t")
+
+		# Free memory
+		del(f)
+		del(g_f_log2)
+		del(s_f_log2)
+		gc.collect()
 
 if __name__ == '__main__':
 
