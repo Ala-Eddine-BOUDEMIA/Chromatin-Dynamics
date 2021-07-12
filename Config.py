@@ -21,12 +21,12 @@ choice = parser.parse_args()
 ## Counts
 parser.add_argument("--bf",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Counts/BeforeFiltering/PairedEndRounded.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/BeforeFiltering/PairedEndRounded.tsv"),
 	help = "Raw counts")
 
 parser.add_argument("--af",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Counts/AfterFiltering/FilteredCPM5S18.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/Counts/AfterFiltering/FilteredCPM5S18.tsv"),
 	help = "Filtered counts, you can change the file name to one of these: Filtered + CPM5S18 or CPM10S18 or CPM10S36 + .tsv")
 
 parser.add_argument("--norm",
@@ -77,7 +77,7 @@ parser.add_argument("--rand",
 ## Metadata
 parser.add_argument("--meta",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/Metadata/" + choice.dataset + ".tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/Metadata/" + choice.dataset + ".tsv"),
 	help = "Metadata file")
 
 parser.add_argument("--list",
@@ -91,20 +91,15 @@ parser.add_argument("--nonReplicative",
 	help = "List of the names and IDs of histone chaperones and histone non-replicative variants genes")
 
 ## Correlation
-parser.add_argument("--corrNormG",
-	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Genes/Normalized/corr_matrix.tsv"),
-	help = "Correlation matrix between genes of the normalized counts")
-
-parser.add_argument("--corrOnlyNormalG",
+parser.add_argument("--corrNormalG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Genes/Normal/corr_matrix.tsv"),
-	help = "Correlation matrix between genes of the counts that are missing the samples coming from transformed cells")
+	help = "Correlation matrix between the genes in the normal tissues only")
 
 parser.add_argument("--corrWoTissuesG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Genes/WithoutTissues/corr_matrix.tsv"),
-	help = "Correlation matrix between genes of the counts that are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
+	help = "Correlation matrix between the genes and with excluding samples that are highly expressed")
 
 parser.add_argument("--corrTopG",
 	type = Path,
@@ -136,20 +131,15 @@ parser.add_argument("--corrRandG",
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Genes/Random/"),
 	help = "Correlation matrices between the randomly selected 88 genes")
 
-parser.add_argument("--corrNormS",
-	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Samples/Normalized/corr_matrix.tsv"),
-	help = "Correlation matrix between samples of the normalized counts")
-
-parser.add_argument("--corrOnlyNormalS",
+parser.add_argument("--corrNormalS",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Samples/Normal/corr_matrix.tsv"),
-	help = "Correlation matrix between samples of the counts that are missing the samples coming from transformed cells")
+	help = "Correlation matrix between the normal samples")
 
 parser.add_argument("--corrWoTissuesS",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.batch + "/CorrelationMatrix/Samples/WithoutTissues/corr_matrix.tsv"),
-	help = "Correlation matrix between samples of the counts that are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
+	help = "Correlation matrix between the samples, except the one from blood, brain, spleen, testis")
 
 parser.add_argument("--corrTopS",
 	type = Path,
@@ -386,6 +376,62 @@ parser.add_argument("--ImvRand",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/MV_Plots/Random/"),
 	help = "Location where the mean-variance image of the random datasets is stored")
 
+## Z scores
+parser.add_argument("--IzscoreRaw",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/BeforeFiltering/Z_scores.png"),
+	help = "Location where the Z_scores image of the raw dataset is stored")
+
+parser.add_argument("--IzscoreFiltered",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/AfterFiltering/Z_scores.png"),
+	help = "Location where the Z_scores image of the filtered dataset is stored")
+
+parser.add_argument("--IzscoreNorm",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Normalized/Z_scores.png"),
+	help = "Location where the Z_scores image of the normalized dataset is stored")
+
+parser.add_argument("--IzscoreNormal",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Normal/Z_scores.png"),
+	help = "Location where the Z_scores image of the dataset without transformed cells is stored")
+
+parser.add_argument("--IzscoreWoTissues",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/WithoutTissues/Z_scores.png"),
+	help = "Location where Z_scores images for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
+
+parser.add_argument("--IzscoreTop",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Top1000/Z_scores.png"),
+	help = "Location where the Z_scores image of the top 1000 dataset is stored")
+
+parser.add_argument("--IzscoreTop88",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Top88/Z_scores.png"),
+	help = "Location where the Z_scores image of the top 88 dataset is stored")
+
+parser.add_argument("--IzscoreCV",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/variants_chaperones/Z_scores.png"),
+	help = "Location where the Z_scores image of the variants and chaperones is stored")
+
+parser.add_argument("--IzscoreNrCV",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/NonReplicative/Z_scores.png"),
+	help = "Location where the Z_scores image of the non-replicative variants and chaperones is stored")
+
+parser.add_argument("--IzscoreTissue",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/ByTissue/"),
+	help = "Location where the Z_scores image of gene counts by tissue are stored")
+
+parser.add_argument("--IzscoreRand",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Random/"),
+	help = "Location where the Z_scores image of the random datasets is stored")
+
 ## PCA
 parser.add_argument("--IpcaRaw",
 	type = Path,
@@ -502,16 +548,6 @@ parser.add_argument("--IclstrNormS",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples/" + distance_metric + "/Normalized/clustermap.png"),
 	help = "Location where the clustermap of the normalized gene counts is stored")
 
-parser.add_argument("--IclstrOnlyNormalS",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples/" + distance_metric + "/Normal/clustermap.png"),
-	help = "Clustermap of samples where the counts are missing the samples coming from transformed cells")
-
-parser.add_argument("--IclstrTissuesS",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples/" + distance_metric + "/WithoutTissues/clustermap.png"),
-	help = "Clustermap of samples where the counts are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
-
 parser.add_argument("--IclusterTopS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples/" + distance_metric + "/Top1000/clustermap.png"),
@@ -547,16 +583,6 @@ parser.add_argument("--IclstrNormG",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Genes/" + distance_metric + "/Normalized/clustermap.png"),
 	help = "Location where the clustermap of the normalized gene counts is stored")
 
-parser.add_argument("--IclstrOnlyNormalG",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Genes/" + distance_metric + "/Normal/clustermap.png"),
-	help = "Clustermap of genes where the counts are missing the samples coming from transformed cells")
-
-parser.add_argument("--IclstrTissuesG",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Genes/" + distance_metric + "/WithoutTissues/clustermap.png"),
-	help = "Clustermap of genes where the counts are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
-
 parser.add_argument("--IclusterTopG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Genes/" + distance_metric + "/Top1000/clustermap.png"),
@@ -591,16 +617,6 @@ parser.add_argument("--IclstrNormSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples_Genes/" + distance_metric + "/Normalized/clustermap.png"),
 	help = "Location where the clustermap of the normalized gene counts is stored")
-
-parser.add_argument("--IclstrOnlyNormalSG",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples_Genes/" + distance_metric + "/Normal/clustermap.png"),
-	help = "Clustermap of the counts are missing the samples coming from transformed cells")
-
-parser.add_argument("--IclstrTissuesSG",
-	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.batch + "/Clustermap/Samples_Genes/" + distance_metric + "/WithoutTissues/clustermap.png"),
-	help = "Clustermap of the counts are missing samples coming from Blood, Brain, Bone, Pituitary and Spleen tissues")
 
 parser.add_argument("--IclusterTopSG",
 	type = Path,
@@ -734,6 +750,62 @@ parser.add_argument("--PmvRand",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/MV_Plots/Random/"),
 	help = "Location where the mean-variance html files of the random datasets is stored")
+
+# Z scores
+parser.add_argument("--PzscoreRaw",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/BeforeFiltering/Z_scores.html"),
+	help = "Location where the Z_scores html file of the raw dataset is stored")
+
+parser.add_argument("--PzscoreFiltered",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/AfterFiltering/Z_scores.html"),
+	help = "Location where the Z_scores html file of the filtered dataset is stored")
+
+parser.add_argument("--PzscoreNorm",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Normalized/Z_scores.html"),
+	help = "Location where the Z_scores html file of the normalized dataset is stored")
+
+parser.add_argument("--PzscoreNormal",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Normal/Z_scores.html"),
+	help = "Location where the Z_scores html file of the dataset without transformed cells is stored")
+
+parser.add_argument("--PzscoreWoTissues",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/WithoutTissues/Z_scores.html"),
+	help = "Location where Z_scores images for the dataset without brain, blood, bone, pituitary, spleen and testis is stored")
+
+parser.add_argument("--PzscoreTop",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Top1000/Z_scores.html"),
+	help = "Location where the Z_scores html file of the top 1000 dataset is stored")
+
+parser.add_argument("--PzscoreTop88",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Top88/Z_scores.html"),
+	help = "Location where the Z_scores html file of the top 88 dataset is stored")
+
+parser.add_argument("--PzscoreCV",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/variants_chaperones/Z_scores.html"),
+	help = "Location where the Z_scores html file of the variants and chaperones is stored")
+
+parser.add_argument("--PzscoreNrCV",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/NonReplicative/Z_scores.html"),
+	help = "Location where the Z_scores image of the non-replicative variants and chaperones is stored")
+
+parser.add_argument("--PzscoreTissue",
+	type = Path,
+	default = Path("Plotly_HTML_Files").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/ByTissue/"),
+	help = "Location where the Z_scores html file of gene counts by tissue are stored")
+
+parser.add_argument("--PzscoreRand",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.batch + "/Z_scores/Random/"),
+	help = "Location where the Z_scores html file of the random datasets is stored")
 
 ## PCA
 parser.add_argument("--PpcaRaw",
