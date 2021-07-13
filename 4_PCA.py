@@ -1,3 +1,4 @@
+import gc
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -108,6 +109,12 @@ def pca(
         #fig.show()
 
         d.to_csv(str(t), sep="\t")
+
+        del(f)
+        del(d)
+        del(fig)
+        del(std_counts)
+        gc.collect()
 
 if __name__ == '__main__':	
     

@@ -1,3 +1,4 @@
+import gc
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -94,6 +95,12 @@ def tsne(
         #fig.show()
 
         df.to_csv(t, sep="\t")
+
+        del(f)
+        del(df)
+        del(fig)
+        del(std_counts)
+        gc.collect()
 
 if __name__ == '__main__':	
     

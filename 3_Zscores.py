@@ -1,3 +1,4 @@
+import gc
 import pandas as pd
 import plotly.express as px
 
@@ -75,6 +76,11 @@ def z_scores(
 		fig.write_html(str(h))
 		fig.write_image(str(i), width = 2048, height = 1024)
 		#fig.show()
+
+		del(c)
+		del(df)
+		del(fig)
+		gc.collect()
 
 if __name__ == '__main__':	
 	z_scores(

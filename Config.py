@@ -52,7 +52,7 @@ parser.add_argument("--top1000",
 parser.add_argument("--top100",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/Counts/top100/top100Genes.tsv"),
-	help = "Counts limited to the top 88 expressed genes")
+	help = "Counts limited to the top 100 expressed genes")
 
 parser.add_argument("--cv",
 	type = Path,
@@ -72,7 +72,7 @@ parser.add_argument("--tissue",
 parser.add_argument("--rand",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/Counts/Random/"),
-	help = "10 randomly generated count files that are limited to the top 88 expressed genes")
+	help = "10 randomly generated count files that are limited to the top 100 expressed genes")
 
 ## Metadata
 parser.add_argument("--meta",
@@ -106,10 +106,10 @@ parser.add_argument("--corrTopG",
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/CorrelationMatrix/Genes/Top1000/corr_matrix.tsv"),
 	help = "Correlation matrix between the top 1000 expressed genes")
 
-parser.add_argument("--corr88G",
+parser.add_argument("--corr100G",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/CorrelationMatrix/Genes/top100/corr_matrix.tsv"),
-	help = "Correlation matrix between the top 88 expressed genes")
+	help = "Correlation matrix between the top 100 expressed genes")
 
 parser.add_argument("--corrCVg",
 	type = Path,
@@ -129,7 +129,7 @@ parser.add_argument("--corrTissueG",
 parser.add_argument("--corrRandG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/CorrelationMatrix/Genes/Random/"),
-	help = "Correlation matrices between the randomly selected 88 genes")
+	help = "Correlation matrices between the randomly selected 100 genes")
 
 parser.add_argument("--corrNormalS",
 	type = Path,
@@ -146,10 +146,10 @@ parser.add_argument("--corrTopS",
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/CorrelationMatrix/Samples/Top1000/corr_matrix.tsv"),
 	help = "Correlation matrix between all the samples using counts limited to the top 1000 expressed genes")
 
-parser.add_argument("--corr88S",
+parser.add_argument("--corr100S",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/CorrelationMatrix/Samples/top100/corr_matrix.tsv"),
-	help = "Correlation matrix between all the samples using counts limited to the top 88 expressed genes")
+	help = "Correlation matrix between all the samples using counts limited to the top 100 expressed genes")
 
 parser.add_argument("--corrCVs",
 	type = Path,
@@ -202,10 +202,10 @@ parser.add_argument("--pcaTop",
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/Top1000/pca.tsv"),
 	help = "Location where the pca matrix of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--pcatop100",
+parser.add_argument("--pcaTop100",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/top100/pca.tsv"),
-	help = "Location where the pca matrix of the top 88 expressed gene counts is stored")
+	help = "Location where the pca matrix of the top 100 expressed gene counts is stored")
 
 parser.add_argument("--pcaCV",
 	type = Path,
@@ -256,7 +256,7 @@ parser.add_argument("--tsneTop",
 parser.add_argument("--tsnetop100",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/top100/T-Sne.tsv"),
-	help = "Location where the t-sne matrix of the top 88 expressed gene counts is stored")
+	help = "Location where the t-sne matrix of the top 100 expressed gene counts is stored")
 
 parser.add_argument("--tsneCV",
 	type = Path,
@@ -308,7 +308,7 @@ parser.add_argument("--IgeneralTop",
 parser.add_argument("--Igeneraltop100",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/General/top100/"),
-	help = "Location where QC images for the top 88 expressed genes dataset are stored")
+	help = "Location where QC images for the top 100 expressed genes dataset are stored")
 
 parser.add_argument("--IgeneralCV",
 	type = Path,
@@ -359,7 +359,7 @@ parser.add_argument("--ImvTop",
 parser.add_argument("--Imvtop100",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/MV_Plots/top100/mv.png"),
-	help = "Location where the mean-variance image of the top 88 dataset is stored")
+	help = "Location where the mean-variance image of the top 100 dataset is stored")
 
 parser.add_argument("--ImvCV",
 	type = Path,
@@ -410,7 +410,7 @@ parser.add_argument("--IzscoreTop",
 parser.add_argument("--Izscoretop100",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Z_scores/top100/Z_scores.png"),
-	help = "Location where the Z_scores image of the top 88 dataset is stored")
+	help = "Location where the Z_scores image of the top 100 dataset is stored")
 
 parser.add_argument("--IzscoreCV",
 	type = Path,
@@ -463,10 +463,10 @@ parser.add_argument("--IpcaTop",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/Top1000/pca.png"),
 	help = "Location where the pca image of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--Ipcatop100",
+parser.add_argument("--IpcaTop100",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/top100/pca.png"),
-	help = "Location where the pca image of the top 88 expressed gene counts is stored")
+	help = "Location where the pca image of the top 100 expressed gene counts is stored")
 
 parser.add_argument("--IpcaCV",
 	type = Path,
@@ -517,7 +517,7 @@ parser.add_argument("--ItsneTop",
 parser.add_argument("--Itsnetop100",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/top100/T-Sne.png"),
-	help = "Location where the t-sne image of the top 88 expressed gene counts is stored")
+	help = "Location where the t-sne image of the top 100 expressed gene counts is stored")
 
 parser.add_argument("--ItsneCV",
 	type = Path,
@@ -556,7 +556,7 @@ parser.add_argument("--IclusterTopS",
 parser.add_argument("--Iclustertop100S",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Samples/" + distance_metric + "/top100/clustermap.png"),
-	help = "Location where the clustermap image of the top 88 expressed gene counts is stored")
+	help = "Location where the clustermap image of the top 100 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVs",
 	type = Path,
@@ -591,7 +591,7 @@ parser.add_argument("--IclusterTopG",
 parser.add_argument("--Iclustertop100G",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Genes/" + distance_metric + "/top100/clustermap.png"),
-	help = "Location where the clustermap image of the top 88 expressed gene counts is stored")
+	help = "Location where the clustermap image of the top 100 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVG",
 	type = Path,
@@ -626,7 +626,7 @@ parser.add_argument("--IclusterTopSG",
 parser.add_argument("--Iclustertop100SG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Samples_Genes/" + distance_metric + "/top100/clustermap.png"),
-	help = "Location where the clustermap image of the top 88 expressed gene counts is stored")
+	help = "Location where the clustermap image of the top 100 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVsg",
 	type = Path,
@@ -683,7 +683,7 @@ parser.add_argument("--PgeneralTop",
 parser.add_argument("--Pgeneraltop100",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/General/top100/"),
-	help = "Location where QC html files for the top 88 expressed genes dataset are stored")
+	help = "Location where QC html files for the top 100 expressed genes dataset are stored")
 
 parser.add_argument("--PgeneralCV",
 	type = Path,
@@ -734,7 +734,7 @@ parser.add_argument("--PmvTop",
 parser.add_argument("--Pmvtop100",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/MV_Plots/top100/mv.html"),
-	help = "Location where the mean-variance html file of the top 88 dataset is stored")
+	help = "Location where the mean-variance html file of the top 100 dataset is stored")
 
 parser.add_argument("--PmvCV",
 	type = Path,
@@ -785,7 +785,7 @@ parser.add_argument("--PzscoreTop",
 parser.add_argument("--Pzscoretop100",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/Z_scores/top100/Z_scores.html"),
-	help = "Location where the Z_scores html file of the top 88 dataset is stored")
+	help = "Location where the Z_scores html file of the top 100 dataset is stored")
 
 parser.add_argument("--PzscoreCV",
 	type = Path,
@@ -838,10 +838,10 @@ parser.add_argument("--PpcaTop",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/Top1000/pca.html"),
 	help = "Location where the pca html file of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--Ppcatop100",
+parser.add_argument("--PpcaTop100",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/top100/pca.html"),
-	help = "Location where the pca html file of the top 88 expressed gene counts is stored")
+	help = "Location where the pca html file of the top 100 expressed gene counts is stored")
 
 parser.add_argument("--PpcaCV",
 	type = Path,
@@ -892,7 +892,7 @@ parser.add_argument("--PtsneTop",
 parser.add_argument("--Ptsnetop100",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/top100/T-Sne.html"),
-	help = "Location where the t-sne html fileof the top 88 expressed gene counts is stored")
+	help = "Location where the t-sne html fileof the top 100 expressed gene counts is stored")
 
 parser.add_argument("--PtsneCV",
 	type = Path,

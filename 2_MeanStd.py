@@ -1,3 +1,4 @@
+import gc
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -65,6 +66,10 @@ def mean_std(
 		fig.write_html(str(html))
 		fig.write_image(str(image), width = 2048, height = 1024)
 		#fig.show()
+
+		del(f)
+		del(fig)
+		gc.collect()
 
 if __name__ == '__main__':
 	
