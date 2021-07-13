@@ -22,9 +22,8 @@ def tsne(
     counts_without_tissues, file_tsne_wo_tissues, 
     img_tsne_wo_tissues, p_tsne_wo_tissues):
     
-    counts = [raw_counts, filtered_counts, counts_norm, 
-        normal, counts_without_tissues,
-        top1000, top100, cv_counts]
+    counts = [counts_norm, top1000, top100, cv_counts]
+    #raw_counts, filtered_counts, normal, counts_without_tissues, 
     
     tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
     for path in tissue_files:
@@ -34,17 +33,14 @@ def tsne(
     for path in rand_files:
         counts.append(path)
 
-    tsvs = [file_tsneRaw, file_tsneFiltered, file_tsneNorm, 
-        file_tsne_normal, file_tsne_wo_tissues, file_tsneTop, 
-        file_tsnetop100, file_tsneCV]
+    tsvs = [file_tsneNorm, file_tsneTop, file_tsnetop100, file_tsneCV]
+    #file_tsneRaw, file_tsneFiltered, file_tsne_normal, file_tsne_wo_tissues, 
 
-    images = [img_tsne_raw, img_tsne_filtered, img_tsne_norm, 
-        img_tsne_normal, img_tsne_wo_tissues, img_tsne_top, 
-        img_tsne_top100, img_tsne_cv]
+    images = [img_tsne_norm, img_tsne_top, img_tsne_top100, img_tsne_cv]
+    #img_tsne_raw, img_tsne_filtered, img_tsne_normal, img_tsne_wo_tissues, 
 
-    htmls = [p_tsne_raw, p_tsne_filtered, p_tsne_norm, 
-        p_tsne_normal, p_tsne_wo_tissues, p_tsne_top, 
-        p_tsne_top100, p_tsne_cv]
+    htmls = [p_tsne_norm, p_tsne_top, p_tsne_top100, p_tsne_cv]
+    #p_tsne_raw, p_tsne_filtered, p_tsne_normal, p_tsne_wo_tissues, 
     
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]

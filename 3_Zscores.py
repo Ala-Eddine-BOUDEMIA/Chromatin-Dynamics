@@ -7,15 +7,15 @@ import Tools
 import Config
 
 def z_scores(
-	rand, top88, cv_counts, raw_counts, top1000,
+	rand, top100, cv_counts, raw_counts, top1000,
 	counts_norm, tissue_counts, normal, filtered_counts,
-	nrcv_counts, Icv, Iraw, Irand, Inrcv, Itop88, Itop1000,
+	nrcv_counts, Icv, Iraw, Irand, Inrcv, Itop100, Itop1000,
 	Inormal, Itissue, Inormalized, Ifiltered, IwoTissues, Pcv,
-	Praw, Prand, Pnrcv, Ptop88, Ptop1000, Pnormal, Ptissue, Pnormalized, 
+	Praw, Prand, Pnrcv, Ptop100, Ptop1000, Pnormal, Ptissue, Pnormalized, 
 	Pfiltered, PwoTissues, counts_without_tissues):
 		
-	counts = [raw_counts, filtered_counts, counts_norm, normal, 
-        counts_without_tissues, top1000, top88, cv_counts, nrcv_counts]
+	counts = [counts_norm, top1000, top100, cv_counts, nrcv_counts]
+	#raw_counts, filtered_counts, normal, counts_without_tissues,  
 		
 	tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
 	for path in tissue_files:
@@ -25,11 +25,11 @@ def z_scores(
 	for path in rand_files:
 		counts.append(path)
 	
-	images = [Iraw, Ifiltered, Inormalized, Inormal, IwoTissues, 
-		Itop1000, Itop88, Icv, Inrcv]
+	images = [Inormalized, Itop1000, Itop100, Icv, Inrcv]
+	#Iraw, Ifiltered, Inormal, IwoTissues, 
     
-	htmls = [Praw, Pfiltered, Pnormalized, Pnormal, PwoTissues,
-		Ptop1000, Ptop88, Pcv, Pnrcv]
+	htmls = [Pnormalized, Ptop1000, Ptop100, Pcv, Pnrcv]
+	#Praw, Pfiltered, Pnormal, PwoTissues,  
 
 	for i in range(len(tissue_files)):
 		tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -79,7 +79,7 @@ def z_scores(
 if __name__ == '__main__':	
 	z_scores(
 		rand = Config.args.rand,
-		top88 = Config.args.top88, 
+		top100 = Config.args.top100, 
 		cv_counts = Config.args.cv,
 		raw_counts = Config.args.bf, 
 		top1000 = Config.args.top1000,
@@ -92,7 +92,7 @@ if __name__ == '__main__':
 		Iraw = Config.args.IzscoreRaw,
 		Irand = Config.args.IzscoreRand,
 		Inrcv = Config.args.IzscoreNrCV,
-		Itop88 = Config.args.IzscoreTop88,
+		Itop100 = Config.args.IzscoreTop100,
 		Itop1000 = Config.args.IzscoreTop,
 		Inormal = Config.args.IzscoreNormal,
 		Itissue = Config.args.IzscoreTissue,
@@ -103,7 +103,7 @@ if __name__ == '__main__':
 		Praw = Config.args.PzscoreRaw,
 		Prand = Config.args.PzscoreRand,
 		Pnrcv = Config.args.PzscoreNrCV,
-		Ptop88 = Config.args.PzscoreTop88,
+		Ptop100 = Config.args.PzscoreTop100,
 		Ptop1000 = Config.args.PzscoreTop,
 		Pnormal = Config.args.PzscoreNormal,
 		Ptissue = Config.args.PzscoreTissue,

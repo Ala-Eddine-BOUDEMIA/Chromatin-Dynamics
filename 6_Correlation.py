@@ -13,7 +13,8 @@ def correlation(
 	g_corr_by_tissue, s_corr_by_tissue, g_corr_wo_tissues, 
 	s_corr_wo_tissues):
 	
-	counts = [normal, wotissues, top1000, top100, cv_counts, nrcv_counts]
+	counts = [top1000, top100, cv_counts, nrcv_counts]
+	#normal, wotissues, 
 
 	tissue_files = sorted([f for f in by_tissues.iterdir() if f.is_file()])
 	for path in tissue_files:
@@ -23,11 +24,11 @@ def correlation(
 	for path in rand_files:
 		counts.append(path)
 	
-	g_corr = [g_corr_normal, g_corr_wo_tissues, 
-		g_corr_top1000, g_corr_top100, g_corr_cv, g_corr_nrcv]
+	g_corr = [g_corr_top1000, g_corr_top100, g_corr_cv, g_corr_nrcv]
+	#g_corr_normal, g_corr_wo_tissues, 
 
-	s_corr = [s_corr_normal, s_corr_wo_tissues,
-		s_corr_top1000, s_corr_top100, s_corr_cv, s_corr_nrcv] 
+	s_corr = [s_corr_top1000, s_corr_top100, s_corr_cv, s_corr_nrcv] 
+	#s_corr_normal, s_corr_wo_tissues, 
 
 	for i in range(len(tissue_files)):
 		tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]

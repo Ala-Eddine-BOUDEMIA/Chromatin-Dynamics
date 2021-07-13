@@ -58,7 +58,7 @@ def generate_data(
 	# Generate random sets
 	for c in range(10):
 		rng = default_rng()
-		r = rng.choice(len(counts), size = 88, replace = False)
+		r = rng.choice(len(counts), size = 127, replace = False)
 		df_random = pd.DataFrame(columns = counts.columns)
 		
 		for i in r:
@@ -77,7 +77,7 @@ def generate_data(
 		df.pop("smts")
 		df = df.T
 		df.to_csv(tissue_counts.joinpath(t + ".tsv"), sep = '\t')
-
+	"""
 	# Generate counts without transformed cells
 	counts_wo_tcells = counts.T
 	counts_wo_tcells = counts_wo_tcells.join(metadata["smts"])
@@ -118,7 +118,7 @@ def generate_data(
 		
 	df.pop("smts")
 	df = df.T
-	df.to_csv(str(wo_bbbpst_tissues), sep = '\t')
+	df.to_csv(str(wo_bbbpst_tissues), sep = '\t')"""
 
 if __name__ == '__main__':
 
