@@ -72,7 +72,7 @@ def pca(
     for c, t, i, h in zip(counts, tsvs, images, htmls):
         f = pd.read_csv(c, header = 0, index_col = 0, sep = "\t")
         lib_size = f.sum(axis = 0).to_frame(name = "lib_size")
-        #f = pd.DataFrame(np.log2(f + 1))
+        f = pd.DataFrame(np.log2(f + 1))
         scaler = StandardScaler()
         std_counts = scaler.fit_transform(f.T.dropna())
 

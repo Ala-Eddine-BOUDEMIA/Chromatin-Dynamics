@@ -4,12 +4,12 @@ library(recount)
 library(sva)
 library(org.Hs.eg.db)
 
-gtex_filtered = read.delim("/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/ABER/Counts/AfterFiltering/Filtered_smnabtch.tsv",
-                     header = TRUE, sep = '\t')
+gtex_filtered = read.delim("/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/ABER/Counts/AfterFiltering/Filtered_smnabtch.tsv", 
+                           header = TRUE, sep = '\t')
 
 rownames(gtex_filtered) = gtex_filtered$X
 
-metadata = read.delim('/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/Metadata/GTEx.tsv',
+metadata = read.delim('/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/ABER/Metadata/GTEx_smnabtch.tsv',
                       header = TRUE, sep = "\t")
 
 rownames(metadata) = metadata$run
@@ -30,13 +30,16 @@ meanSdPlot(x$counts)
 
 # Batch Effect Removal
 batch = metadata$smnabtch
+modcombat = model.matrix(~1, data=batch)
+gtex_filtered = as.matrix(gtex_filtered)
+corrected_counts = ComBat_seq(gtex_filtered, batch=batch)
 
-corrected_batch = ComBat_seq(y, batch)
+v = DGEList(data.matrix(corrected_counts))
 
 # Normalization
-z = calcNormFactors(corrected_counts, method="TMM")
+z = calcNormFactors(v, method="TMM")
 tmm = cpm(z)
-write.table(tmm, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/GTExNormalizedCorrected.tsv", sep="\t")
+write.table(tmm, "/Users/labo/Documents/Code/Chromatin-Dynamics/Data/GTEx/ABER/Counts/Normalized/NormalizedCorrected.tsv", sep="\t")
 
 # Mean-variance plot
 meanSdPlot(tmm)
