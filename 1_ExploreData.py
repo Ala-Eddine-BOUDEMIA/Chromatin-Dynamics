@@ -7,19 +7,19 @@ import Tools
 import Config
 
 def explore_data(
-	meta, rand, top88, cv_counts, raw_counts, 
+	meta, rand, top100, cv_counts, raw_counts, 
 	top1000, counts_norm, normal, filtered_counts, 
 	nrcv_counts, generalCvImages, generalCvPlotly, 
 	wo_bbbpst_tissues, generalRawImages, generalRawPlotly, 
 	generalNrCvImages, generalNrCvPlotly, generalNormImages, 
 	generalNormPlotly, generalRandImages, generalRandPlotly, 
-	generalTop88Images, generalTop88Plotly, generalTop1000Images, 
+	generaltop100Images, generaltop100Plotly, generalTop1000Images, 
 	generalTop1000Plotly, generalNormalImages, generalNormalPlotly, 
 	generalFilteredImages, generalFilteredPlotly, generalWithoutTissuesImages, 
 	generalWithoutTissuesPlotly):
 	
 	counts = [raw_counts, filtered_counts, counts_norm, normal, 
-		wo_bbbpst_tissues, top1000, top88, cv_counts, nrcv_counts]
+		wo_bbbpst_tissues, top1000, top100, cv_counts, nrcv_counts]
 	
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
@@ -27,11 +27,11 @@ def explore_data(
 
 	images = [generalRawImages, generalFilteredImages, generalNormImages, 
 		generalNormalImages, generalWithoutTissuesImages, generalTop1000Images, 
-		generalTop88Images, generalCvImages, generalNrCvImages]
+		generaltop100Images, generalCvImages, generalNrCvImages]
 	
 	htmls = [generalRawPlotly, generalFilteredPlotly, generalNormPlotly, 
 		generalNormalPlotly, generalWithoutTissuesPlotly, generalTop1000Plotly, 
-		generalTop88Plotly, generalCvPlotly, generalNrCvPlotly]
+		generaltop100Plotly, generalCvPlotly, generalNrCvPlotly]
 	
 	for i in range(len(rand_files)):
 		link_img = generalRandImages.joinpath("random" + str(i))
@@ -124,7 +124,7 @@ if __name__ == '__main__':
 	explore_data(
 		meta = Config.args.meta, 
 		rand = Config.args.rand,
-		top88 = Config.args.top88, 
+		top100 = Config.args.top100, 
 		cv_counts = Config.args.cv,
 		raw_counts = Config.args.bf, 
 		top1000 = Config.args.top1000,
@@ -143,8 +143,8 @@ if __name__ == '__main__':
 		generalNormPlotly = Config.args.PgeneralNorm,
 		generalRandImages = Config.args.IgeneralRand,
 		generalRandPlotly = Config.args.PgeneralRand,
-		generalTop88Images = Config.args.IgeneralTop88,
-		generalTop88Plotly = Config.args.PgeneralTop88,
+		generaltop100Images = Config.args.Igeneraltop100,
+		generaltop100Plotly = Config.args.Pgeneraltop100,
 		generalTop1000Images = Config.args.IgeneralTop,
 		generalTop1000Plotly = Config.args.PgeneralTop,
 		generalNormalImages = Config.args.IgeneralNormal,

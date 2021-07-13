@@ -9,14 +9,14 @@ import Tools
 import Config
 
 def tsne(
-    meta, rand, top88, cv_counts, raw_counts, top1000,
+    meta, rand, top100, cv_counts, raw_counts, top1000,
     counts_norm, filtered_counts, tissue_counts, p_tsne_cv,
     file_tsneCV, img_tsne_cv, p_tsne_raw, file_tsneRaw,
     img_tsne_raw, p_tsne_top, file_tsneTop, img_tsne_top,
     p_tsne_norm, file_tsneNorm, img_tsne_norm, normal, 
     p_tsne_normal, file_tsne_normal, img_tsne_normal, 
     p_tsne_rand, file_tsne_rand, img_tsne_rand, 
-    p_tsne_top88, file_tsneTop88, img_tsne_top88, 
+    p_tsne_top100, file_tsnetop100, img_tsne_top100, 
     p_tsne_tissues, file_tsne_tissues, img_tsne_tissues, 
     p_tsne_filtered, file_tsneFiltered, img_tsne_filtered, 
     counts_without_tissues, file_tsne_wo_tissues, 
@@ -24,7 +24,7 @@ def tsne(
     
     counts = [raw_counts, filtered_counts, counts_norm, 
         normal, counts_without_tissues,
-        top1000, top88, cv_counts]
+        top1000, top100, cv_counts]
     
     tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
     for path in tissue_files:
@@ -36,15 +36,15 @@ def tsne(
 
     tsvs = [file_tsneRaw, file_tsneFiltered, file_tsneNorm, 
         file_tsne_normal, file_tsne_wo_tissues, file_tsneTop, 
-        file_tsneTop88, file_tsneCV]
+        file_tsnetop100, file_tsneCV]
 
     images = [img_tsne_raw, img_tsne_filtered, img_tsne_norm, 
         img_tsne_normal, img_tsne_wo_tissues, img_tsne_top, 
-        img_tsne_top88, img_tsne_cv]
+        img_tsne_top100, img_tsne_cv]
 
     htmls = [p_tsne_raw, p_tsne_filtered, p_tsne_norm, 
         p_tsne_normal, p_tsne_wo_tissues, p_tsne_top, 
-        p_tsne_top88, p_tsne_cv]
+        p_tsne_top100, p_tsne_cv]
     
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     
     tsne(
         meta = Config.args.meta, rand = Config.args.rand,
-        top88 = Config.args.top88, cv_counts = Config.args.cv,
+        top100 = Config.args.top100, cv_counts = Config.args.cv,
         raw_counts = Config.args.bf, top1000 = Config.args.top1000,
         counts_norm = Config.args.norm,	filtered_counts = Config.args.af,
         tissue_counts = Config.args.tissue, p_tsne_cv = Config.args.PtsneCV,
@@ -116,8 +116,8 @@ if __name__ == '__main__':
         p_tsne_normal = Config.args.PtsneNormal, file_tsne_normal = Config.args.tsneNormal, 
         img_tsne_normal = Config.args.ItsneNormal, p_tsne_rand = Config.args.PtsneRand,
         file_tsne_rand = Config.args.tsneRand, img_tsne_rand = Config.args.ItsneRand,
-        p_tsne_top88 = Config.args.PtsneTop88, file_tsneTop88 = Config.args.tsneTop88,
-        img_tsne_top88 = Config.args.ItsneTop88, p_tsne_tissues = Config.args.PtsneTissue,
+        p_tsne_top100 = Config.args.Ptsnetop100, file_tsnetop100 = Config.args.tsnetop100,
+        img_tsne_top100 = Config.args.Itsnetop100, p_tsne_tissues = Config.args.PtsneTissue,
         file_tsne_tissues = Config.args.tsneTissue, img_tsne_tissues = Config.args.ItsneTissue,
         p_tsne_filtered = Config.args.PtsneFiltered, file_tsneFiltered = Config.args.tsneFiltered,
         img_tsne_filtered = Config.args.ItsneFiltered, counts_without_tissues = Config.args.WoTissues,

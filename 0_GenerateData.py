@@ -6,7 +6,7 @@ from pathlib import Path
 import Config
 
 def generate_data(
-	cv, meta, rand, top88, cv_list, 
+	cv, meta, rand, top100, cv_list, 
 	nonRcv, top1000, normal, tissue_counts, 
 	normalized_counts, nonRcv_list, wo_bbbpst_tissues):
 	
@@ -22,14 +22,14 @@ def generate_data(
 	metadata = pd.read_csv(meta,
 		header = 0, index_col = 0, sep = "\t")
 	
-	# Generate the top 88 expressed genes
+	# Generate the top 127 expressed genes
 	# Generate the top1000 expressed genes
 	counts["total"] = counts.sum(axis = 0)
 	counts = counts.sort_values("total")
 	counts.pop("total")
 	
-	top88_g = counts.iloc[:88, :]
-	top88_g.to_csv(top88, sep = "\t")
+	top100_g = counts.iloc[:127, :]
+	top100_g.to_csv(top100, sep = "\t")
 	
 	top1000_g = counts.iloc[:1000, :]
 	top1000_g.to_csv(top1000, sep = "\t")
@@ -126,7 +126,7 @@ if __name__ == '__main__':
 		cv = Config.args.cv,
 		meta = Config.args.meta,
 		rand = Config.args.rand,
-		top88 = Config.args.top88,
+		top100 = Config.args.top100,
 		cv_list = Config.args.list,
 		nonRcv = Config.args.nonRcv,
 		top1000 = Config.args.top1000,

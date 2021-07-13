@@ -49,9 +49,9 @@ parser.add_argument("--top1000",
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/Counts/Top1000/Top1000Genes.tsv"),
 	help = "Counts limited to the top 1000 expressed genes")
 
-parser.add_argument("--top88",
+parser.add_argument("--top100",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/Counts/Top88/Top88Genes.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/Counts/top100/top100Genes.tsv"),
 	help = "Counts limited to the top 88 expressed genes")
 
 parser.add_argument("--cv",
@@ -108,7 +108,7 @@ parser.add_argument("--corrTopG",
 
 parser.add_argument("--corr88G",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/CorrelationMatrix/Genes/Top88/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/CorrelationMatrix/Genes/top100/corr_matrix.tsv"),
 	help = "Correlation matrix between the top 88 expressed genes")
 
 parser.add_argument("--corrCVg",
@@ -148,7 +148,7 @@ parser.add_argument("--corrTopS",
 
 parser.add_argument("--corr88S",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/CorrelationMatrix/Samples/Top88/corr_matrix.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/CorrelationMatrix/Samples/top100/corr_matrix.tsv"),
 	help = "Correlation matrix between all the samples using counts limited to the top 88 expressed genes")
 
 parser.add_argument("--corrCVs",
@@ -202,9 +202,9 @@ parser.add_argument("--pcaTop",
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/Top1000/pca.tsv"),
 	help = "Location where the pca matrix of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--pcaTop88",
+parser.add_argument("--pcatop100",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/Top88/pca.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/top100/pca.tsv"),
 	help = "Location where the pca matrix of the top 88 expressed gene counts is stored")
 
 parser.add_argument("--pcaCV",
@@ -253,9 +253,9 @@ parser.add_argument("--tsneTop",
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/Top1000/T-Sne.tsv"),
 	help = "Location where the t-sne matrix of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--tsneTop88",
+parser.add_argument("--tsnetop100",
 	type = Path,
-	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/Top88/T-Sne.tsv"),
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/top100/T-Sne.tsv"),
 	help = "Location where the t-sne matrix of the top 88 expressed gene counts is stored")
 
 parser.add_argument("--tsneCV",
@@ -305,9 +305,9 @@ parser.add_argument("--IgeneralTop",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/General/Top1000/"),
 	help = "Location where QC images for the top1000 expressed genes dataset are stored")
 
-parser.add_argument("--IgeneralTop88",
+parser.add_argument("--Igeneraltop100",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/General/Top88/"),
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/General/top100/"),
 	help = "Location where QC images for the top 88 expressed genes dataset are stored")
 
 parser.add_argument("--IgeneralCV",
@@ -356,9 +356,9 @@ parser.add_argument("--ImvTop",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/MV_Plots/Top1000/mv.png"),
 	help = "Location where the mean-variance image of the top 1000 dataset is stored")
 
-parser.add_argument("--ImvTop88",
+parser.add_argument("--Imvtop100",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/MV_Plots/Top88/mv.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/MV_Plots/top100/mv.png"),
 	help = "Location where the mean-variance image of the top 88 dataset is stored")
 
 parser.add_argument("--ImvCV",
@@ -407,9 +407,9 @@ parser.add_argument("--IzscoreTop",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Z_scores/Top1000/Z_scores.png"),
 	help = "Location where the Z_scores image of the top 1000 dataset is stored")
 
-parser.add_argument("--IzscoreTop88",
+parser.add_argument("--Izscoretop100",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Z_scores/Top88/Z_scores.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Z_scores/top100/Z_scores.png"),
 	help = "Location where the Z_scores image of the top 88 dataset is stored")
 
 parser.add_argument("--IzscoreCV",
@@ -463,9 +463,9 @@ parser.add_argument("--IpcaTop",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/Top1000/pca.png"),
 	help = "Location where the pca image of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--IpcaTop88",
+parser.add_argument("--Ipcatop100",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/Top88/pca.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/top100/pca.png"),
 	help = "Location where the pca image of the top 88 expressed gene counts is stored")
 
 parser.add_argument("--IpcaCV",
@@ -514,9 +514,9 @@ parser.add_argument("--ItsneTop",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/Top1000/T-Sne.png"),
 	help = "Location where the t-sne image of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--ItsneTop88",
+parser.add_argument("--Itsnetop100",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/Top88/T-Sne.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/top100/T-Sne.png"),
 	help = "Location where the t-sne image of the top 88 expressed gene counts is stored")
 
 parser.add_argument("--ItsneCV",
@@ -553,9 +553,9 @@ parser.add_argument("--IclusterTopS",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Samples/" + distance_metric + "/Top1000/clustermap.png"),
 	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--IclusterTop88S",
+parser.add_argument("--Iclustertop100S",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Samples/" + distance_metric + "/Top88/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Samples/" + distance_metric + "/top100/clustermap.png"),
 	help = "Location where the clustermap image of the top 88 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVs",
@@ -588,9 +588,9 @@ parser.add_argument("--IclusterTopG",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Genes/" + distance_metric + "/Top1000/clustermap.png"),
 	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--IclusterTop88G",
+parser.add_argument("--Iclustertop100G",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Genes/" + distance_metric + "/Top88/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Genes/" + distance_metric + "/top100/clustermap.png"),
 	help = "Location where the clustermap image of the top 88 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVG",
@@ -623,9 +623,9 @@ parser.add_argument("--IclusterTopSG",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Samples_Genes/" + distance_metric + "/Top1000/clustermap.png"),
 	help = "Location where the clustermap image of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--IclusterTop88SG",
+parser.add_argument("--Iclustertop100SG",
 	type = Path,
-	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Samples_Genes/" + distance_metric + "/Top88/clustermap.png"),
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod + "/Clustermap/Samples_Genes/" + distance_metric + "/top100/clustermap.png"),
 	help = "Location where the clustermap image of the top 88 expressed gene counts is stored")
 
 parser.add_argument("--IclusterCVsg",
@@ -680,9 +680,9 @@ parser.add_argument("--PgeneralTop",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/General/Top1000/"),
 	help = "Location where QC html files for the top1000 expressed genes dataset are stored")
 
-parser.add_argument("--PgeneralTop88",
+parser.add_argument("--Pgeneraltop100",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/General/Top88/"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/General/top100/"),
 	help = "Location where QC html files for the top 88 expressed genes dataset are stored")
 
 parser.add_argument("--PgeneralCV",
@@ -731,9 +731,9 @@ parser.add_argument("--PmvTop",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/MV_Plots/Top1000/mv.html"),
 	help = "Location where the mean-variance html file of the top1000 dataset is stored")
 
-parser.add_argument("--PmvTop88",
+parser.add_argument("--Pmvtop100",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/MV_Plots/Top88/mv.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/MV_Plots/top100/mv.html"),
 	help = "Location where the mean-variance html file of the top 88 dataset is stored")
 
 parser.add_argument("--PmvCV",
@@ -782,9 +782,9 @@ parser.add_argument("--PzscoreTop",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/Z_scores/Top1000/Z_scores.html"),
 	help = "Location where the Z_scores html file of the top 1000 dataset is stored")
 
-parser.add_argument("--PzscoreTop88",
+parser.add_argument("--Pzscoretop100",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/Z_scores/Top88/Z_scores.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/Z_scores/top100/Z_scores.html"),
 	help = "Location where the Z_scores html file of the top 88 dataset is stored")
 
 parser.add_argument("--PzscoreCV",
@@ -838,9 +838,9 @@ parser.add_argument("--PpcaTop",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/Top1000/pca.html"),
 	help = "Location where the pca html file of the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--PpcaTop88",
+parser.add_argument("--Ppcatop100",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/Top88/pca.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/PCA/top100/pca.html"),
 	help = "Location where the pca html file of the top 88 expressed gene counts is stored")
 
 parser.add_argument("--PpcaCV",
@@ -889,9 +889,9 @@ parser.add_argument("--PtsneTop",
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/Top1000/T-Sne.html"),
 	help = "Location where the t-sne html fileof the top 1000 expressed gene counts is stored")
 
-parser.add_argument("--PtsneTop88",
+parser.add_argument("--Ptsnetop100",
 	type = Path,
-	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/Top88/T-Sne.html"),
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" + choice.normMethod + "/T-Sne/top100/T-Sne.html"),
 	help = "Location where the t-sne html fileof the top 88 expressed gene counts is stored")
 
 parser.add_argument("--PtsneCV",
