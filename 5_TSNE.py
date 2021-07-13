@@ -23,7 +23,7 @@ def tsne(
     img_tsne_wo_tissues, p_tsne_wo_tissues):
     
     counts = [raw_counts, filtered_counts, counts_norm, 
-        normal, counts_without_tissues
+        normal, counts_without_tissues,
         top1000, top88, cv_counts]
     
     tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
