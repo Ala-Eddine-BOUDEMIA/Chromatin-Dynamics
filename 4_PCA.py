@@ -10,35 +10,18 @@ import Tools
 import Config
 
 def pca(
-    meta, rand, top100, cv_counts, raw_counts, top1000, 
-    counts_norm, filtered_counts, tissue_counts, p_pca_cv,
-    file_pcaCV, img_pca_cv, p_pca_raw, file_pcaRaw, img_pca_raw, 
-    p_pca_top, file_pcaTop, img_pca_top, p_pca_norm, file_pcaNorm, 
-    img_pca_norm, p_pca_rand, file_pca_rand, img_pca_rand, p_pca_top100, 
-    file_pcaTop100, img_pca_top100, file_pca_tissue, p_pca_tissue, normal,
-    p_pca_normal, file_pca_normal, img_pca_normal, img_pca_tissues, 
-    p_pca_filtered, file_pcaFiltered, img_pca_filtered, counts_without_tissues,
-    file_pca_wo_tissues, img_pca_wo_tissues, p_pca_wo_tissues):
+    meta, counts, rand, tissues,
+    files_pca, images_pca, htmls_pca,
+    p_pca_rand, img_pca_rand, file_pca_rand, 
+    p_pca_tissue, img_pca_tissues, file_pca_tissue):
     
-    counts = [counts_norm, top1000, top100, cv_counts]
-    #raw_counts, filtered_counts, normal, counts_without_tissues, 
-    
-    tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
+    tissue_files = sorted([f for f in tissues.iterdir() if f.is_file()])
     for path in tissue_files:
         counts.append(path)
 
     rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
     for path in rand_files:
         counts.append(path)
-
-    tsvs = [file_pcaNorm, file_pcaTop, file_pcaTop100, file_pcaCV]
-    #file_pcaRaw, file_pcaFiltered, file_pca_normal, file_pca_wo_tissues, 
-    
-    images = [img_pca_norm, img_pca_top, img_pca_top100, img_pca_cv]
-    #img_pca_raw, img_pca_filtered, img_pca_normal, img_pca_wo_tissues, 
-    
-    htmls =[p_pca_norm, p_pca_top, p_pca_top100, p_pca_cv]
-    #p_pca_raw, p_pca_filtered, p_pca_normal, p_pca_wo_tissues,
 
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -50,9 +33,9 @@ def pca(
         Tools.create_folder(link_img)
         Tools.create_folder(link_p)
         
-        tsvs.append(link_tsv.joinpath("pca.tsv"))
-        images.append(link_img.joinpath("pca.png"))
-        htmls.append(link_p.joinpath("pca.html"))
+        files_pca.append(link_tsv.joinpath("pca.tsv"))
+        images_pca.append(link_img.joinpath("pca.png"))
+        htmls_pca.append(link_p.joinpath("pca.html"))
 
     for i in range(len(rand_files)):
         link_tsv = file_pca_rand.joinpath("random" + str(i))
@@ -63,14 +46,14 @@ def pca(
         Tools.create_folder(link_img)
         Tools.create_folder(link_html)
 
-        tsvs.append(link_tsv.joinpath("pca.tsv"))
-        images.append(link_img.joinpath("pca.png"))
-        htmls.append(link_html.joinpath("pca.html"))
+        files_pca.append(link_tsv.joinpath("pca.tsv"))
+        images_pca.append(link_img.joinpath("pca.png"))
+        htmls_pca.append(link_html.joinpath("pca.html"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     sub_tissues = metadata["smtsd"]
 
-    for c, t, i, h in zip(counts, tsvs, images, htmls):
+    for c, t, i, h in zip(counts, files_pca, images_pca, htmls_pca):
         f = pd.read_csv(c, header = 0, index_col = 0, sep = "\t")
         lib_size = f.sum(axis = 0).to_frame(name = "lib_size")
         f = pd.DataFrame(np.log2(f + 1))
@@ -119,24 +102,16 @@ def pca(
 if __name__ == '__main__':	
     
     pca(
-        meta = Config.args.meta, rand = Config.args.rand,
-        top100 = Config.args.top100, cv_counts = Config.args.cv,
-        raw_counts = Config.args.bf, top1000 = Config.args.top1000, 
-        counts_norm = Config.args.norm, filtered_counts = Config.args.af, 
-        tissue_counts = Config.args.tissue, p_pca_cv = Config.args.PpcaCV,
-        file_pcaCV = Config.args.pcaCV, img_pca_cv = Config.args.IpcaCV,
-        p_pca_raw = Config.args.PpcaRaw, file_pcaRaw = Config.args.pcaRaw, 
-        img_pca_raw = Config.args.IpcaRaw, p_pca_top = Config.args.PpcaTop,
-        file_pcaTop = Config.args.pcaTop, img_pca_top = Config.args.IpcaTop,
-        p_pca_norm = Config.args.PpcaNorm, file_pcaNorm = Config.args.pcaNorm, 
-        img_pca_norm = Config.args.IpcaNorm, p_pca_rand = Config.args.PpcaRand,
-        file_pca_rand = Config.args.pcaRand, img_pca_rand = Config.args.IpcaRand, 
-        p_pca_top100 = Config.args.PpcaTop100, file_pcaTop100 = Config.args.pcaTop100, 
-        img_pca_top100 = Config.args.IpcaTop100, p_pca_tissue = Config.args.PpcaTissue, 
-        normal = Config.args.onlyNormal, p_pca_normal = Config.args.PpcaNormal, 
-        file_pca_normal = Config.args.pcaNormal, img_pca_normal = Config.args.IpcaNormal, 
-        file_pca_tissue = Config.args.pcaTissue, img_pca_tissues = Config.args.IpcaTissue, 
-        p_pca_filtered = Config.args.PpcaFiltered, file_pcaFiltered = Config.args.pcaFiltered, 
-        img_pca_filtered = Config.args.IpcaFiltered, counts_without_tissues = Config.args.WoTissues,
-        file_pca_wo_tissues = Config.args.pcaWoTissues, img_pca_wo_tissues = Config.args.IpcaWoTissues,
-        p_pca_wo_tissues = Config.args.PpcaWoTissues)
+        meta = Config.args.meta,
+        counts = Config.counts, 
+        rand = Config.args.rand,
+        tissues = Config.args.tissue,
+        files_pca = Config.files_pca,
+        images_pca = Config.images_pca, 
+        htmls_pca = Config.htmls_pca,
+        p_pca_rand = Config.args.PpcaRand,
+        img_pca_rand = Config.args.IpcaRand, 
+        file_pca_rand = Config.args.pcaRand, 
+        p_pca_tissue = Config.args.PpcaTissue,
+        img_pca_tissues = Config.args.IpcaTissue,
+        file_pca_tissue = Config.args.pcaTissue) 
