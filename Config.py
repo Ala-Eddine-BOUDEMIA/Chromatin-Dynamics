@@ -655,32 +655,32 @@ distance_metric = parser.parse_args().distance
 parser.add_argument("--IclstrFullS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Samples/" + distance_metric + choice.which \
+			+ "/Clustermap/Samples/" + distance_metric + "/" + choice.which \
 			+ "/Full/clustermap.png"),
 	help = "Clustermap")
 
 parser.add_argument("--IclstrNormalS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Samples/" + distance_metric + choice.which \
+			+ "/Clustermap/Samples/" + distance_metric + "/" +choice.which \
 			+ "/Normal/clustermap.png"),
 	help = "Clustermap")
 
 parser.add_argument("--IclstrWoTissueS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Samples/" + distance_metric + choice.which \
+			+ "/Clustermap/Samples/" + distance_metric + "/" + choice.which \
 			+ "/WithoutTissues/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclusterTopS",
+parser.add_argument("--IclustrTopS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples/" + distance_metric \
 			+ "/Top1000/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclusterTop100S",
+parser.add_argument("--IclustrTop100S",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples/" + distance_metric \
@@ -697,11 +697,11 @@ parser.add_argument("--IclstrNRcvS",
 parser.add_argument("--IclstrTissueS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Samples/" + distance_metric + choice.which \
+			+ "/Clustermap/Samples/" + distance_metric + "/" + choice.which \
 			+ "/ByTissue/"),
 	help = "Clustermaps")
 
-parser.add_argument("--IclusterRandS",
+parser.add_argument("--IclustrRandS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/" + distance_metric + "/Samples/Random/"),
@@ -710,32 +710,32 @@ parser.add_argument("--IclusterRandS",
 parser.add_argument("--IclstrFullG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Genes/" + distance_metric + choice.which \
+			+ "/Clustermap/Genes/" + distance_metric + "/" + choice.which \
 			+ "/Full/clustermap.png"),
 	help = "Clustermap")
 
 parser.add_argument("--IclstrNormalG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Genes/" + distance_metric + choice.which \
+			+ "/Clustermap/Genes/" + distance_metric + "/" + choice.which \
 			+ "/Normal/clustermap.png"),
 	help = "Clustermap")
 
 parser.add_argument("--IclstrWoTissueG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Genes/" + distance_metric + choice.which \
+			+ "/Clustermap/Genes/" + distance_metric + "/" + choice.which \
 			+ "/WithoutTissues/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclusterTopG",
+parser.add_argument("--IclustrTopG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Genes/" + distance_metric \
 			+ "/Top1000/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclusterTop100G",
+parser.add_argument("--IclustrTop100G",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Genes/" + distance_metric + "/Top100/clustermap.png"),
@@ -751,11 +751,11 @@ parser.add_argument("--IclstrNRcvG",
 parser.add_argument("--IclstrTissueG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Genes/" + distance_metric + choice.which \
+			+ "/Clustermap/Genes/" + distance_metric + "/" + choice.which \
 			+ "/ByTissue/"),
 	help = "Clustermaps")
 
-parser.add_argument("--IclusterRandG",
+parser.add_argument("--IclustrRandG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Genes/" + distance_metric + "/Random/"),
@@ -764,32 +764,32 @@ parser.add_argument("--IclusterRandG",
 parser.add_argument("--IclstrFullSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Samples_Genes/" + distance_metric + choice.which \
+			+ "/Clustermap/Samples_Genes/" + distance_metric + "/" + choice.which \
 			+ "/Full/clustermap.png"),
 	help = "Clustermap")
 
 parser.add_argument("--IclstrNormalSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Samples_Genes/" + distance_metric + choice.which \
+			+ "/Clustermap/Samples_Genes/" + distance_metric + "/" + choice.which \
 			+ "/Normal/clustermap.png"),
 	help = "Clustermap")
 
 parser.add_argument("--IclstrWoTissueSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Samples_Genes/" + distance_metric + choice.which \
+			+ "/Clustermap/Samples_Genes/" + distance_metric + "/" + choice.which \
 			+ "/WithoutTissues/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclusterTopSG",
+parser.add_argument("--IclustrTopSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples_Genes/" + distance_metric \
 			+ "/Top1000/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclusterTop100SG",
+parser.add_argument("--IclustrTop100SG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples_Genes/" + distance_metric + \
@@ -803,14 +803,14 @@ parser.add_argument("--IclstrNRcvSG",
 			+ "/variants_chaperones/NonReplicative/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclusterTissueSG",
+parser.add_argument("--IclustrTissueSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/Samples_Genes/" + distance_metric + choice.which \
+			+ "/Clustermap/Samples_Genes/" + distance_metric + "/" + choice.which \
 			+ "/ByTissue/"),
 	help = "Clustermaps")
 
-parser.add_argument("--IclusterRandSG",
+parser.add_argument("--IclustrRandSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples_Genes/" + distance_metric + "/Random/"),
