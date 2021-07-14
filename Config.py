@@ -42,6 +42,12 @@ parser.add_argument("--af",
 	help = "Filtered counts, you can change the file name to one of these: \
 			Filtered + CPM5S18 or CPM10S18 or CPM10S36 + .tsv")
 
+parser.add_argument("--norm",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/Counts/Normalized/Full/counts.tsv"),
+	help = "Normalized counts")
+
 parser.add_argument("--full",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
@@ -139,7 +145,7 @@ parser.add_argument("--corrTopG",
 			+ "/CorrelationMatrix/Genes/Top1000/corr_matrix.tsv"),
 	help = "Correlation matrix")
 
-parser.add_argument("--corr100G",
+parser.add_argument("--corrTop100G",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/CorrelationMatrix/Genes/Top100/corr_matrix.tsv"),
@@ -191,7 +197,7 @@ parser.add_argument("--corrTopS",
 		+ "/CorrelationMatrix/Samples/Top1000/corr_matrix.tsv"),
 	help = "Correlation matrix")
 
-parser.add_argument("--corr100S",
+parser.add_argument("--corrTop100S",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/CorrelationMatrix/Samples/Top100/corr_matrix.tsv"),
@@ -206,7 +212,7 @@ parser.add_argument("--corrNRcvS",
 parser.add_argument("--corrTissueS",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/CorrelationMatrix/Samples/" + choice.which "/CorrByTissue/"),
+			+ "/CorrelationMatrix/Samples/" + choice.which + "/CorrByTissue/"),
 	help = "Correlation matrices")
 
 parser.add_argument("--corrRandS",
@@ -262,7 +268,7 @@ parser.add_argument("--pcaNRcv",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/PCA/variants_chaperones/NonReplicative/pca.tsv"),
-	help = "PCA file"
+	help = "PCA file")
 
 parser.add_argument("--pcaTissue",
 	type = Path,
@@ -381,10 +387,10 @@ parser.add_argument("--IgeneralTop100",
 			+ "/General/Top100/"),
 	help = "QC images")
 
-parser.add_argument("--IgeneralNrCV",
+parser.add_argument("--IgeneralNRcv",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/General/variants_chaperones/NonReplicativeHistones/"),
+			+ "/General/variants_chaperones/NonReplicative/"),
 	help = "QC images")
 
 parser.add_argument("--IgeneralRand",
@@ -816,8 +822,8 @@ parser.add_argument("--PgeneralTop100",
 parser.add_argument("--PgeneralNRcv",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset \
-			+ "/" + choice.normMethod + "/General/variants_chaperones/\
-			NonReplicative/"),
+			+ "/" + choice.normMethod + "/General/variants_chaperones/" \
+			+ "NonReplicative/"),
 	help = "QC html files")
 
 parser.add_argument("--PgeneralRand",
@@ -875,8 +881,8 @@ parser.add_argument("--PmvTop100",
 parser.add_argument("--PmvNRcv",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset \
-			+ "/" + choice.normMethod + "/MV_Plots/variants_chaperones/\
-			NonReplicative/mv.html"),
+			+ "/" + choice.normMethod + "/MV_Plots/variants_chaperones/" \
+			+ "NonReplicative/mv.html"),
 	help = "Mean-variance html file")
 
 parser.add_argument("--PmvTissue",
@@ -941,8 +947,8 @@ parser.add_argument("--PzscoreTop100",
 parser.add_argument("--PzscoreNRcv",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
-			+ choice.normMethod + "/Z_scores/variants_chaperones/\
-			NonReplicative/Z_scores.html"),
+			+ choice.normMethod + "/Z_scores/variants_chaperones/" \
+			+ "NonReplicative/Z_scores.html"),
 	help = "Z_scores image")
 
 parser.add_argument("--PzscoreTissue",
@@ -1003,8 +1009,8 @@ parser.add_argument("--PpcaTop100",
 parser.add_argument("--PpcaNRcv",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
-			+ choice.normMethod + "/PCA/variants_chaperones/\
-			NonReplicative/pca.html"),
+			+ choice.normMethod + "/PCA/variants_chaperones/" \
+			+ "NonReplicative/pca.html"),
 	help = "PCA html file")
 
 parser.add_argument("--PpcaTissue",
@@ -1066,8 +1072,8 @@ parser.add_argument("--PtsneTop100",
 parser.add_argument("--PtsneNRcv",
 	type = Path,
 	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
-			+ choice.normMethod + "/T-Sne/variants_chaperones/\
-			NonReplicative/T-Sne.html"),
+			+ choice.normMethod + "/T-Sne/variants_chaperones/" \
+			+ "NonReplicative/T-Sne.html"),
 	help = "T-SNE html file")
 
 parser.add_argument("--PtsneTissue",
@@ -1085,9 +1091,9 @@ parser.add_argument("--PtsneRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
-	args.top1000, args.top100, args.nonRcv]
-#, get_counts.tissue, get_counts.rand]
+counts = [args.full, args.onlyNormal, args.WoTissues, args.nonRcv]
+""" [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
+	args.top1000, args.top100, args.nonRcv, get_counts.tissue, get_counts.rand]"""
 
 ### Get genes' correlations
 g_corr = [args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrTopG,
@@ -1133,38 +1139,52 @@ htmls_tsne = [args.PtsneRaw, args.PtsneFiltered, args.PtsneFull,
 
 ### Get QC images
 #### General
-general_qc_imgs = [args.IgeneralRaw, args.IgeneralFiltered, args.IgeneralFull, 
-	args.IgeneralNormal, args.IgeneralWoTissues, args.IgeneralTop, 
-	args.IgeneralTop100, args.IgeneralNRcv]
-	#, args.IgeneralTissue, args.IgeneralRand
+general_qc_imgs = [args.IgeneralFull, args.IgeneralNormal, 
+	args.IgeneralWoTissues, args.IgeneralNRcv]
+"""[args.IgenralRaw, args.IgenralFiltered, args.IgeneralFull, 
+	args.IgeneralNormal, args.IgeneralWoTissues, args.IgeneralTop,
+	args.IgeneralTop100, args.IgeneralNRcv, args.IgeneralTissue, 
+	args.IgeneralRand]"""
 
 #### Mean-variance
-mv_imgs = [args.ImvRaw, args.ImvFiltered, args.ImvFull, args.ImvNormal, 
-	args.ImvWoTissues, args.ImvTop, args.ImvTop100, args.ImvNRcv]
-	#, args.ImvTissue, args.ImvRand
+mv_imgs = [args.ImvFull, args.ImvNormal, 
+	args.ImvWoTissues, args.ImvNRcv]
+"""[args.ImvRaw, args.ImvFiltered, args.ImvFull, 
+	args.ImvNormal, args.ImvWoTissues, args.ImvTop,
+	args.ImvTop100, args.ImvNRcv, args.ImvTissue, 
+	args.ImvRand]"""
 
 #### z_scores
-zscores_imgs = [args.IzscoreRaw, args.IzscoreFiltered, args.IzscoreFull, 
+zscores_imgs = [args.IzscoreFull, args.IzscoreNormal, 
+	args.IzscoreWoTissues, args.IzscoreNRcv]
+"""[args.IzscoreRaw, args.IzscoreFiltered, args.IzscoreFull, 
 	args.IzscoreNormal, args.IzscoreWoTissues, args.IzscoreTop, 
-	args.IzscoreTop100, args.IzscoreNRcv]
-	#, args.IzscoreTissue, args.IzscoreRand
+	args.IzscoreTop100, args.IzscoreNRcv, args.IzscoreTissue, 
+	args.IzscoreRand]"""
 
 ### Get QC html files
 #### General
-general_qc_htmls = [args.PgeneralRaw, args.PgeneralFiltered, args.PgeneralFull, 
-	args.PgeneralNormal, args.PgeneralWoTissues, args.PgeneralTop, 
-	args.PgeneralTop100, args.PgeneralNRcv]
-	#, args.PgeneralTissue, args.PgeneralRand
+general_qc_htmls = [args.PgeneralFull, args.PgeneralNormal, 
+	args.PgeneralWoTissues, args.PgeneralNRcv]
+"""[args.PgenralRaw, args.PgenralFiltered, args.PgeneralFull, 
+	args.PgeneralNormal, args.PgeneralWoTissues, args.PgeneralTop,
+	args.PgeneralTop100, args.PgeneralNRcv, args.PgeneralTissue, 
+	args.PgeneralRand]"""
 
 #### Mean-variance
-mv_htmls = [args.pmvRaw, args.pmvFiltered, args.pmvFull, args.pmvNormal, 
-	args.pmvWoTissues, args.pmvTop, args.ImvTop100, args.pmvNRcv]
-	#, args.pmvTissue, args.pmvRand
+mv_htmls = [args.PmvFull, args.PmvNormal, 
+	args.PmvWoTissues, args.PmvNRcv]
+"""[args.PmvRaw, args.PmvFiltered, args.PmvFull, 
+	args.PmvNormal, args.PmvWoTissues, args.PmvTop,
+	args.PmvTop100, args.PmvNRcv, args.PmvTissue, 
+	args.PmvRand]"""
 
 #### z_scores
-zscores_htmls = [args.PzscoreRaw, args.PzscoreFiltered, args.PzscoreFull, 
+zscores_htmls = [args.PzscoreFull, args.PzscoreNormal, 
+	args.PzscoreWoTissues, args.PzscoreNRcv]
+"""[args.PzscoreRaw, args.PzscoreFiltered, args.PzscoreFull, 
 	args.PzscoreNormal, args.PzscoreWoTissues, args.PzscoreTop, 
-	args.PzscoreTop100, args.PzscoreNRcv]
-	#, args.PzscoreTissue, args.PzscoreRand
+	args.PzscoreTop100, args.PzscoreNRcv, args.PzscoreTissue, 
+	args.PzscoreRand]"""
 
 ### Get the clustermaps

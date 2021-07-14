@@ -8,29 +8,17 @@ import Tools
 import Config
 
 def z_scores(
-	rand, top100, cv_counts, raw_counts, top1000,
-	counts_norm, tissue_counts, normal, filtered_counts,
-	nrcv_counts, Icv, Iraw, Irand, Inrcv, Itop100, Itop1000,
-	Inormal, Itissue, Inormalized, Ifiltered, IwoTissues, Pcv,
-	Praw, Prand, Pnrcv, Ptop100, Ptop1000, Pnormal, Ptissue, Pnormalized, 
-	Pfiltered, PwoTissues, counts_without_tissues):
+	counts, rand, tissues,
+	Icounts, Irand, Itissue,
+	Pcounts, Prand, Ptissue):
 		
-	counts = [counts_norm, top1000, top100, cv_counts, nrcv_counts]
-	#raw_counts, filtered_counts, normal, counts_without_tissues,  
-		
-	tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
+	tissue_files = sorted([f for f in tissues.iterdir() if f.is_file()])
 	for path in tissue_files:
 		counts.append(path)
 		
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
 		counts.append(path)
-	
-	images = [Inormalized, Itop1000, Itop100, Icv, Inrcv]
-	#Iraw, Ifiltered, Inormal, IwoTissues, 
-    
-	htmls = [Pnormalized, Ptop1000, Ptop100, Pcv, Pnrcv]
-	#Praw, Pfiltered, Pnormal, PwoTissues,  
 
 	for i in range(len(tissue_files)):
 		tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -40,8 +28,8 @@ def z_scores(
 		Tools.create_folder(link_img)
 		Tools.create_folder(link_p)
 		
-		images.append(link_img.joinpath(tissue_name + ".png"))
-		htmls.append(link_p.joinpath(tissue_name + ".html"))
+		Icounts.append(link_img.joinpath(tissue_name + ".png"))
+		Pcounts.append(link_p.joinpath(tissue_name + ".html"))
 		
 	for i in range(len(rand_files)):
 		link_img = Irand.joinpath("random" + str(i))
@@ -50,10 +38,10 @@ def z_scores(
 		Tools.create_folder(link_img)
 		Tools.create_folder(link_html)
 		
-		images.append(link_img.joinpath("random" + str(i) + ".png"))
-		htmls.append(link_html.joinpath("random" + str(i) + ".html"))
+		Icounts.append(link_img.joinpath("random" + str(i) + ".png"))
+		Pcounts.append(link_html.joinpath("random" + str(i) + ".html"))
 
-	for count, i, h in zip(counts, images, htmls):
+	for count, i, h in zip(counts, Icounts, Pcounts):
 		c = pd.read_csv(count, header = 0, index_col = 0, sep = "\t")
 		 
 		scaler = StandardScaler()
@@ -84,36 +72,12 @@ def z_scores(
 
 if __name__ == '__main__':	
 	z_scores(
+		counts = Config.counts,
 		rand = Config.args.rand,
-		top100 = Config.args.top100, 
-		cv_counts = Config.args.cv,
-		raw_counts = Config.args.bf, 
-		top1000 = Config.args.top1000,
-		counts_norm = Config.args.norm, 
-		tissue_counts = Config.args.tissue,
-		normal = Config.args.onlyNormal,
-		filtered_counts = Config.args.af,
-		nrcv_counts = Config.args.nonRcv, 
-		Icv = Config.args.IzscoreCV,
-		Iraw = Config.args.IzscoreRaw,
+		tissues = Config.args.tissue,
+		Icounts = Config.zscores_imgs,
 		Irand = Config.args.IzscoreRand,
-		Inrcv = Config.args.IzscoreNrCV,
-		Itop100 = Config.args.IzscoreTop100,
-		Itop1000 = Config.args.IzscoreTop,
-		Inormal = Config.args.IzscoreNormal,
 		Itissue = Config.args.IzscoreTissue,
-		Inormalized = Config.args.IzscoreNorm,
-		Ifiltered = Config.args.IzscoreFiltered,
-		IwoTissues = Config.args.IzscoreWoTissues,
-		Pcv = Config.args.PzscoreCV,
-		Praw = Config.args.PzscoreRaw,
+		Pcounts = Config.zscores_htmls,
 		Prand = Config.args.PzscoreRand,
-		Pnrcv = Config.args.PzscoreNrCV,
-		Ptop100 = Config.args.PzscoreTop100,
-		Ptop1000 = Config.args.PzscoreTop,
-		Pnormal = Config.args.PzscoreNormal,
-		Ptissue = Config.args.PzscoreTissue,
-		Pnormalized = Config.args.PzscoreNorm,
-		Pfiltered = Config.args.PzscoreFiltered,
-		PwoTissues = Config.args.PzscoreWoTissues,
-		counts_without_tissues = Config.args.WoTissues)
+		Ptissue = Config.args.PzscoreTissue)

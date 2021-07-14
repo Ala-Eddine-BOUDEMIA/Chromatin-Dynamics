@@ -6,7 +6,7 @@ from pathlib import Path
 import Config
 
 def generate_data(
-	cv, meta, rand, top100, cv_list, 
+	full, meta, rand, top100, cv_list, 
 	nonRcv, top1000, normal, tissue_counts, 
 	normalized_counts, nonRcv_list, wo_bbbpst_tissues):
 	
@@ -21,7 +21,7 @@ def generate_data(
 
 	metadata = pd.read_csv(meta,
 		header = 0, index_col = 0, sep = "\t")
-	
+	"""
 	# Generate the top 127 expressed genes
 	# Generate the top1000 expressed genes
 	counts["total"] = counts.sum(axis = 0)
@@ -32,7 +32,7 @@ def generate_data(
 	top100_g.to_csv(top100, sep = "\t")
 	
 	top1000_g = counts.iloc[:1000, :]
-	top1000_g.to_csv(top1000, sep = "\t")
+	top1000_g.to_csv(top1000, sep = "\t")"""
 	
 	# Generate chaperones and variants dataframe
 	# Generate chaperones and non replicative variants dataframe
@@ -52,9 +52,9 @@ def generate_data(
 			if i.strip() == k.strip():
 				nonRv_df = nonRv_df.append(counts.loc[i])
 
-	cv_df.to_csv(str(cv), sep = "\t")
+	cv_df.to_csv(str(full), sep = "\t")
 	nonRv_df.to_csv(str(nonRcv), sep = "\t")
-	
+	"""
 	# Generate random sets
 	for c in range(10):
 		rng = default_rng()
@@ -64,10 +64,13 @@ def generate_data(
 		for i in r:
 			df_random = df_random.append(counts.iloc[i])
 
-		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")
+		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")"""
 
 	# Generate counts by tissue
-	counts_by_tissue = counts.T
+	if Config.args.which == "variants_chaperones":
+		counts_by_tissue = cv_df.T
+	elif Config.args.which == "Normalized":
+		counts_by_tissue = counts.T
 	counts_by_tissue = counts_by_tissue.join(metadata["smts"])
 	tissue_types = pd.unique(metadata["smts"])
 
@@ -77,7 +80,7 @@ def generate_data(
 		df.pop("smts")
 		df = df.T
 		df.to_csv(tissue_counts.joinpath(t + ".tsv"), sep = '\t')
-	"""
+	
 	# Generate counts without transformed cells
 	counts_wo_tcells = counts.T
 	counts_wo_tcells = counts_wo_tcells.join(metadata["smts"])
@@ -118,12 +121,12 @@ def generate_data(
 		
 	df.pop("smts")
 	df = df.T
-	df.to_csv(str(wo_bbbpst_tissues), sep = '\t')"""
+	df.to_csv(str(wo_bbbpst_tissues), sep = '\t')
 
 if __name__ == '__main__':
 
 	generate_data(
-		cv = Config.args.cv,
+		full = Config.args.full,
 		meta = Config.args.meta,
 		rand = Config.args.rand,
 		top100 = Config.args.top100,
