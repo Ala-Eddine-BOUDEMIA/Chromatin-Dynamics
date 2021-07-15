@@ -1133,7 +1133,7 @@ parser.add_argument("--PtsneRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.full, args.onlyNormal, args.WoTissues, args.nonRcv]
+counts = [args.onlyNormal, args.WoTissues, args.nonRcv]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""
@@ -1249,7 +1249,7 @@ g_clustermaps = [args.IclstrFullG, args.IclstrNormalG,
 	args.IclstrTopG, args.IclstrTop100G, args.IclstrNRcvG, 
 	args.IclstrTissueG, args.IclstrRandG]"""
 
-sg_clustermaps = [args.IclstrFullSG, args.IclstrNormalSG, 
+sg_clustermaps = [args.IclstrNormalSG, 
 	args.IclstrWoTissueSG, args.IclstrNRcvSG]
 """[args.IclstrFullSG, args.IclstrNormalSG, args.IclstrWoTissueSG, 
 	args.IclstrTopSG, args.IclstrTop100SG, args.IclstrNRcvSG, 
