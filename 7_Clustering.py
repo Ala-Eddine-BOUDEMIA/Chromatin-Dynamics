@@ -13,9 +13,10 @@ import Config
 sys.setrecursionlimit(1000000)
 
 def clustering_samples(
-    meta, s_corr, s_corr_rand, s_corr_tissues,
-    s_clustermaps, s_img_clstrRand, s_img_clstrTissues):
-    
+    meta, s_corr_rand, s_corr_tissues,
+    s_img_clstrRand, s_img_clstrTissues):#s_corr, s_clustermaps, 
+    s_corr = []
+    s_clustermaps = []
     # Make sure there are not hidden files in the folder
     tissue_files = sorted([f for f in s_corr_tissues.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
@@ -75,7 +76,7 @@ def clustering_genes(
     cv_list, g_corr, g_corr_rand, g_corr_tissue,
     g_clustermaps, g_img_clstrRand, g_img_clstrTissues):
     
-    tissue_files = sorted([f for f in g_corr_tissue.iterdir() if f.is_file()])
+    tissue_files = sorted([f for f in g_corr_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         g_corr.append(path) 
 
@@ -144,12 +145,21 @@ def clustering_genes(
 def clustering_samples_genes(
     meta, cv_list, counts, rand, by_tissue,
     sg_clustermaps, sg_img_clstrRand, sg_img_clstrTissues):
+
+    tissue_files = sorted([f for f in by_tissue.iterdir() if f.is_file()])
+    for path in tissue_files:
+        counts.append(path)
     
     rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
     for path in rand_files:
         counts.append(path)
 
-    
+    for i in range(len(tissue_files)):
+        tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
+        link = sg_img_clstrTissues.joinpath(tissue_name)
+        Tools.create_folder(link)
+        sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
+
     for i in range(len(rand_files)):
         sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
@@ -230,10 +240,10 @@ if __name__ == '__main__':
     
     clustering_samples(
         meta = Config.args.meta,
-        s_corr = Config.s_corr,
+        #s_corr = Config.s_corr,
 		s_corr_rand = Config.args.corrRandS,
         s_corr_tissues = Config.args.corrTissueS,
-        s_clustermaps = Config.s_clustermaps,
+        #s_clustermaps = Config.s_clustermaps,
         s_img_clstrRand = Config.args.IclstrRandS,
         s_img_clstrTissues = Config.args.IclstrTissueS)
 

@@ -1133,7 +1133,8 @@ parser.add_argument("--PtsneRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = []
+counts = [args.full, args.onlyNormal, args.WoTissues, args.nonRcv,
+	args.top1000, args.top100]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""
@@ -1243,7 +1244,9 @@ zscores_htmls = [args.PzscoreFull, args.PzscoreNormal,
 	args.PzscoreRand]"""
 
 ### Get the clustermaps
-s_clustermaps = []
+s_clustermaps = [args.IclstrFullS, args.IclstrNormalS, 
+	args.IclstrWoTissueS, args.IclstrNRcvS, args.IclstrTopS, 
+	args.IclstrTop100S]
 """[args.IclstrFullS, args.IclstrNormalS, args.IclstrWoTissueS, 
 	args.IclstrTopS, args.IclstrTop100S, args.IclstrNRcvS, 
 	args.IclstrTissueS, args.IclstrRandS]"""
