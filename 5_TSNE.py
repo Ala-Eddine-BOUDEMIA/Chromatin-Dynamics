@@ -11,7 +11,7 @@ import Config
 
 def tsne(
     meta, counts, rand, tissues,
-    P_tsne, img_tsne, files_tsne,
+    p_tsne, img_tsne, files_tsne,
     p_tsne_rand, file_tsne_rand, 
     img_tsne_rand, p_tsne_tissues,
     file_tsne_tissues, img_tsne_tissues):
@@ -75,7 +75,7 @@ def tsne(
         fig.write_image(str(i), width = 2048, height = 1024)
         #fig.show()
 
-        df.to_csv(t, sep="\t")
+        df.to_csv(t, sep="\t", float_format='%.3f')
 
         del(f)
         del(df)

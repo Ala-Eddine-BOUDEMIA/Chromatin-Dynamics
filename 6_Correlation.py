@@ -40,11 +40,11 @@ def correlation(
 
 		# Samples
 		s_f_log2 = f_log2.corr('pearson')
-		s_f_log2.to_csv(s, sep = "\t")
+		s_f_log2.to_csv(s, sep = "\t", float_format='%.3f')
 
 		# Genes
 		g_f_log2 = f_log2.T.corr('pearson')
-		g_f_log2.to_csv(g, sep = "\t")
+		g_f_log2.to_csv(g, sep = "\t", float_format='%.3f')
 
 		# Free memory
 		del(f)

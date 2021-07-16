@@ -91,7 +91,7 @@ def pca(
         fig.write_image(str(i), width = 2048, height = 1024)
         #fig.show()
 
-        d.to_csv(str(t), sep="\t")
+        d.to_csv(str(t), sep="\t", float_format='%.3f')
 
         del(f)
         del(d)

@@ -82,7 +82,10 @@ def generate_data(
 		df.to_csv(tissue_counts.joinpath(t + ".tsv"), sep = '\t')
 	
 	# Generate counts without transformed cells
-	counts_wo_tcells = counts.T
+	if Config.args.which == "variants_chaperones":
+		counts_wo_tcells = cv_df.T
+	elif Config.args.which == "Normalized":
+		counts_wo_tcells = counts.T
 	counts_wo_tcells = counts_wo_tcells.join(metadata["smts"])
 	counts_wo_tcells = counts_wo_tcells.join(metadata["smtsd"])
 	tissue_types = list(pd.unique(metadata["smtsd"]))
@@ -105,7 +108,10 @@ def generate_data(
 	df.to_csv(str(normal), sep = '\t')
 
 	# Generate counts without Brain, Blood, Bone Marrow, Pituitary, Spleen, Testis
-	counts_wo_bbbpst = counts.T
+	if Config.args.which == "variants_chaperones":
+		counts_wo_bbbpst = cv_df.T
+	elif Config.args.which == "Normalized":
+		counts_wo_bbbpst = counts.T
 	counts_wo_bbbpst = counts_wo_bbbpst.join(metadata["smts"])
 	tissue_types = list(pd.unique(metadata["smts"]))
 

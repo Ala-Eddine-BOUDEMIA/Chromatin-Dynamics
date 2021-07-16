@@ -249,7 +249,7 @@ parser.add_argument("--pcaNormal",
 parser.add_argument("--pcaWoTissues",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/PCA/WithoutTissues/" + choice.which + "/pca.tsv"),
+			+ "/PCA/" + choice.which + "/WithoutTissues/pca.tsv"),
 	help = "PCA file")
 
 parser.add_argument("--pcaTop",
