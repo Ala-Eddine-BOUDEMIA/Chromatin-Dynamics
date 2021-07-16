@@ -64,6 +64,7 @@ def clustering_samples(
             bbox_transform = plt.gcf().transFigure)
 
         g.savefig(str(i), dpi = 300)
+        plt.close('all')
 
         # Free memory
         del(correlation_matrix)
@@ -132,6 +133,7 @@ def clustering_genes(
                 method = "average", figsize = [15, 15])
 
         g.savefig(str(i), dpi = 300)
+        plt.close('all')
         c += 1
 
         # Free memory
@@ -143,19 +145,10 @@ def clustering_samples_genes(
     meta, cv_list, counts, rand, by_tissue,
     sg_clustermaps, sg_img_clstrRand, sg_img_clstrTissues):
     
-    tissue_files = sorted([f for f in by_tissue.iterdir() if f.is_file()])
-    for path in tissue_files:
-        counts.append(path)
-    
     rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
     for path in rand_files:
         counts.append(path)
 
-    for i in range(len(tissue_files)):
-        tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
-        link = sg_img_clstrTissues.joinpath(tissue_name)
-        Tools.create_folder(link)
-        sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
     for i in range(len(rand_files)):
         sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
@@ -225,6 +218,7 @@ def clustering_samples_genes(
             bbox_transform = plt.gcf().transFigure)
 
         g.savefig(str(i), dpi = 300)
+        plt.close('all')
         c += 1 
 
         # Free memory

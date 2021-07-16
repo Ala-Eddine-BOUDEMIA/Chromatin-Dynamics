@@ -12,7 +12,7 @@ parser.add_argument("--dataset",
 # Method used to normalize (CPM or TMM)
 parser.add_argument("--normMethod",
 	type = str,
-	default = "TMM",
+	default = "CPM",
 	help = "Method to normalize")
 
 # Data to be used for the analysis
@@ -298,7 +298,7 @@ parser.add_argument("--tsneFiltered",
 parser.add_argument("--tsneFull",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/T-Sne/" + choice.which + "/Full/T-Sne.tsv"),
+			+ "/T-Sne/" + choice.which + "/Full/tsne.tsv"),
 	help = "T-SNE file")
 
 parser.add_argument("--tsneNormal",
@@ -340,7 +340,7 @@ parser.add_argument("--tsneTissue",
 parser.add_argument("--tsneRand",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/T_Sne/Random/"),
+			+ "/T-Sne/Random/"),
 	help = "T-SNE file")
 
 # Images
