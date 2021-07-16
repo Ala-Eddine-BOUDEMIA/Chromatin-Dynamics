@@ -74,7 +74,7 @@ def clustering_genes(
     cv_list, g_corr, g_corr_rand, g_corr_tissue,
     g_clustermaps, g_img_clstrRand, g_img_clstrTissues):
     
-    tissue_files = sorted([f for f in g_corr_tissues.iterdir() if f.is_file()])
+    tissue_files = sorted([f for f in g_corr_tissue.iterdir() if f.is_file()])
     for path in tissue_files:
         g_corr.append(path) 
 
@@ -89,7 +89,7 @@ def clustering_genes(
         g_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
     for i in range(len(rand_files)):
-        images.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))
+        g_clustermaps.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(cv_list, 
         header = 0, index_col = 0, sep = ";")
