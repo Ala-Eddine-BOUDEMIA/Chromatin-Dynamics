@@ -26,8 +26,8 @@ def correlation(
 		Tools.create_folder(link_g)
 		Tools.create_folder(link_s)
 		
-		g_corr.append(link_g.joinpath(tissue_name + ".png"))
-		s_corr.append(link_s.joinpath(tissue_name + ".html"))
+		g_corr.append(link_g.joinpath(tissue_name + ".tsv"))
+		s_corr.append(link_s.joinpath(tissue_name + ".tsv"))
 	
 	for i in range(len(rand_files)):
 		g_corr.append(g_corr_rand.joinpath("random" + str(i) + ".tsv"))

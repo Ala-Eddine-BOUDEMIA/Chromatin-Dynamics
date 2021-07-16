@@ -17,7 +17,7 @@ def clustering_samples(
     s_clustermaps, s_img_clstrRand, s_img_clstrTissues):
     
     # Make sure there are not hidden files in the folder
-    tissue_files = sorted([f for f in s_corr_tissues.iterdir() if f.is_file()])
+    tissue_files = sorted([f for f in s_corr_tissues.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         s_corr.append(path) 
 
@@ -43,7 +43,7 @@ def clustering_samples(
         correlation_matrix = correlation_matrix.dropna()
         tissues = correlation_matrix.pop("smts")
 
-        palette1 = sns.hls_palette(10)
+        palette1 = sns.hls_palette(11)
         palette2 = sns.color_palette("bwr",10)
         palette3 = sns.color_palette("inferno",10)
         palette = palette1 + palette2 + palette3
@@ -99,7 +99,7 @@ def clustering_genes(
     for m, i in zip(g_corr, g_clustermaps):
         correlation_matrix = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
-        if c >= 0: #c == 2 or c == 3:
+        if c != 4 or c != 5:
             correlation_matrix = correlation_matrix.join(metadata["Class"])
             correlation_matrix = correlation_matrix.join(metadata["GeneName"])
             correlation_matrix = correlation_matrix.dropna()
@@ -166,14 +166,14 @@ def clustering_samples_genes(
         count = count.dropna()
         tissues = count.pop("smts")
 
-        palette1 = sns.hls_palette(10)
+        palette1 = sns.hls_palette(11)
         palette2 = sns.color_palette("bwr", 10)
         palette3 = sns.color_palette("inferno", 10)
         palette = palette1 + palette2 + palette3
         lut = dict(zip(set(tissues.unique()), palette))
         col_colors = tissues.map(lut)
 
-        if c >= 0: #c == 2 or c == 3: find a better condition
+        if c == 4 or c == 5: #find a better condition
             count = count.T
             count = count.join(cv_list["GeneName"])
             count = count.join(cv_list["Class"])
@@ -227,7 +227,7 @@ def clustering_samples_genes(
         gc.collect()
 
 if __name__ == '__main__':
-    """    
+    
     clustering_samples(
         meta = Config.args.meta,
         s_corr = Config.s_corr,
@@ -235,7 +235,7 @@ if __name__ == '__main__':
         s_corr_tissues = Config.args.corrTissueS,
         s_clustermaps = Config.s_clustermaps,
         s_img_clstrRand = Config.args.IclstrRandS,
-        s_img_clstrTissues = Config.args.IclstrTissuesS)
+        s_img_clstrTissues = Config.args.IclstrTissueS)
 
     clustering_genes(
         cv_list = Config.args.list,
@@ -244,7 +244,7 @@ if __name__ == '__main__':
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
         g_img_clstrRand = Config.args.IclstrRandG,
-        g_img_clstrTissues = Config.args.IclstrTissuesG)"""
+        g_img_clstrTissues = Config.args.IclstrTissueG)
     
     clustering_samples_genes(
         meta = Config.args.meta,

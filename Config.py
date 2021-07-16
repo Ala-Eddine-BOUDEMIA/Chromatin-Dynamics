@@ -154,7 +154,7 @@ parser.add_argument("--corrTop100G",
 parser.add_argument("--corrNRcvG",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/CorrelationMatrix/Genes/NonReplicative/corr_matrix.tsv"),
+			+ "/CorrelationMatrix/Genes/variants_chaperones/NonReplicative/corr_matrix.tsv"),
 	help = "Correlation matrix")
 
 parser.add_argument("--corrTissueG",
@@ -206,7 +206,7 @@ parser.add_argument("--corrTop100S",
 parser.add_argument("--corrNRcvS",
 	type = Path,
 	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/CorrelationMatrix/Samples/nNnReplicative/corr_matrix.tsv"),
+			+ "/CorrelationMatrix/Samples/variants_chaperones/NonReplicative/corr_matrix.tsv"),
 	help = "Correlation matrix")
 
 parser.add_argument("--corrTissueS",
@@ -1133,8 +1133,7 @@ parser.add_argument("--PtsneRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.full, args.onlyNormal, args.WoTissues, args.nonRcv,
-	args.top1000, args.top100]
+counts = []
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""
@@ -1244,9 +1243,7 @@ zscores_htmls = [args.PzscoreFull, args.PzscoreNormal,
 	args.PzscoreRand]"""
 
 ### Get the clustermaps
-s_clustermaps = [args.IclstrFullS, args.IclstrNormalS, 
-	args.IclstrWoTissueS, args.IclstrNRcvS, args.IclstrTopS, 
-	args.IclstrTop100S]
+s_clustermaps = []
 """[args.IclstrFullS, args.IclstrNormalS, args.IclstrWoTissueS, 
 	args.IclstrTopS, args.IclstrTop100S, args.IclstrNRcvS, 
 	args.IclstrTissueS, args.IclstrRandS]"""
