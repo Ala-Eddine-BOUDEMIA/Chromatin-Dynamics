@@ -13,10 +13,9 @@ import Config
 sys.setrecursionlimit(1000000)
 
 def clustering_samples(
-    meta, s_corr_rand, s_corr_tissues,
-    s_img_clstrRand, s_img_clstrTissues):#s_corr, s_clustermaps, 
-    s_corr = []
-    s_clustermaps = []
+    meta, s_corr, s_corr_rand, s_corr_tissues,
+    s_clustermaps, s_img_clstrRand, s_img_clstrTissues):
+
     # Make sure there are not hidden files in the folder
     tissue_files = sorted([f for f in s_corr_tissues.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
@@ -75,11 +74,11 @@ def clustering_samples(
 def clustering_genes(
     cv_list, g_corr, g_corr_rand, g_corr_tissue,
     g_clustermaps, g_img_clstrRand, g_img_clstrTissues):
-    
+
     tissue_files = sorted([f for f in g_corr_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         g_corr.append(path) 
-
+    
     rand_files = sorted([f for f in g_corr_rand.iterdir() if f.is_file()])
     for path in rand_files:
         g_corr.append(path)
@@ -119,7 +118,7 @@ def clustering_genes(
                 cmap = "icefire", metric = Config.distance_metric,
                 row_colors = colors, col_colors = colors, 
                 xticklabels = labels, yticklabels = labels,
-                method = "average", figsize = [15, 15])
+                method = "average", figsize = [25, 25])
 
             handles = [Patch(facecolor = lut[name]) for name in lut]
             g.ax_row_dendrogram.legend(handles, lut, title = 'Class',
@@ -131,7 +130,7 @@ def clustering_genes(
                 vmax = max(correlation_matrix.max(axis = 1)), 
                 cmap = "icefire", metric = Config.distance_metric,
                 xticklabels = False, yticklabels = False,
-                method = "average", figsize = [15, 15])
+                method = "average", figsize = [25, 25])
 
         g.savefig(str(i), dpi = 300)
         plt.close('all')
@@ -159,14 +158,14 @@ def clustering_samples_genes(
         link = sg_img_clstrTissues.joinpath(tissue_name)
         Tools.create_folder(link)
         sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
-
+    
     for i in range(len(rand_files)):
         sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     cv_list = pd.read_csv(cv_list, header = 0, index_col = 0, sep = ";") 
     
-    c = 0
+    c = -1
     for m, i in zip(counts, sg_clustermaps):
         count = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
         count = pd.DataFrame(np.log2(count + 1))
@@ -183,7 +182,7 @@ def clustering_samples_genes(
         lut = dict(zip(set(tissues.unique()), palette))
         col_colors = tissues.map(lut)
 
-        if c == 4 or c == 5: #find a better condition
+        if c != 4 or c != 5: #find a better condition
             count = count.T
             count = count.join(cv_list["GeneName"])
             count = count.join(cv_list["Class"])
@@ -206,7 +205,7 @@ def clustering_samples_genes(
                 xticklabels = False, 
                 yticklabels = yticklabels,
                 method = "average",
-                figsize = [15, 15])
+                figsize = [25, 25])
 
             handlesX = [Patch(facecolor = lutX[name]) for name in lutX]
             g.ax_row_dendrogram.legend(handlesX, lutX, title = 'Class',
@@ -220,7 +219,7 @@ def clustering_samples_genes(
                 col_colors = col_colors,
                 cmap = "icefire", metric = Config.distance_metric,
                 xticklabels = False, yticklabels = False,
-                method = "average", figsize = [15, 15])
+                method = "average", figsize = [25, 25])
 
         handles = [Patch(facecolor = lut[name]) for name in lut]
         g.ax_col_dendrogram.legend(handles, lut, title = 'Tissues',
@@ -229,7 +228,7 @@ def clustering_samples_genes(
 
         g.savefig(str(i), dpi = 300)
         plt.close('all')
-        c += 1 
+        c += 0
 
         # Free memory
         del(count)
@@ -237,13 +236,13 @@ def clustering_samples_genes(
         gc.collect()
 
 if __name__ == '__main__':
-    
+    """
     clustering_samples(
         meta = Config.args.meta,
-        #s_corr = Config.s_corr,
+        s_corr = Config.s_corr,
 		s_corr_rand = Config.args.corrRandS,
         s_corr_tissues = Config.args.corrTissueS,
-        #s_clustermaps = Config.s_clustermaps,
+        s_clustermaps = Config.s_clustermaps,
         s_img_clstrRand = Config.args.IclstrRandS,
         s_img_clstrTissues = Config.args.IclstrTissueS)
 
@@ -254,7 +253,7 @@ if __name__ == '__main__':
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
         g_img_clstrRand = Config.args.IclstrRandG,
-        g_img_clstrTissues = Config.args.IclstrTissueG)
+        g_img_clstrTissues = Config.args.IclstrTissueG)"""
     
     clustering_samples_genes(
         meta = Config.args.meta,
