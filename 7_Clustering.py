@@ -234,7 +234,7 @@ if __name__ == '__main__':
 		s_corr_rand = Config.args.corrRandS,
         s_corr_tissues = Config.args.corrTissueS,
         s_clustermaps = Config.s_clustermaps,
-        s_img_clstrRand = Config.args.IclustrRandS,
+        s_img_clstrRand = Config.args.IclstrRandS,
         s_img_clstrTissues = Config.args.IclstrTissuesS)
 
     clustering_genes(
@@ -243,7 +243,7 @@ if __name__ == '__main__':
 		g_corr_rand = Config.args.corrRandG,
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
-        g_img_clstrRand = Config.args.IclustrRandG,
+        g_img_clstrRand = Config.args.IclstrRandG,
         g_img_clstrTissues = Config.args.IclstrTissuesG)"""
     
     clustering_samples_genes(
@@ -253,5 +253,5 @@ if __name__ == '__main__':
         rand = Config.args.rand,
         by_tissue = Config.args.tissue,
         sg_clustermaps = Config.sg_clustermaps,
-        sg_img_clstrRand = Config.args.IclustrRandSG,
-        sg_img_clstrTissues = Config.args.IclustrTissueSG)
+        sg_img_clstrRand = Config.args.IclstrRandSG,
+        sg_img_clstrTissues = Config.args.IclstrTissueSG)

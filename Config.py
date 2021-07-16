@@ -673,14 +673,14 @@ parser.add_argument("--IclstrWoTissueS",
 			+ "/WithoutTissues/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclustrTopS",
+parser.add_argument("--IclstrTopS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples/" + distance_metric \
 			+ "/Top1000/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclustrTop100S",
+parser.add_argument("--IclstrTop100S",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples/" + distance_metric \
@@ -701,7 +701,7 @@ parser.add_argument("--IclstrTissueS",
 			+ "/ByTissue/"),
 	help = "Clustermaps")
 
-parser.add_argument("--IclustrRandS",
+parser.add_argument("--IclstrRandS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/" + distance_metric + "/Samples/Random/"),
@@ -728,14 +728,14 @@ parser.add_argument("--IclstrWoTissueG",
 			+ "/WithoutTissues/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclustrTopG",
+parser.add_argument("--IclstrTopG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Genes/" + distance_metric \
 			+ "/Top1000/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclustrTop100G",
+parser.add_argument("--IclstrTop100G",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Genes/" + distance_metric + "/Top100/clustermap.png"),
@@ -755,7 +755,7 @@ parser.add_argument("--IclstrTissueG",
 			+ "/ByTissue/"),
 	help = "Clustermaps")
 
-parser.add_argument("--IclustrRandG",
+parser.add_argument("--IclstrRandG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Genes/" + distance_metric + "/Random/"),
@@ -782,14 +782,14 @@ parser.add_argument("--IclstrWoTissueSG",
 			+ "/WithoutTissues/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclustrTopSG",
+parser.add_argument("--IclstrTopSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples_Genes/" + distance_metric \
 			+ "/Top1000/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclustrTop100SG",
+parser.add_argument("--IclstrTop100SG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples_Genes/" + distance_metric + \
@@ -803,14 +803,14 @@ parser.add_argument("--IclstrNRcvSG",
 			+ "/variants_chaperones/NonReplicative/clustermap.png"),
 	help = "Clustermap")
 
-parser.add_argument("--IclustrTissueSG",
+parser.add_argument("--IclstrTissueSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples_Genes/" + distance_metric + "/" + choice.which \
 			+ "/ByTissue/"),
 	help = "Clustermaps")
 
-parser.add_argument("--IclustrRandSG",
+parser.add_argument("--IclstrRandSG",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/Clustermap/Samples_Genes/" + distance_metric + "/Random/"),
@@ -1133,18 +1133,21 @@ parser.add_argument("--PtsneRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.full, args.onlyNormal, args.WoTissues, args.nonRcv]
+counts = [args.full, args.onlyNormal, args.WoTissues, args.nonRcv,
+	args.top1000, args.top100]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""
 
 ### Get genes' correlations
-g_corr = [args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrNRcvG] 
+g_corr = [args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrNRcvG,
+	args.corrTopG, args.corrTop100G] 
 """[args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrTopG,
 	args.corrTop100G, args.corrNRcvG, args.corrTissueG, args.corrRandG]"""
 
 ### Get samples' correlations
-s_corr = [args.corrFullS, args.corrNormalS, args.corrWoTissuesS, args.corrNRcvS]
+s_corr = [args.corrFullS, args.corrNormalS, args.corrWoTissuesS, args.corrNRcvS, 
+	args.corrTopS, args.corrTop100S]
 """[args.corrFullS, args.corrNormalS, args.corrWoTissuesS, args.corrTopS,
 	args.corrTop100S, args.corrNRcvS, args.corrTissueS, args.corrRandS]"""
 
@@ -1167,21 +1170,25 @@ htmls_pca = [args.PpcaFull, args.PpcaNormal, args.PpcaWoTissues, args.PpcaNRcv]
 	args.PpcaTissue, args.PpcaRand]"""
 
 ### Get t-sne's files
-files_tsne = [args.tsneFull, args.tsneNormal,args.tsneWoTissues, args.tsneNRcv]
+files_tsne = [args.tsneFull, args.tsneNormal,
+	args.tsneWoTissues, args.tsneNRcv,
+	args.tsneTop, args.tsneTop100]
 """[args.tsneRaw, args.tsneFiltered, args.tsneFull, args.tsneNormal,
 	args.tsneWoTissues, args.tsneTop, args.tsneTop100, args.tsneNRcv, 
 	args.tsneTissue, args.tsneRand]"""
 
 ### Get t-sne's images
 images_tsne = [args.ItsneFull, args.ItsneNormal, 
-	args.ItsneWoTissues, args.ItsneNRcv]
+	args.ItsneWoTissues, args.ItsneNRcv,
+	args.ItsneTop, args.ItsneTop100]
 """[args.ItsneRaw, args.ItsneFiltered, args.ItsneFull, args.ItsneNormal, 
 	args.ItsneWoTissues, args.ItsneTop, args.ItsneTop100, args.ItsneNRcv, 
 	args.ItsneTissue, args.ItsneRand]"""
 
 ### Get t-sne's HTML files
 htmls_tsne = [args.PtsneFull, args.PtsneNormal, 
-	args.PtsneWoTissues, args.PtsneNRcv]
+	args.PtsneWoTissues, args.PtsneNRcv,
+	args.PtsneTop, args.PtsneTop100]
 """[args.PtsneRaw, args.PtsneFiltered, args.PtsneFull, args.PtsneNormal, 
 	args.PtsneWoTissues, args.PtsneTop, args.PtsneTop100, args.PtsneNRcv, 
 	args.PtsneTissue, args.PtsneRand]"""
@@ -1238,19 +1245,22 @@ zscores_htmls = [args.PzscoreFull, args.PzscoreNormal,
 
 ### Get the clustermaps
 s_clustermaps = [args.IclstrFullS, args.IclstrNormalS, 
-	args.IclstrWoTissueS, args.IclstrNRcvS]
+	args.IclstrWoTissueS, args.IclstrNRcvS, args.IclstrTopS, 
+	args.IclstrTop100S]
 """[args.IclstrFullS, args.IclstrNormalS, args.IclstrWoTissueS, 
 	args.IclstrTopS, args.IclstrTop100S, args.IclstrNRcvS, 
 	args.IclstrTissueS, args.IclstrRandS]"""
 
 g_clustermaps = [args.IclstrFullG, args.IclstrNormalG, 
-	args.IclstrWoTissueG, args.IclstrNRcvG]
+	args.IclstrWoTissueG, args.IclstrNRcvG, args.IclstrTopG, 
+	args.IclstrTop100G]
 """[args.IclstrFullG, args.IclstrNormalG, args.IclstrWoTissueG, 
 	args.IclstrTopG, args.IclstrTop100G, args.IclstrNRcvG, 
 	args.IclstrTissueG, args.IclstrRandG]"""
 
 sg_clustermaps = [args.IclstrFullSG, args.IclstrNormalSG, 
-	args.IclstrWoTissueSG, args.IclstrNRcvSG]
+	args.IclstrWoTissueSG, args.IclstrNRcvSG, args.IclstrTopSG, 
+	args.IclstrTop100SG]
 """[args.IclstrFullSG, args.IclstrNormalSG, args.IclstrWoTissueSG, 
 	args.IclstrTopSG, args.IclstrTop100SG, args.IclstrNRcvSG, 
 	args.IclstrTissueSG, args.IclstrRandSG]"""
