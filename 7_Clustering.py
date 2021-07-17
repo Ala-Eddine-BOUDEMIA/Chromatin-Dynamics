@@ -148,19 +148,19 @@ def clustering_samples_genes(
     tissue_files = sorted([f for f in by_tissue.iterdir() if f.is_file()])
     for path in tissue_files:
         counts.append(path)
-    
+    """
     rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
     for path in rand_files:
-        counts.append(path)
+        counts.append(path)"""
 
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link = sg_img_clstrTissues.joinpath(tissue_name)
         Tools.create_folder(link)
         sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
-    
+    """
     for i in range(len(rand_files)):
-        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
+        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     cv_list = pd.read_csv(cv_list, header = 0, index_col = 0, sep = ";") 

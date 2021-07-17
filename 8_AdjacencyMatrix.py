@@ -36,9 +36,9 @@ def draw_graph3(
     return pyvis_graph.show(output_filename)
 
 def adjacencyMatrix(
-	cv_list, g_corr_cv):
+	cv_list, g_corr):
 
-	correlation_matrix = pd.read_csv(g_corr_cv, 
+	correlation_matrix = pd.read_csv(g_corr, 
 		header = 0, index_col = 0, sep = '\t')
 
 	cv_list = pd.read_csv(cv_list, 
@@ -65,4 +65,4 @@ if __name__ == '__main__':
 
 	adjacencyMatrix(
 		cv_list = Config.args.list,
-		g_corr_cv = Config.args.corrCVg)
+		g_corr = Config.args.corrFullG)
