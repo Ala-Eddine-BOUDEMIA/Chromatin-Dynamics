@@ -28,7 +28,8 @@ def explore_data(
 	# read metadata file
 	metadata = pd.read_csv(meta, header = 0, sep = "\t")
 
-	# Number of samples per tissue
+	# Number of samples per tissue 
+	# smtsd or  gdc_cases.tissue_source_site.project
 	samples_per_tissue = metadata.groupby(["smtsd"]).agg({'run':'count'})
 	samples_per_tissue.sort_values("smtsd")
 
