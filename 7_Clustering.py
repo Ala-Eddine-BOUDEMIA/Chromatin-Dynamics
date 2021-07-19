@@ -74,7 +74,7 @@ def clustering_samples(
 def clustering_genes(
     cv_list, g_corr, g_corr_rand, g_corr_tissue,
     g_clustermaps, g_img_clstrRand, g_img_clstrTissues):
-
+    
     tissue_files = sorted([f for f in g_corr_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         g_corr.append(path) 
@@ -82,7 +82,7 @@ def clustering_genes(
     rand_files = sorted([f for f in g_corr_rand.iterdir() if f.is_file()])
     for path in rand_files:
         g_corr.append(path)
-
+    
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link = g_img_clstrTissues.joinpath(tissue_name)
@@ -99,7 +99,7 @@ def clustering_genes(
     for m, i in zip(g_corr, g_clustermaps):
         correlation_matrix = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
-        if c != 4 or c != 5:
+        if c != 3 or c != 4:
             correlation_matrix = correlation_matrix.join(metadata["Class"])
             correlation_matrix = correlation_matrix.join(metadata["GeneName"])
             correlation_matrix = correlation_matrix.dropna()
@@ -144,28 +144,28 @@ def clustering_genes(
 def clustering_samples_genes(
     meta, cv_list, counts, rand, by_tissue,
     sg_clustermaps, sg_img_clstrRand, sg_img_clstrTissues):
-
+    
     tissue_files = sorted([f for f in by_tissue.iterdir() if f.is_file()])
     for path in tissue_files:
         counts.append(path)
-    """
+    
     rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
     for path in rand_files:
-        counts.append(path)"""
-
+        counts.append(path)
+        
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link = sg_img_clstrTissues.joinpath(tissue_name)
         Tools.create_folder(link)
         sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
-    """
+    
     for i in range(len(rand_files)):
-        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     cv_list = pd.read_csv(cv_list, header = 0, index_col = 0, sep = ";") 
     
-    c = -1
+    c = 0
     for m, i in zip(counts, sg_clustermaps):
         count = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
         count = pd.DataFrame(np.log2(count + 1))
@@ -182,7 +182,7 @@ def clustering_samples_genes(
         lut = dict(zip(set(tissues.unique()), palette))
         col_colors = tissues.map(lut)
 
-        if c != 4 or c != 5: #find a better condition
+        if c != 3 or c != 4: #find a better condition
             count = count.T
             count = count.join(cv_list["GeneName"])
             count = count.join(cv_list["Class"])
@@ -228,7 +228,7 @@ def clustering_samples_genes(
 
         g.savefig(str(i), dpi = 300)
         plt.close('all')
-        c += 0
+        c += 1
 
         # Free memory
         del(count)
@@ -236,7 +236,7 @@ def clustering_samples_genes(
         gc.collect()
 
 if __name__ == '__main__':
-    """
+    
     clustering_samples(
         meta = Config.args.meta,
         s_corr = Config.s_corr,
@@ -253,7 +253,7 @@ if __name__ == '__main__':
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
         g_img_clstrRand = Config.args.IclstrRandG,
-        g_img_clstrTissues = Config.args.IclstrTissueG)"""
+        g_img_clstrTissues = Config.args.IclstrTissueG)
     
     clustering_samples_genes(
         meta = Config.args.meta,
