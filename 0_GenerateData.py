@@ -21,18 +21,19 @@ def generate_data(
 
 	metadata = pd.read_csv(meta,
 		header = 0, index_col = 0, sep = "\t")
-	"""
+	
 	# Generate the top 127 expressed genes
 	# Generate the top1000 expressed genes
-	counts["total"] = counts.sum(axis = 0)
-	counts = counts.sort_values("total")
+	counts["total"] = counts.sum(axis = 1)
+	counts = counts.sort_values("total", ascending = False)
+	print(counts["total"])
 	counts.pop("total")
 	
 	top100_g = counts.iloc[:127, :]
 	top100_g.to_csv(top100, sep = "\t")
 	
 	top1000_g = counts.iloc[:1000, :]
-	top1000_g.to_csv(top1000, sep = "\t")"""
+	top1000_g.to_csv(top1000, sep = "\t")
 	
 	# Generate chaperones and variants dataframe
 	# Generate chaperones and non replicative variants dataframe
@@ -54,7 +55,7 @@ def generate_data(
 
 	cv_df.to_csv(str(full), sep = "\t")
 	nonRv_df.to_csv(str(nonRcv), sep = "\t")
-	"""
+	
 	# Generate random sets
 	for c in range(10):
 		rng = default_rng()
@@ -64,23 +65,23 @@ def generate_data(
 		for i in r:
 			df_random = df_random.append(counts.iloc[i])
 
-		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")"""
+		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")
 
-	# Generate counts by tissue
+	# Generate counts by tissue/cancer
 	if Config.args.which == "variants_chaperones":
 		counts_by_tissue = cv_df.T
 	elif Config.args.which == "Normalized":
 		counts_by_tissue = counts.T
-	counts_by_tissue = counts_by_tissue.join(metadata["smts"])
-	tissue_types = pd.unique(metadata["smts"])
+	counts_by_tissue = counts_by_tissue.join(metadata["gdc_cases.tissue_source_site.project"])
+	tissue_types = pd.unique(metadata["gdc_cases.tissue_source_site.project"])
 
 	for t in tissue_types:
 		df = pd.DataFrame(columns = counts_by_tissue.columns)
-		df = df.append(counts_by_tissue[counts_by_tissue["smts"] == t])
-		df.pop("smts")
+		df = df.append(counts_by_tissue[counts_by_tissue["gdc_cases.tissue_source_site.project"] == t])
+		df.pop("gdc_cases.tissue_source_site.project")
 		df = df.T
 		df.to_csv(tissue_counts.joinpath(t + ".tsv"), sep = '\t')
-	
+	"""
 	# Generate counts without transformed cells
 	if Config.args.which == "variants_chaperones":
 		counts_wo_tcells = cv_df.T
@@ -127,7 +128,7 @@ def generate_data(
 		
 	df.pop("smts")
 	df = df.T
-	df.to_csv(str(wo_bbbpst_tissues), sep = '\t')
+	df.to_csv(str(wo_bbbpst_tissues), sep = '\t')"""
 
 if __name__ == '__main__':
 

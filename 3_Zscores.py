@@ -11,7 +11,7 @@ def z_scores(
 	counts, rand, tissues,
 	Icounts, Irand, Itissue,
 	Pcounts, Prand, Ptissue):
-		
+	"""
 	tissue_files = sorted([f for f in tissues.iterdir() if f.is_file()])
 	for path in tissue_files:
 		counts.append(path)
@@ -39,7 +39,7 @@ def z_scores(
 		Tools.create_folder(link_html)
 		
 		Icounts.append(link_img.joinpath("random" + str(i) + ".png"))
-		Pcounts.append(link_html.joinpath("random" + str(i) + ".html"))
+		Pcounts.append(link_html.joinpath("random" + str(i) + ".html"))"""
 
 	for count, i, h in zip(counts, Icounts, Pcounts):
 		c = pd.read_csv(count, header = 0, index_col = 0, sep = "\t")
