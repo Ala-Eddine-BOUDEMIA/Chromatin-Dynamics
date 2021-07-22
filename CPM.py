@@ -16,7 +16,8 @@ def generate_cpm(raw, normalized):
     cpm = raw_counts.loc[:,:].div(total) 
 
     print(cpm.sum(axis = 0))
-    cpm.to_csv(str(normalized), sep = "\t")
+    cpm.to_csv(str(normalized), sep = "\t", 
+        float_format='%.3f')
 
 if __name__ == '__main__':
     generate_cpm(

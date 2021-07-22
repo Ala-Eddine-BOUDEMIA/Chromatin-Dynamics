@@ -14,7 +14,7 @@ def pca(
     files_pca, images_pca, htmls_pca,
     p_pca_rand, img_pca_rand, file_pca_rand, 
     p_pca_tissue, img_pca_tissues, file_pca_tissue):
-    
+    """
     tissue_files = sorted([f for f in tissues.iterdir() if f.is_file()])
     for path in tissue_files:
         counts.append(path)
@@ -48,7 +48,7 @@ def pca(
 
         files_pca.append(link_tsv.joinpath("pca.tsv"))
         images_pca.append(link_img.joinpath("pca.png"))
-        htmls_pca.append(link_html.joinpath("pca.html"))
+        htmls_pca.append(link_html.joinpath("pca.html"))"""
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     sub_tissues = metadata["smtsd"]
