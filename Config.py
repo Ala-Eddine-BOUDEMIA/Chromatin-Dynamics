@@ -28,6 +28,24 @@ parser.add_argument("--which",
 # Data
 choice = parser.parse_args()
 
+# tissues or cancer
+if choice.dataset == "GTEx":
+	var1 = "smtsd"
+	var2 = "smts"
+else:
+	var1 = "gdc_cases.tissue_source_site.project"
+	var2 = "gdc_cases.tissue_source_site.project"
+
+parser.add_argument("--smtsd",
+	type = str,
+	default = var1,
+	help = "-")
+
+parser.add_argument("--smts",
+	type = str,
+	default = var2,
+	help = "-")
+
 ## Counts
 parser.add_argument("--bf",
 	type = Path,

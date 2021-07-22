@@ -51,7 +51,7 @@ def pca(
         htmls_pca.append(link_html.joinpath("pca.html"))"""
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
-    sub_tissues = metadata["smtsd"]
+    sub_tissues = metadata[Config.args.smtsd]
 
     for c, t, i, h in zip(counts, files_pca, images_pca, htmls_pca):
         f = pd.read_csv(c, header = 0, index_col = 0, sep = "\t")
@@ -69,7 +69,7 @@ def pca(
         d["PC2"] = P[:, 1]
         d = d.join(lib_size)
         d = d.join(sub_tissues)
-        d.sort_values("smtsd", inplace = True)
+        d.sort_values(Config.args.smtsd, inplace = True)
 
         print("PC1: ", round(ratio[0], 2))
         print("PC2: ", round(ratio[1], 2))
@@ -82,7 +82,7 @@ def pca(
         fig = px.scatter(
             data_frame = d.dropna(), 
             x = "PC1", y = "PC2",
-            color = d["smtsd"], 
+            color = d[Config.args.smtsd], 
             hover_data = [d.dropna().index, "lib_size"],
             #size = "lib_size",
             title = "GTEx PCA")

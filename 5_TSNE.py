@@ -44,7 +44,7 @@ def tsne(
         p_tsne.append(p_tsne_rand.joinpath("random" + str(i) + ".html"))"""
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
-    tissues = metadata["smtsd"]
+    tissues = metadata[Config.args.smtsd]
 
     for c, t, i, h in zip(counts, files_tsne, img_tsne, p_tsne):
         f = pd.read_csv(c, header = 0, index_col = 0, sep = "\t")
@@ -61,12 +61,12 @@ def tsne(
         df["T2"] = T[:, 1]
         df = df.join(lib_size)
         df = df.join(tissues)
-        df.sort_values("smtsd", inplace = True)
+        df.sort_values(Config.args.smtsd, inplace = True)
 
         fig = px.scatter(
             data_frame = df.dropna(), 
             x = "T1", y = "T2",
-            color = df["smtsd"], 
+            color = df[Config.args.smtsd], 
             hover_data = [df.dropna().index, "lib_size"],
             #size = "lib_size",
             title = "GTEx t-sne")

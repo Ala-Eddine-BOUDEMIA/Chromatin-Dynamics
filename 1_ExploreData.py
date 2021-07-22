@@ -30,12 +30,12 @@ def explore_data(
 
 	# Number of samples per tissue 
 	# smtsd or  gdc_cases.tissue_source_site.project
-	samples_per_tissue = metadata.groupby(["smtsd"]).agg({'run':'count'})
-	samples_per_tissue.sort_values("smtsd")
+	samples_per_tissue = metadata.groupby([Config.args.smtsd]).agg({'run':'count'})
+	samples_per_tissue.sort_values(Config.args.smtsd)
 
 	# Runs per tissue
-	runs_per_tissue = metadata.groupby(["smtsd"]).agg({'run':'unique'})
-	runs_per_tissue.sort_values("smtsd")
+	runs_per_tissue = metadata.groupby([Config.args.smtsd]).agg({'run':'unique'})
+	runs_per_tissue.sort_values(Config.args.smtsd)
 
 	# Process each file
 	for file, image, html in zip(counts, qc_imgs, qc_htmls):

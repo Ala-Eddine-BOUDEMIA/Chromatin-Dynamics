@@ -37,24 +37,25 @@ def generate_data(
 	
 	# Generate chaperones and variants dataframe
 	# Generate chaperones and non replicative variants dataframe
-	for i in counts.index.to_list():
-		counts.rename(index = {i: i.split('.')[0]}, inplace = True)
-	
-	cv_df = pd.DataFrame(columns = counts.columns)
-	nonRv_df = pd.DataFrame(columns = counts.columns)
-	
-	for i in counts.index.to_list():
+	if Config.args.which == "variants_chaperones":
+		for i in counts.index.to_list():
+			counts.rename(index = {i: i.split('.')[0]}, inplace = True)
 		
-		for j in chaperones_variants.index.to_list():
-			if i.strip() == j.strip():
-				cv_df = cv_df.append(counts.loc[i])
-	
-		for k in chaperone_nonRv.index.to_list():
-			if i.strip() == k.strip():
-				nonRv_df = nonRv_df.append(counts.loc[i])
+		cv_df = pd.DataFrame(columns = counts.columns)
+		nonRv_df = pd.DataFrame(columns = counts.columns)
+		
+		for i in counts.index.to_list():
+			
+			for j in chaperones_variants.index.to_list():
+				if i.strip() == j.strip():
+					cv_df = cv_df.append(counts.loc[i])
+		
+			for k in chaperone_nonRv.index.to_list():
+				if i.strip() == k.strip():
+					nonRv_df = nonRv_df.append(counts.loc[i])
 
-	cv_df.to_csv(str(full), sep = "\t")
-	nonRv_df.to_csv(str(nonRcv), sep = "\t")
+		cv_df.to_csv(str(full), sep = "\t")
+		nonRv_df.to_csv(str(nonRcv), sep = "\t")
 	
 	# Generate random sets
 	for c in range(10):
@@ -72,63 +73,64 @@ def generate_data(
 		counts_by_tissue = cv_df.T
 	elif Config.args.which == "Normalized":
 		counts_by_tissue = counts.T
-	counts_by_tissue = counts_by_tissue.join(metadata["gdc_cases.tissue_source_site.project"])
-	tissue_types = pd.unique(metadata["gdc_cases.tissue_source_site.project"])
+	counts_by_tissue = counts_by_tissue.join(metadata[Config.args.smts])
+	tissue_types = pd.unique(metadata[Config.args.smts])
 
 	for t in tissue_types:
 		df = pd.DataFrame(columns = counts_by_tissue.columns)
-		df = df.append(counts_by_tissue[counts_by_tissue["gdc_cases.tissue_source_site.project"] == t])
-		df.pop("gdc_cases.tissue_source_site.project")
+		df = df.append(counts_by_tissue[counts_by_tissue[Config.args.smts] == t])
+		df.pop(Config.args.smts)
 		df = df.T
 		df.to_csv(tissue_counts.joinpath(t + ".tsv"), sep = '\t')
-	"""
-	# Generate counts without transformed cells
-	if Config.args.which == "variants_chaperones":
-		counts_wo_tcells = cv_df.T
-	elif Config.args.which == "Normalized":
-		counts_wo_tcells = counts.T
-	counts_wo_tcells = counts_wo_tcells.join(metadata["smts"])
-	counts_wo_tcells = counts_wo_tcells.join(metadata["smtsd"])
-	tissue_types = list(pd.unique(metadata["smtsd"]))
 
-	toDiscard = ["Cells - EBV-transformed lymphocytes",
-				"Cells - Leukemia cell line (CML)",
-				"Cells - Transformed fibroblasts"]
+	if Config.args.dataset == "GTEx":
+		# Generate counts without transformed cells
+		if Config.args.which == "variants_chaperones":
+			counts_wo_tcells = cv_df.T
+		elif Config.args.which == "Normalized":
+			counts_wo_tcells = counts.T
+		counts_wo_tcells = counts_wo_tcells.join(metadata[Config.args.smts])
+		counts_wo_tcells = counts_wo_tcells.join(metadata[Config.args.smtsd])
+		tissue_types = list(pd.unique(metadata[Config.args.smtsd]))
 
-	for discard in toDiscard:
-		tissue_types.remove(discard)
+		toDiscard = ["Cells - EBV-transformed lymphocytes",
+					"Cells - Leukemia cell line (CML)",
+					"Cells - Transformed fibroblasts"]
 
-	df = pd.DataFrame(columns = counts_wo_tcells.columns)
-	for t in tissue_types:
-		df = df.append(counts_wo_tcells[counts_wo_tcells["smtsd"] == t])
-		
-	df.pop("smts")
-	df.pop("smtsd")
-	df = df.T
-	print(df.head())
-	df.to_csv(str(normal), sep = '\t')
+		for discard in toDiscard:
+			tissue_types.remove(discard)
 
-	# Generate counts without Brain, Blood, Bone Marrow, Pituitary, Spleen, Testis
-	if Config.args.which == "variants_chaperones":
-		counts_wo_bbbpst = cv_df.T
-	elif Config.args.which == "Normalized":
-		counts_wo_bbbpst = counts.T
-	counts_wo_bbbpst = counts_wo_bbbpst.join(metadata["smts"])
-	tissue_types = list(pd.unique(metadata["smts"]))
+		df = pd.DataFrame(columns = counts_wo_tcells.columns)
+		for t in tissue_types:
+			df = df.append(counts_wo_tcells[counts_wo_tcells[Config.args.smtsd] == t])
+			
+		df.pop(Config.args.smts)
+		df.pop(Config.args.smtsd)
+		df = df.T
+		print(df.head())
+		df.to_csv(str(normal), sep = '\t')
 
-	toDiscard = ["Brain", "Blood", "Bone Marrow", 
-		"Pituitary", "Spleen", "Testis"]
+		# Generate counts without Brain, Blood, Bone Marrow, Pituitary, Spleen, Testis
+		if Config.args.which == "variants_chaperones":
+			counts_wo_bbbpst = cv_df.T
+		elif Config.args.which == "Normalized":
+			counts_wo_bbbpst = counts.T
+		counts_wo_bbbpst = counts_wo_bbbpst.join(metadata[Config.args.smts])
+		tissue_types = list(pd.unique(metadata[Config.args.smts]))
 
-	for discard in toDiscard:
-		tissue_types.remove(discard)
+		toDiscard = ["Brain", "Blood", "Bone Marrow", 
+			"Pituitary", "Spleen", "Testis"]
 
-	df = pd.DataFrame(columns = counts_wo_bbbpst.columns)
-	for t in tissue_types:
-		df = df.append(counts_wo_bbbpst[counts_wo_bbbpst["smts"] == t])
-		
-	df.pop("smts")
-	df = df.T
-	df.to_csv(str(wo_bbbpst_tissues), sep = '\t')"""
+		for discard in toDiscard:
+			tissue_types.remove(discard)
+
+		df = pd.DataFrame(columns = counts_wo_bbbpst.columns)
+		for t in tissue_types:
+			df = df.append(counts_wo_bbbpst[counts_wo_bbbpst[Config.args.smts] == t])
+			
+		df.pop(Config.args.smts)
+		df = df.T
+		df.to_csv(str(wo_bbbpst_tissues), sep = '\t')
 
 if __name__ == '__main__':
 

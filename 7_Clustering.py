@@ -40,9 +40,9 @@ def clustering_samples(
     for m, i in zip(s_corr, s_clustermaps):
         correlation_matrix  = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
-        correlation_matrix = correlation_matrix .join(metadata["smts"])
+        correlation_matrix = correlation_matrix .join(metadata[Config.args.smts])
         correlation_matrix = correlation_matrix.dropna()
-        tissues = correlation_matrix.pop("smts")
+        tissues = correlation_matrix.pop(Config.args.smts)
 
         palette1 = sns.hls_palette(11)
         palette2 = sns.color_palette("bwr",10)
@@ -172,9 +172,9 @@ def clustering_samples_genes(
         count = pd.DataFrame(np.log2(count + 1))
 
         count = count.T
-        count = count.join(metadata["smts"])
+        count = count.join(metadata[Config.args.smts])
         count = count.dropna()
-        tissues = count.pop("smts")
+        tissues = count.pop(Config.args.smts)
 
         palette1 = sns.hls_palette(11)
         palette2 = sns.color_palette("bwr", 10)
@@ -238,19 +238,10 @@ def clustering_samples_genes(
 
 if __name__ == '__main__':
     
-    clustering_samples(
-        meta = Config.args.meta,
-        s_corr = Config.s_corr,
-		s_corr_rand = Config.args.corrRandS,
-        s_corr_tissues = Config.args.corrTissueS,
-        s_clustermaps = Config.s_clustermaps,
-        s_img_clstrRand = Config.args.IclstrRandS,
-        s_img_clstrTissues = Config.args.IclstrTissueS)
-    """
     clustering_genes(
         cv_list = Config.args.list,
         g_corr = Config.g_corr,
-		g_corr_rand = Config.args.corrRandG,
+        g_corr_rand = Config.args.corrRandG,
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
         g_img_clstrRand = Config.args.IclstrRandG,
@@ -264,4 +255,13 @@ if __name__ == '__main__':
         by_tissue = Config.args.tissue,
         sg_clustermaps = Config.sg_clustermaps,
         sg_img_clstrRand = Config.args.IclstrRandSG,
-        sg_img_clstrTissues = Config.args.IclstrTissueSG)"""
+        sg_img_clstrTissues = Config.args.IclstrTissueSG)
+    
+    clustering_samples(
+        meta = Config.args.meta,
+        s_corr = Config.s_corr,
+		s_corr_rand = Config.args.corrRandS,
+        s_corr_tissues = Config.args.corrTissueS,
+        s_clustermaps = Config.s_clustermaps,
+        s_img_clstrRand = Config.args.IclstrRandS,
+        s_img_clstrTissues = Config.args.IclstrTissueS)
