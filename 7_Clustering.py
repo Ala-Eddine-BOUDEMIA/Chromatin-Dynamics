@@ -17,7 +17,7 @@ def clustering_samples(
     s_clustermaps, s_img_clstrRand, s_img_clstrTissues):
 
     # Make sure there are not hidden files in the folder
-    """
+    
     tissue_files = sorted([f for f in s_corr_tissues.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         s_corr.append(path) 
@@ -33,7 +33,7 @@ def clustering_samples(
         s_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
     for i in range(len(rand_files)):
-        s_clustermaps.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+        s_clustermaps.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     
@@ -75,7 +75,7 @@ def clustering_samples(
 def clustering_genes(
     cv_list, g_corr, g_corr_rand, g_corr_tissue,
     g_clustermaps, g_img_clstrRand, g_img_clstrTissues):
-    """
+    
     tissue_files = sorted([f for f in g_corr_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         g_corr.append(path) 
@@ -91,7 +91,7 @@ def clustering_genes(
         g_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
     for i in range(len(rand_files)):
-        g_clustermaps.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+        g_clustermaps.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(cv_list, 
         header = 0, index_col = 0, sep = ";")
@@ -145,7 +145,7 @@ def clustering_genes(
 def clustering_samples_genes(
     meta, cv_list, counts, rand, by_tissue,
     sg_clustermaps, sg_img_clstrRand, sg_img_clstrTissues):
-    """
+    
     tissue_files = sorted([f for f in by_tissue.iterdir() if f.is_file()])
     for path in tissue_files:
         counts.append(path)
@@ -161,7 +161,7 @@ def clustering_samples_genes(
         sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
     for i in range(len(rand_files)):
-        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     cv_list = pd.read_csv(cv_list, header = 0, index_col = 0, sep = ";") 
