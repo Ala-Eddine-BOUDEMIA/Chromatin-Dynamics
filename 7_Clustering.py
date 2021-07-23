@@ -127,8 +127,8 @@ def clustering_genes(
                 bbox_transform = plt.gcf().transFigure)
         else :
             g = sns.clustermap(correlation_matrix, 
-                vmin = min(correlation_matrix.min(axis = 1)), 
-                vmax = max(correlation_matrix.max(axis = 1)), 
+                vmin = -1, 
+                vmax = 1, 
                 cmap = "icefire", metric = Config.distance_metric,
                 xticklabels = False, yticklabels = False,
                 method = "average", figsize = [25, 25])
@@ -215,8 +215,8 @@ def clustering_samples_genes(
 
         else:
             g = sns.clustermap(count.T, 
-                vmin = max(count.max(axis = 1)), 
-                vmax = min(count.min(axis = 1)), 
+                vmin = -1, 
+                vmax = 1, 
                 col_colors = col_colors,
                 cmap = "icefire", metric = Config.distance_metric,
                 xticklabels = False, yticklabels = False,
