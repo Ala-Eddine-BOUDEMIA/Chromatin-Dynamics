@@ -10,7 +10,7 @@ def explore_data(
 	meta, counts, rand,
 	qc_imgs, qc_htmls,
 	qc_rand_img, qc_rand_html):
-	"""
+	
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
 		counts.append(path)
@@ -23,7 +23,7 @@ def explore_data(
 		Tools.create_folder(link_p)
 		
 		qc_imgs.append(link_img)
-		qc_htmls.append(link_p)"""
+		qc_htmls.append(link_p)
 
 	# read metadata file
 	metadata = pd.read_csv(meta, header = 0, sep = "\t")

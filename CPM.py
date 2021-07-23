@@ -17,10 +17,8 @@ def generate_cpm(raw, normalized):
 
     print(cpm.sum(axis = 0))
     cpm['total'] = cpm.sum(axis = 1)
-    print(cpm[cpm["total"] == 0])
-    print(len(cpm))
     cpm = cpm.drop(cpm[cpm["total"] <= 1].index)
-    print(len(cpm))
+    cpm.pop('total')
     cpm.to_csv(str(normalized), sep = "\t", 
         float_format='%.3f')
 
