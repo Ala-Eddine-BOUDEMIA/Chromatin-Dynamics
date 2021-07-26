@@ -12,7 +12,7 @@ pd.set_option('display.max_colwidth', None)
 
 def draw_graph3(
 	networkx_graph, notebook = True,
-	output_filename = 'Networks/graph.html',
+	output_filename = 'Unweighted_Networks/graph.html',
 	show_buttons = True,
 	only_physics_buttons = False):
 

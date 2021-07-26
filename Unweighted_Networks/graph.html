@@ -1,0 +1,216 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 2000px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+        #loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 2000px;
+            height: 500px;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+<div id="loadingBar">
+    <div class="outerBorder">
+        <div id="text">0%</div>
+        <div id="border">
+            <div id="bar"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "MCM2", "label": "MCM2", "shape": "dot", "title": "MCM2"}, {"id": "ATRX", "label": "ATRX", "shape": "dot", "title": "ATRX"}, {"id": "Spt16 ", "label": "Spt16 ", "shape": "dot", "title": "Spt16 "}, {"id": "H2afy2", "label": "H2afy2", "shape": "dot", "title": "H2afy2"}, {"id": "Cabin1", "label": "Cabin1", "shape": "dot", "title": "Cabin1"}, {"id": "HIRA", "label": "HIRA", "shape": "dot", "title": "HIRA"}, {"id": "H2bfm", "label": "H2bfm", "shape": "dot", "title": "H2bfm"}, {"id": "H2afv", "label": "H2afv", "shape": "dot", "title": "H2afv"}, {"id": "Nucleophosmin 3", "label": "Nucleophosmin 3", "shape": "dot", "title": "Nucleophosmin 3"}, {"id": "Spt6", "label": "Spt6", "shape": "dot", "title": "Spt6"}, {"id": "ASF1a", "label": "ASF1a", "shape": "dot", "title": "ASF1a"}, {"id": "H2afy", "label": "H2afy", "shape": "dot", "title": "H2afy"}, {"id": "Nucleolin", "label": "Nucleolin", "shape": "dot", "title": "Nucleolin"}, {"id": "Cenpa", "label": "Cenpa", "shape": "dot", "title": "Cenpa"}, {"id": "POLE4", "label": "POLE4", "shape": "dot", "title": "POLE4"}, {"id": "UBN1", "label": "UBN1", "shape": "dot", "title": "UBN1"}, {"id": "HJURP", "label": "HJURP", "shape": "dot", "title": "HJURP"}, {"id": "H2bfwt", "label": "H2bfwt", "shape": "dot", "title": "H2bfwt"}, {"id": "Hist1h1d", "label": "Hist1h1d", "shape": "dot", "title": "Hist1h1d"}, {"id": "Hist1h1a", "label": "Hist1h1a", "shape": "dot", "title": "Hist1h1a"}, {"id": "Hist1h2bj", "label": "Hist1h2bj", "shape": "dot", "title": "Hist1h2bj"}, {"id": "DEK", "label": "DEK", "shape": "dot", "title": "DEK"}, {"id": "INO80", "label": "INO80", "shape": "dot", "title": "INO80"}, {"id": "H3f3b", "label": "H3f3b", "shape": "dot", "title": "H3f3b"}, {"id": "tNASP/sNASP", "label": "tNASP/sNASP", "shape": "dot", "title": "tNASP/sNASP"}, {"id": "ANP32E", "label": "ANP32E", "shape": "dot", "title": "ANP32E"}, {"id": "Hist1h2ba", "label": "Hist1h2ba", "shape": "dot", "title": "Hist1h2ba"}, {"id": "POLE3 ", "label": "POLE3 ", "shape": "dot", "title": "POLE3 "}, {"id": "SSRP1", "label": "SSRP1", "shape": "dot", "title": "SSRP1"}, {"id": "CHD1", "label": "CHD1", "shape": "dot", "title": "CHD1"}, {"id": "UBN2", "label": "UBN2", "shape": "dot", "title": "UBN2"}, {"id": "Hist1h2bd", "label": "Hist1h2bd", "shape": "dot", "title": "Hist1h2bd"}, {"id": "Hist1h4h", "label": "Hist1h4h", "shape": "dot", "title": "Hist1h4h"}, {"id": "Nucleophosmin 2", "label": "Nucleophosmin 2", "shape": "dot", "title": "Nucleophosmin 2"}, {"id": "p60", "label": "p60", "shape": "dot", "title": "p60"}, {"id": "TONSL", "label": "TONSL", "shape": "dot", "title": "TONSL"}, {"id": "RbAp48", "label": "RbAp48", "shape": "dot", "title": "RbAp48"}, {"id": "H3f3a", "label": "H3f3a", "shape": "dot", "title": "H3f3a"}, {"id": "H2afz", "label": "H2afz", "shape": "dot", "title": "H2afz"}, {"id": "Hist1h2aa", "label": "Hist1h2aa", "shape": "dot", "title": "Hist1h2aa"}, {"id": "p150", "label": "p150", "shape": "dot", "title": "p150"}, {"id": "Hist3h3", "label": "Hist3h3", "shape": "dot", "title": "Hist3h3"}, {"id": "BMI1", "label": "BMI1", "shape": "dot", "title": "BMI1"}, {"id": "Hist1h1e", "label": "Hist1h1e", "shape": "dot", "title": "Hist1h1e"}, {"id": "H1foo", "label": "H1foo", "shape": "dot", "title": "H1foo"}, {"id": "Hist1h2ac", "label": "Hist1h2ac", "shape": "dot", "title": "Hist1h2ac"}, {"id": "Hist1h2bc", "label": "Hist1h2bc", "shape": "dot", "title": "Hist1h2bc"}, {"id": "Nucleophosmin 1", "label": "Nucleophosmin 1", "shape": "dot", "title": "Nucleophosmin 1"}, {"id": "Hist3h2a", "label": "Hist3h2a", "shape": "dot", "title": "Hist3h2a"}, {"id": "P400", "label": "P400", "shape": "dot", "title": "P400"}, {"id": "Hist2h3d", "label": "Hist2h3d", "shape": "dot", "title": "Hist2h3d"}, {"id": "Hist2h2ac", "label": "Hist2h2ac", "shape": "dot", "title": "Hist2h2ac"}, {"id": "Hist2h2ab", "label": "Hist2h2ab", "shape": "dot", "title": "Hist2h2ab"}, {"id": "Hist1h1b", "label": "Hist1h1b", "shape": "dot", "title": "Hist1h1b"}, {"id": "Hist2h2be", "label": "Hist2h2be", "shape": "dot", "title": "Hist2h2be"}, {"id": "H1fx", "label": "H1fx", "shape": "dot", "title": "H1fx"}, {"id": "Hist1h2bl", "label": "Hist1h2bl", "shape": "dot", "title": "Hist1h2bl"}, {"id": "NAP1", "label": "NAP1", "shape": "dot", "title": "NAP1"}, {"id": "H1fnt", "label": "H1fnt", "shape": "dot", "title": "H1fnt"}, {"id": "Hist1h1t", "label": "Hist1h1t", "shape": "dot", "title": "Hist1h1t"}, {"id": "Hist1h1c", "label": "Hist1h1c", "shape": "dot", "title": "Hist1h1c"}, {"id": "H3f3c", "label": "H3f3c", "shape": "dot", "title": "H3f3c"}, {"id": "H2afx", "label": "H2afx", "shape": "dot", "title": "H2afx"}, {"id": "Hils1", "label": "Hils1", "shape": "dot", "title": "Hils1"}, {"id": "H1f0", "label": "H1f0", "shape": "dot", "title": "H1f0"}, {"id": "Hist1h2ai", "label": "Hist1h2ai", "shape": "dot", "title": "Hist1h2ai"}, {"id": "Hist1h2ag", "label": "Hist1h2ag", "shape": "dot", "title": "Hist1h2ag"}, {"id": "Hist1h2ad", "label": "Hist1h2ad", "shape": "dot", "title": "Hist1h2ad"}, {"id": "Hist3h2bb", "label": "Hist3h2bb", "shape": "dot", "title": "Hist3h2bb"}, {"id": "Hist1h4c", "label": "Hist1h4c", "shape": "dot", "title": "Hist1h4c"}, {"id": "Hist1h4j", "label": "Hist1h4j", "shape": "dot", "title": "Hist1h4j"}, {"id": "Hist1h3d", "label": "Hist1h3d", "shape": "dot", "title": "Hist1h3d"}, {"id": "Hist2h4", "label": "Hist2h4", "shape": "dot", "title": "Hist2h4"}, {"id": "Hist1h2bk", "label": "Hist1h2bk", "shape": "dot", "title": "Hist1h2bk"}, {"id": "Hist2h3c", "label": "Hist2h3c", "shape": "dot", "title": "Hist2h3c"}, {"id": "Hist2h2aa", "label": "Hist2h2aa", "shape": "dot", "title": "Hist2h2aa"}, {"id": "Hist2h2bf", "label": "Hist2h2bf", "shape": "dot", "title": "Hist2h2bf"}, {"id": "Hist2h3ps2", "label": "Hist2h3ps2", "shape": "dot", "title": "Hist2h3ps2"}, {"id": "Hist2h3a", "label": "Hist2h3a", "shape": "dot", "title": "Hist2h3a"}, {"id": "DAXX", "label": "DAXX", "shape": "dot", "title": "DAXX"}, {"id": "NAP2", "label": "NAP2", "shape": "dot", "title": "NAP2"}, {"id": "DNAJC9", "label": "DNAJC9", "shape": "dot", "title": "DNAJC9"}, {"id": "Hist1h2Aps4", "label": "Hist1h2Aps4", "shape": "dot", "title": "Hist1h2Aps4"}, {"id": "Hist1h2bn", "label": "Hist1h2bn", "shape": "dot", "title": "Hist1h2bn"}, {"id": "H2bfs", "label": "H2bfs", "shape": "dot", "title": "H2bfs"}, {"id": "H2afj", "label": "H2afj", "shape": "dot", "title": "H2afj"}, {"id": "H3.X", "label": "H3.X", "shape": "dot", "title": "H3.X"}, {"id": "H3.Y", "label": "H3.Y", "shape": "dot", "title": "H3.Y"}, {"id": "Hist2h4B", "label": "Hist2h4B", "shape": "dot", "title": "Hist2h4B"}, {"id": "Hist2h4a", "label": "Hist2h4a", "shape": "dot", "title": "Hist2h4a"}, {"id": "Hist1h2aa4", "label": "Hist1h2aa4", "shape": "dot", "title": "Hist1h2aa4"}, {"id": "Hist1h4k", "label": "Hist1h4k", "shape": "dot", "title": "Hist1h4k"}, {"id": "Hist1h2bm", "label": "Hist1h2bm", "shape": "dot", "title": "Hist1h2bm"}, {"id": "Hist1h2bi", "label": "Hist1h2bi", "shape": "dot", "title": "Hist1h2bi"}, {"id": "Hist1h3g", "label": "Hist1h3g", "shape": "dot", "title": "Hist1h3g"}, {"id": "H2afb1", "label": "H2afb1", "shape": "dot", "title": "H2afb1"}, {"id": "Hist1h3b", "label": "Hist1h3b", "shape": "dot", "title": "Hist1h3b"}, {"id": "Hist1h2be", "label": "Hist1h2be", "shape": "dot", "title": "Hist1h2be"}, {"id": "Hist1h4f", "label": "Hist1h4f", "shape": "dot", "title": "Hist1h4f"}, {"id": "Hist1h2bo", "label": "Hist1h2bo", "shape": "dot", "title": "Hist1h2bo"}, {"id": "Hist1h3e", "label": "Hist1h3e", "shape": "dot", "title": "Hist1h3e"}, {"id": "Hist1h2ah", "label": "Hist1h2ah", "shape": "dot", "title": "Hist1h2ah"}, {"id": "Hist1h4l", "label": "Hist1h4l", "shape": "dot", "title": "Hist1h4l"}, {"id": "Hist1h2ak", "label": "Hist1h2ak", "shape": "dot", "title": "Hist1h2ak"}, {"id": "Hist1h3i", "label": "Hist1h3i", "shape": "dot", "title": "Hist1h3i"}, {"id": "Hist1h4g", "label": "Hist1h4g", "shape": "dot", "title": "Hist1h4g"}, {"id": "Hist1h2bh", "label": "Hist1h2bh", "shape": "dot", "title": "Hist1h2bh"}, {"id": "Hist1h3a", "label": "Hist1h3a", "shape": "dot", "title": "Hist1h3a"}, {"id": "Hist1h4i", "label": "Hist1h4i", "shape": "dot", "title": "Hist1h4i"}, {"id": "Hist1h2aj", "label": "Hist1h2aj", "shape": "dot", "title": "Hist1h2aj"}, {"id": "Hist1h2bb", "label": "Hist1h2bb", "shape": "dot", "title": "Hist1h2bb"}, {"id": "Hist1h2al", "label": "Hist1h2al", "shape": "dot", "title": "Hist1h2al"}, {"id": "Hist1h4e", "label": "Hist1h4e", "shape": "dot", "title": "Hist1h4e"}, {"id": "Hist1h2ae", "label": "Hist1h2ae", "shape": "dot", "title": "Hist1h2ae"}, {"id": "Hist1h4d", "label": "Hist1h4d", "shape": "dot", "title": "Hist1h4d"}, {"id": "Hist1h2bf", "label": "Hist1h2bf", "shape": "dot", "title": "Hist1h2bf"}, {"id": "H2afb3", "label": "H2afb3", "shape": "dot", "title": "H2afb3"}, {"id": "Hist1h3f", "label": "Hist1h3f", "shape": "dot", "title": "Hist1h3f"}, {"id": "H2afb2", "label": "H2afb2", "shape": "dot", "title": "H2afb2"}, {"id": "Hist1h3c", "label": "Hist1h3c", "shape": "dot", "title": "Hist1h3c"}, {"id": "Hist1h2ab", "label": "Hist1h2ab", "shape": "dot", "title": "Hist1h2ab"}, {"id": "Hist1h2bg", "label": "Hist1h2bg", "shape": "dot", "title": "Hist1h2bg"}, {"id": "Hist1h4a", "label": "Hist1h4a", "shape": "dot", "title": "Hist1h4a"}, {"id": "Hist1h2am", "label": "Hist1h2am", "shape": "dot", "title": "Hist1h2am"}, {"id": "Hist1h4b", "label": "Hist1h4b", "shape": "dot", "title": "Hist1h4b"}, {"id": "Hist1h3h", "label": "Hist1h3h", "shape": "dot", "title": "Hist1h3h"}]);
+        edges = new vis.DataSet([{"from": "MCM2", "to": "Cenpa", "value": 1, "weight": 1}, {"from": "MCM2", "to": "HJURP", "value": 1, "weight": 1}, {"from": "MCM2", "to": "TONSL", "value": 1, "weight": 1}, {"from": "MCM2", "to": "p150", "value": 1, "weight": 1}, {"from": "ATRX", "to": "Spt16 ", "value": 1, "weight": 1}, {"from": "ATRX", "to": "DEK", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "Spt6", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "Nucleolin", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "DEK", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "INO80", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "tNASP/sNASP", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "POLE3 ", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "SSRP1", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "RbAp48", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "Nucleophosmin 1", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "P400", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "DAXX", "value": 1, "weight": 1}, {"from": "Spt16 ", "to": "DNAJC9", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "H2bfwt", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "Hist1h2ba", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "Hist1h2aa", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "Hist3h3", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "H1foo", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "H1fnt", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "H2afb1", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "Hist1h3a", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "H2bfm", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "Nucleophosmin 3", "to": "SSRP1", "value": 1, "weight": 1}, {"from": "Nucleophosmin 3", "to": "Nucleophosmin 1", "value": 1, "weight": 1}, {"from": "Spt6", "to": "INO80", "value": 1, "weight": 1}, {"from": "Spt6", "to": "SSRP1", "value": 1, "weight": 1}, {"from": "Spt6", "to": "P400", "value": 1, "weight": 1}, {"from": "H2afy", "to": "H3f3a", "value": 1, "weight": 1}, {"from": "Nucleolin", "to": "DEK", "value": 1, "weight": 1}, {"from": "Nucleolin", "to": "INO80", "value": 1, "weight": 1}, {"from": "Nucleolin", "to": "POLE3 ", "value": 1, "weight": 1}, {"from": "Nucleolin", "to": "SSRP1", "value": 1, "weight": 1}, {"from": "Nucleolin", "to": "RbAp48", "value": 1, "weight": 1}, {"from": "Nucleolin", "to": "Nucleophosmin 1", "value": 1, "weight": 1}, {"from": "Nucleolin", "to": "P400", "value": 1, "weight": 1}, {"from": "Cenpa", "to": "HJURP", "value": 1, "weight": 1}, {"from": "Cenpa", "to": "p150", "value": 1, "weight": 1}, {"from": "UBN1", "to": "DAXX", "value": 1, "weight": 1}, {"from": "HJURP", "to": "p150", "value": 1, "weight": 1}, {"from": "H2bfwt", "to": "Hist1h2ba", "value": 1, "weight": 1}, {"from": "H2bfwt", "to": "Hist1h2aa", "value": 1, "weight": 1}, {"from": "H2bfwt", "to": "Hist3h3", "value": 1, "weight": 1}, {"from": "H2bfwt", "to": "H1foo", "value": 1, "weight": 1}, {"from": "H2bfwt", "to": "H1fnt", "value": 1, "weight": 1}, {"from": "H2bfwt", "to": "H2afb1", "value": 1, "weight": 1}, {"from": "H2bfwt", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "H2bfwt", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "Hist1h1d", "to": "Hist1h1e", "value": 1, "weight": 1}, {"from": "Hist1h1d", "to": "Hist2h2ac", "value": 1, "weight": 1}, {"from": "Hist1h1d", "to": "Hist1h2bi", "value": 1, "weight": 1}, {"from": "Hist1h1d", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist1h1d", "to": "Hist1h2bg", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h2bc", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h2ai", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h2ag", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h2ad", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h3d", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "H2bfs", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h2bo", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h4i", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h2aj", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "Hist1h2bj", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "DEK", "to": "INO80", "value": 1, "weight": 1}, {"from": "DEK", "to": "SSRP1", "value": 1, "weight": 1}, {"from": "DEK", "to": "Nucleophosmin 1", "value": 1, "weight": 1}, {"from": "INO80", "to": "POLE3 ", "value": 1, "weight": 1}, {"from": "INO80", "to": "SSRP1", "value": 1, "weight": 1}, {"from": "INO80", "to": "RbAp48", "value": 1, "weight": 1}, {"from": "INO80", "to": "P400", "value": 1, "weight": 1}, {"from": "H3f3b", "to": "H3f3c", "value": 1, "weight": 1}, {"from": "tNASP/sNASP", "to": "P400", "value": 1, "weight": 1}, {"from": "tNASP/sNASP", "to": "DNAJC9", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "Hist1h2aa", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "Hist3h3", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "H1foo", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "H1fnt", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "Hist1h1t", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "H3.X", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "H2afb1", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "Hist1h3a", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "Hist1h2ba", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "POLE3 ", "to": "SSRP1", "value": 1, "weight": 1}, {"from": "POLE3 ", "to": "RbAp48", "value": 1, "weight": 1}, {"from": "SSRP1", "to": "RbAp48", "value": 1, "weight": 1}, {"from": "SSRP1", "to": "Nucleophosmin 1", "value": 1, "weight": 1}, {"from": "SSRP1", "to": "P400", "value": 1, "weight": 1}, {"from": "SSRP1", "to": "DAXX", "value": 1, "weight": 1}, {"from": "SSRP1", "to": "DNAJC9", "value": 1, "weight": 1}, {"from": "UBN2", "to": "RbAp48", "value": 1, "weight": 1}, {"from": "UBN2", "to": "P400", "value": 1, "weight": 1}, {"from": "Hist1h2bd", "to": "Hist1h2ac", "value": 1, "weight": 1}, {"from": "Hist1h2bd", "to": "Hist2h2bf", "value": 1, "weight": 1}, {"from": "Hist1h2bd", "to": "Hist1h2bi", "value": 1, "weight": 1}, {"from": "Hist1h2bd", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist1h2bd", "to": "Hist1h2bf", "value": 1, "weight": 1}, {"from": "p60", "to": "p150", "value": 1, "weight": 1}, {"from": "TONSL", "to": "DNAJC9", "value": 1, "weight": 1}, {"from": "RbAp48", "to": "BMI1", "value": 1, "weight": 1}, {"from": "RbAp48", "to": "P400", "value": 1, "weight": 1}, {"from": "RbAp48", "to": "DNAJC9", "value": 1, "weight": 1}, {"from": "Hist1h2aa", "to": "Hist3h3", "value": 1, "weight": 1}, {"from": "Hist1h2aa", "to": "H1foo", "value": 1, "weight": 1}, {"from": "Hist1h2aa", "to": "H1fnt", "value": 1, "weight": 1}, {"from": "Hist1h2aa", "to": "Hist1h1t", "value": 1, "weight": 1}, {"from": "Hist1h2aa", "to": "H3.X", "value": 1, "weight": 1}, {"from": "Hist1h2aa", "to": "H2afb1", "value": 1, "weight": 1}, {"from": "Hist1h2aa", "to": "Hist1h3a", "value": 1, "weight": 1}, {"from": "Hist1h2aa", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "Hist1h2aa", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "Hist3h3", "to": "H1foo", "value": 1, "weight": 1}, {"from": "Hist3h3", "to": "H1fnt", "value": 1, "weight": 1}, {"from": "Hist3h3", "to": "H2afb1", "value": 1, "weight": 1}, {"from": "Hist3h3", "to": "Hist1h3a", "value": 1, "weight": 1}, {"from": "Hist3h3", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "Hist3h3", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "BMI1", "to": "P400", "value": 1, "weight": 1}, {"from": "BMI1", "to": "NAP1", "value": 1, "weight": 1}, {"from": "H1foo", "to": "H1fnt", "value": 1, "weight": 1}, {"from": "H1foo", "to": "H3.X", "value": 1, "weight": 1}, {"from": "H1foo", "to": "H2afb1", "value": 1, "weight": 1}, {"from": "H1foo", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "H1foo", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "Hist1h2ac", "to": "Hist1h2bc", "value": 1, "weight": 1}, {"from": "Hist1h2ac", "to": "Hist1h2ad", "value": 1, "weight": 1}, {"from": "Hist1h2ac", "to": "Hist1h3d", "value": 1, "weight": 1}, {"from": "Hist1h2ac", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Hist1h2bc", "to": "Hist1h2ad", "value": 1, "weight": 1}, {"from": "Hist1h2bc", "to": "Hist1h3d", "value": 1, "weight": 1}, {"from": "Hist1h2bc", "to": "Hist2h2aa", "value": 1, "weight": 1}, {"from": "Hist1h2bc", "to": "Hist1h2aa4", "value": 1, "weight": 1}, {"from": "Hist1h2bc", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Nucleophosmin 1", "to": "NAP1", "value": 1, "weight": 1}, {"from": "Hist3h2a", "to": "Hist3h2bb", "value": 1, "weight": 1}, {"from": "P400", "to": "DNAJC9", "value": 1, "weight": 1}, {"from": "Hist2h2ac", "to": "Hist1h2ad", "value": 1, "weight": 1}, {"from": "Hist2h2ac", "to": "Hist2h2aa", "value": 1, "weight": 1}, {"from": "Hist2h2ac", "to": "Hist2h2bf", "value": 1, "weight": 1}, {"from": "Hist2h2ac", "to": "Hist1h2aa4", "value": 1, "weight": 1}, {"from": "Hist1h1b", "to": "Hist1h2al", "value": 1, "weight": 1}, {"from": "Hist1h2bl", "to": "Hist1h2ai", "value": 1, "weight": 1}, {"from": "Hist1h2bl", "to": "Hist1h2ag", "value": 1, "weight": 1}, {"from": "Hist1h2bl", "to": "H2bfs", "value": 1, "weight": 1}, {"from": "Hist1h2bl", "to": "Hist1h3b", "value": 1, "weight": 1}, {"from": "Hist1h2bl", "to": "Hist1h2bo", "value": 1, "weight": 1}, {"from": "Hist1h2bl", "to": "Hist1h2aj", "value": 1, "weight": 1}, {"from": "Hist1h2bl", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "H1fnt", "to": "H3.X", "value": 1, "weight": 1}, {"from": "H1fnt", "to": "H2afb1", "value": 1, "weight": 1}, {"from": "H1fnt", "to": "Hist1h3a", "value": 1, "weight": 1}, {"from": "H1fnt", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "H1fnt", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "Hist1h1t", "to": "Hist1h2ag", "value": 1, "weight": 1}, {"from": "Hist1h2ai", "to": "Hist1h2ag", "value": 1, "weight": 1}, {"from": "Hist1h2ai", "to": "H2bfs", "value": 1, "weight": 1}, {"from": "Hist1h2ai", "to": "Hist1h3b", "value": 1, "weight": 1}, {"from": "Hist1h2ai", "to": "Hist1h2bo", "value": 1, "weight": 1}, {"from": "Hist1h2ai", "to": "Hist1h2aj", "value": 1, "weight": 1}, {"from": "Hist1h2ai", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "Hist1h2ai", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Hist1h2ag", "to": "Hist1h2bn", "value": 1, "weight": 1}, {"from": "Hist1h2ag", "to": "H2bfs", "value": 1, "weight": 1}, {"from": "Hist1h2ag", "to": "Hist1h3b", "value": 1, "weight": 1}, {"from": "Hist1h2ag", "to": "Hist1h2bo", "value": 1, "weight": 1}, {"from": "Hist1h2ag", "to": "Hist1h2ah", "value": 1, "weight": 1}, {"from": "Hist1h2ag", "to": "Hist1h4i", "value": 1, "weight": 1}, {"from": "Hist1h2ag", "to": "Hist1h2aj", "value": 1, "weight": 1}, {"from": "Hist1h2ag", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "Hist1h2ag", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Hist1h2ad", "to": "Hist1h3d", "value": 1, "weight": 1}, {"from": "Hist1h2ad", "to": "Hist2h2aa", "value": 1, "weight": 1}, {"from": "Hist1h2ad", "to": "Hist2h2bf", "value": 1, "weight": 1}, {"from": "Hist1h2ad", "to": "Hist1h2aa4", "value": 1, "weight": 1}, {"from": "Hist1h2ad", "to": "Hist1h2bi", "value": 1, "weight": 1}, {"from": "Hist1h2ad", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist1h2ad", "to": "Hist1h2bf", "value": 1, "weight": 1}, {"from": "Hist1h2ad", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Hist1h4c", "to": "Hist1h4a", "value": 1, "weight": 1}, {"from": "Hist1h4c", "to": "Hist1h4b", "value": 1, "weight": 1}, {"from": "Hist1h4j", "to": "Hist1h4k", "value": 1, "weight": 1}, {"from": "Hist1h3d", "to": "Hist2h2aa", "value": 1, "weight": 1}, {"from": "Hist1h3d", "to": "Hist2h2bf", "value": 1, "weight": 1}, {"from": "Hist1h3d", "to": "Hist1h2aa4", "value": 1, "weight": 1}, {"from": "Hist1h3d", "to": "Hist1h2bi", "value": 1, "weight": 1}, {"from": "Hist1h3d", "to": "Hist1h2bh", "value": 1, "weight": 1}, {"from": "Hist1h3d", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist1h3d", "to": "Hist1h2bf", "value": 1, "weight": 1}, {"from": "Hist1h3d", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Hist1h2bk", "to": "H2bfs", "value": 1, "weight": 1}, {"from": "Hist1h2bk", "to": "Hist1h4i", "value": 1, "weight": 1}, {"from": "Hist1h2bk", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Hist2h3c", "to": "Hist2h3a", "value": 1, "weight": 1}, {"from": "Hist2h2aa", "to": "Hist2h2bf", "value": 1, "weight": 1}, {"from": "Hist2h2aa", "to": "Hist1h2aa4", "value": 1, "weight": 1}, {"from": "Hist2h2aa", "to": "Hist1h2bi", "value": 1, "weight": 1}, {"from": "Hist2h2aa", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist2h2bf", "to": "Hist1h2aa4", "value": 1, "weight": 1}, {"from": "Hist2h2bf", "to": "Hist1h2bi", "value": 1, "weight": 1}, {"from": "Hist2h2bf", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist2h2bf", "to": "Hist1h2bf", "value": 1, "weight": 1}, {"from": "Hist1h2bn", "to": "Hist1h2ak", "value": 1, "weight": 1}, {"from": "H2bfs", "to": "Hist1h3b", "value": 1, "weight": 1}, {"from": "H2bfs", "to": "Hist1h2bo", "value": 1, "weight": 1}, {"from": "H2bfs", "to": "Hist1h4i", "value": 1, "weight": 1}, {"from": "H2bfs", "to": "Hist1h2aj", "value": 1, "weight": 1}, {"from": "H2bfs", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "H2bfs", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "H3.X", "to": "H2afb1", "value": 1, "weight": 1}, {"from": "H3.X", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "H3.X", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "Hist2h4B", "to": "Hist2h4a", "value": 1, "weight": 1}, {"from": "Hist1h2aa4", "to": "Hist1h2bi", "value": 1, "weight": 1}, {"from": "Hist1h2aa4", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist1h4k", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "Hist1h2bm", "to": "Hist1h2bg", "value": 1, "weight": 1}, {"from": "Hist1h2bi", "to": "Hist1h2bh", "value": 1, "weight": 1}, {"from": "Hist1h2bi", "to": "Hist1h4e", "value": 1, "weight": 1}, {"from": "Hist1h2bi", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist1h2bi", "to": "Hist1h2bf", "value": 1, "weight": 1}, {"from": "H2afb1", "to": "Hist1h3a", "value": 1, "weight": 1}, {"from": "H2afb1", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "H2afb1", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "Hist1h3b", "to": "Hist1h2bo", "value": 1, "weight": 1}, {"from": "Hist1h3b", "to": "Hist1h2aj", "value": 1, "weight": 1}, {"from": "Hist1h3b", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "Hist1h2bo", "to": "Hist1h2aj", "value": 1, "weight": 1}, {"from": "Hist1h2bo", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "Hist1h2bo", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Hist1h3i", "to": "Hist1h2bg", "value": 1, "weight": 1}, {"from": "Hist1h2bh", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist1h2bh", "to": "Hist1h2bf", "value": 1, "weight": 1}, {"from": "Hist1h3a", "to": "H2afb3", "value": 1, "weight": 1}, {"from": "Hist1h3a", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "Hist1h4i", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Hist1h2aj", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "Hist1h2aj", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "Hist1h2bb", "to": "Hist1h2ab", "value": 1, "weight": 1}, {"from": "Hist1h2al", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "Hist1h4e", "to": "Hist1h2ae", "value": 1, "weight": 1}, {"from": "Hist1h4e", "to": "Hist1h2bf", "value": 1, "weight": 1}, {"from": "Hist1h2ae", "to": "Hist1h2bf", "value": 1, "weight": 1}, {"from": "Hist1h2bf", "to": "Hist1h2am", "value": 1, "weight": 1}, {"from": "Hist1h2bf", "to": "Hist1h3h", "value": 1, "weight": 1}, {"from": "H2afb3", "to": "H2afb2", "value": 1, "weight": 1}, {"from": "Hist1h4a", "to": "Hist1h4b", "value": 1, "weight": 1}, {"from": "Hist1h2am", "to": "Hist1h3h", "value": 1, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+        network.on("stabilizationProgress", function(params) {
+      		document.getElementById('loadingBar').removeAttribute("style");
+	        var maxWidth = 496;
+	        var minWidth = 20;
+	        var widthFactor = params.iterations/params.total;
+	        var width = Math.max(minWidth,maxWidth * widthFactor);
+
+	        document.getElementById('bar').style.width = width + 'px';
+	        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+	    });
+	    network.once("stabilizationIterationsDone", function() {
+	        document.getElementById('text').innerHTML = '100%';
+	        document.getElementById('bar').style.width = '496px';
+	        document.getElementById('loadingBar').style.opacity = 0;
+	        // really clean the dom element
+	        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+	    });
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

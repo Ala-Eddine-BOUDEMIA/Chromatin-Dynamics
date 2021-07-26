@@ -1,0 +1,5 @@
+Gene	Module	kME
+Hist3h2a	P2_I1_M1	0.72
+Hist2h3c	P2_I1_M1	0.92
+Hist2h3a	P2_I1_M1	0.92
+Hist1h2be	P2_I1_M1	0.83

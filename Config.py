@@ -722,7 +722,7 @@ parser.add_argument("--IclstrTissueS",
 parser.add_argument("--IclstrRandS",
 	type = Path,
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
-			+ "/Clustermap/" + distance_metric + "/Samples/Random/"),
+			+ "/Clustermap/Samples/" + distance_metric + "/Random/"),
 	help = "Clustermaps")
 
 parser.add_argument("--IclstrFullG",

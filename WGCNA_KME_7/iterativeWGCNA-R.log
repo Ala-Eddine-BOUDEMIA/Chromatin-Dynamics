@@ -1,0 +1,8 @@
+Allowing parallel execution with up to 3 working processes.
+     mergeCloseModules: less than two proper modules.
+      ..color levels are 0, 1
+      ..there is nothing to merge.
+     mergeCloseModules: less than two proper modules.
+      ..color levels are 0, 3
+      ..there is nothing to merge.
+[1] 0.05

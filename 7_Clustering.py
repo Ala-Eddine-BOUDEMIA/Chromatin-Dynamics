@@ -17,15 +17,14 @@ def clustering_samples(
     s_clustermaps, s_img_clstrRand, s_img_clstrTissues):
 
     # Make sure there are not hidden files in the folder
-    
     tissue_files = sorted([f for f in s_corr_tissues.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         s_corr.append(path) 
 
-    rand_files = sorted([f for f in s_corr_rand.iterdir() if f.is_file()])
+    rand_files = sorted([f for f in s_corr_rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
         s_corr.append(path)
-
+    
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link = s_img_clstrTissues.joinpath(tissue_name)
@@ -75,12 +74,12 @@ def clustering_samples(
 def clustering_genes(
     cv_list, g_corr, g_corr_rand, g_corr_tissue,
     g_clustermaps, g_img_clstrRand, g_img_clstrTissues):
-    
+
     tissue_files = sorted([f for f in g_corr_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         g_corr.append(path) 
     
-    rand_files = sorted([f for f in g_corr_rand.iterdir() if f.is_file()])
+    rand_files = sorted([f for f in g_corr_rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
         g_corr.append(path)
     
@@ -145,7 +144,7 @@ def clustering_genes(
 def clustering_samples_genes(
     meta, cv_list, counts, rand, by_tissue,
     sg_clustermaps, sg_img_clstrRand, sg_img_clstrTissues):
-    
+
     tissue_files = sorted([f for f in by_tissue.iterdir() if f.is_file()])
     for path in tissue_files:
         counts.append(path)
@@ -153,7 +152,7 @@ def clustering_samples_genes(
     rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
     for path in rand_files:
         counts.append(path)
-        
+    
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link = sg_img_clstrTissues.joinpath(tissue_name)
@@ -237,7 +236,7 @@ def clustering_samples_genes(
         gc.collect()
 
 if __name__ == '__main__':
-    
+    """
     clustering_genes(
         cv_list = Config.args.list,
         g_corr = Config.g_corr,
@@ -255,7 +254,7 @@ if __name__ == '__main__':
         by_tissue = Config.args.tissue,
         sg_clustermaps = Config.sg_clustermaps,
         sg_img_clstrRand = Config.args.IclstrRandSG,
-        sg_img_clstrTissues = Config.args.IclstrTissueSG)
+        sg_img_clstrTissues = Config.args.IclstrTissueSG)"""
     
     clustering_samples(
         meta = Config.args.meta,
