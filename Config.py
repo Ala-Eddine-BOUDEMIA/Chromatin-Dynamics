@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser()
 # GTEx or TCGA
 parser.add_argument("--dataset",
 	type = str,
-	default = "GTEx",
+	default = "TCGA",
 	help = "Dataset to use: GTEx or TCGA")
 
 # Method used to normalize (CPM or TMM)
@@ -21,7 +21,7 @@ parser.add_argument("--normMethod",
 # Possible arguments: Normalized - variants_chaperones
 parser.add_argument("--which",
 	type = str,
-	default = "Normalized",
+	default = "variants_chaperones",
 	help = "Dataset to use: normalized or \
 			histone chaperones and histone variants")
 
