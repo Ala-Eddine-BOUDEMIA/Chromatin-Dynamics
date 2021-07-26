@@ -361,6 +361,67 @@ parser.add_argument("--tsneRand",
 			+ "/T-Sne/Random/"),
 	help = "T-SNE file")
 
+## UMAP
+parser.add_argument("--umapRaw",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/BeforeFiltering/umap.tsv"),
+	help = "UMAP file")
+
+parser.add_argument("--umapFiltered",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/AfterFiltering/umap.tsv"),
+	help = "UMAP file")
+
+parser.add_argument("--umapFull",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/" + choice.which + "/Full/umap.tsv"),
+	help = "UMAP file")
+
+parser.add_argument("--umapNormal",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/" + choice.which + "/Normal/umap.tsv"),
+	help = "UMAP file")
+
+parser.add_argument("--umapWoTissues",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/" + choice.which + "/WithoutTissues/umap.tsv"),
+	help = "UMAP file")
+
+parser.add_argument("--umapTop",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/Top1000/umap.tsv"),
+	help = "UMAP file")
+
+parser.add_argument("--umapTop100",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/Top100/umap.tsv"),
+	help = "UMAP file")
+
+parser.add_argument("--umapNRcv",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/variants_chaperones/NonReplicative/umap.tsv"),
+	help = "UMAP file")
+
+parser.add_argument("--umapTissue",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/" + choice.which + "/umapbyTissue/"),
+	help = "UMAP file")
+
+parser.add_argument("--umapRand",
+	type = Path,
+	default = Path("Data/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/Random/"),
+	help = "UMAP file")
+
 # Images
 ## General
 parser.add_argument("--IgeneralRaw",
@@ -660,6 +721,67 @@ parser.add_argument("--ItsneRand",
 	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
 			+ "/T-Sne/Random/"),
 	help = "T-SNE images")
+
+## UMAP
+parser.add_argument("--IumapRaw",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/BeforeFiltering/umap.png"),
+	help = "UMAP image")
+
+parser.add_argument("--IumapFiltered",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/AfterFiltering/umap.png"),
+	help = "UMAP image")
+
+parser.add_argument("--IumapFull",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/" + choice.which + "/Full/umap.png"),
+	help = "UMAP image")
+
+parser.add_argument("--IumapNormal",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/" + choice.which + "/Normal/umap.png"),
+	help = "UMAP image")
+
+parser.add_argument("--IumapWoTissues",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/" + choice.which + "/WithoutTissues/umap.png"),
+	help = "UMAP image")
+
+parser.add_argument("--IumapTop",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/Top1000/umap.png"),
+	help = "UMAP image")
+
+parser.add_argument("--IumapTop100",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/Top100/umap.png"),
+	help = "UMAP image")
+
+parser.add_argument("--IumapNRcv",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/variants_chaperones/NonReplicative/umap.png"),
+	help = "UMAP image")
+
+parser.add_argument("--IumapTissue",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/" + choice.which + "/umapbyTissue/"),
+	help = "UMAP images")
+
+parser.add_argument("--IumapRand",
+	type = Path,
+	default = Path("Images/").joinpath(choice.dataset + "/" + choice.normMethod \
+			+ "/UMAP/Random/"),
+	help = "UMAP images")
 
 ## Metric
 parser.add_argument("--distance",
@@ -1148,77 +1270,173 @@ parser.add_argument("--PtsneRand",
 			+ choice.normMethod + "/T-Sne/Random/"),
 	help = "T-SNE html file")
 
+## UMAP
+parser.add_argument("--PumapRaw",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/BeforeFiltering/umap.html"),
+	help = "UMAP html file")
+
+parser.add_argument("--PumapFiltered",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/AfterFiltering/umap.html"),
+	help = "UMAP html file")
+
+parser.add_argument("--PumapFull",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/" + choice.which + "/Full/umap.html"),
+	help = "UMAP html file")
+
+parser.add_argument("--PumapNormal",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/" + choice.which + "/Normal/umap.html"),
+	help = "UMAP html file")
+
+parser.add_argument("--PumapWoTissues",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/" + choice.which \
+			+ "/WithoutTissues/umap.html"),
+	help = "UMAP html file")
+
+parser.add_argument("--PumapTop",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/Top1000/umap.html"),
+	help = "UMAP html file")
+
+parser.add_argument("--PumapTop100",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/Top100/umap.html"),
+	help = "UMAP html file")
+
+parser.add_argument("--PumapNRcv",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/variants_chaperones/" \
+			+ "NonReplicative/umap.html"),
+	help = "UMAP html file")
+
+parser.add_argument("--PumapTissue",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/" + choice.which + "/umapbyTissue"),
+	help = "UMAP html file")
+
+parser.add_argument("--PumapRand",
+	type = Path,
+	default = Path("Plotly_HTML_Files/").joinpath(choice.dataset + "/" \
+			+ choice.normMethod + "/UMAP/Random/"),
+	help = "UMAP html file")
+
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.full, args.onlyNormal, args.WoTissues]
+counts = [args.full, args.onlyNormal, args.WoTissues, 
+	args.top1000, args.top100, args.nonRcv]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""
 
 ### Get genes' correlations
-g_corr = [args.corrFullG, args.corrNormalG, args.corrWoTissuesG] 
+g_corr = [args.corrFullG, args.corrNormalG, args.corrWoTissuesG, 
+	args.corrTopG, args.corrTop100G, args.corrNRcvG] 
 """[args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrTopG,
 	args.corrTop100G, args.corrNRcvG, args.corrTissueG, args.corrRandG]"""
 
 ### Get samples' correlations
-s_corr = [args.corrFullS, args.corrNormalS, args.corrWoTissuesS]
+s_corr = [args.corrFullS, args.corrNormalS, args.corrWoTissuesS,
+	args.corrTopS, args.corrTop100S, args.corrNRcvS]
 """[args.corrFullS, args.corrNormalS, args.corrWoTissuesS, args.corrTopS,
 	args.corrTop100S, args.corrNRcvS, args.corrTissueS, args.corrRandS]"""
 
 ### Get pca's files
-files_pca = [args.pcaFiltered, args.pcaFull, args.pcaNormal, args.pcaWoTissues]
+files_pca = [args.pcaFull, args.pcaNormal, args.pcaWoTissues,
+	args.pcaTop, args.pcaTop100, args.pcaNRcv]
 """[args.pcaRaw, args.pcaFiltered, args.pcaFull, args.pcaNormal,
 	args.pcaWoTissues, args.pcaTop, args.pcaTop100, args.pcaNRcv, 
 	args.pcaTissue, args.pcaRand]"""
 
 ### Get pca's images
-images_pca = [args.IpcaFull, args.IpcaNormal, args.IpcaWoTissues] 
+images_pca = [args.IpcaFull, args.IpcaNormal, args.IpcaWoTissues,
+	args.IpcaTop, args.IpcaTop100, args.IpcaNRcv] 
 """[args.IpcaRaw, args.IpcaFiltered, args.IpcaFull, args.IpcaNormal,
 	args.IpcaWoTissues, args.IpcaTop, args.IpcaTop100, args.IpcaNRcv, 
 	args.IpcaTissue, args.IpcaRand]"""
 
 ### Get pca's HTML files
-htmls_pca = [args.PpcaFull, args.PpcaNormal, args.PpcaWoTissues]
+htmls_pca = [args.PpcaFull, args.PpcaNormal, args.PpcaWoTissues,
+	args.PpcaTop, args.PpcaTop100, args.PpcaNRcv]
 """[args.PpcaRaw, args.PpcaFiltered, args.PpcaFull, args.PpcaNormal,
 	args.PpcaWoTissues, args.PpcaTop, args.PpcaTop100, args.PpcaNRcv,
 	args.PpcaTissue, args.PpcaRand]"""
 
 ### Get t-sne's files
-files_tsne = [args.tsneFull, args.tsneNormal, args.tsneWoTissues]
+files_tsne = [args.tsneFull, args.tsneNormal, args.tsneWoTissues,
+	args.tsneTop, args.tsneTop100, args.tsneNRcv]
 """[args.tsneRaw, args.tsneFiltered, args.tsneFull, args.tsneNormal,
 	args.tsneWoTissues, args.tsneTop, args.tsneTop100, args.tsneNRcv, 
 	args.tsneTissue, args.tsneRand]"""
 
 ### Get t-sne's images
-images_tsne = [args.ItsneFull, args.ItsneNormal, args.ItsneWoTissues]
+images_tsne = [args.ItsneFull, args.ItsneNormal, args.ItsneWoTissues,
+	args.ItsneTop, args.ItsneTop100, args.ItsneNRcv]
 """[args.ItsneRaw, args.ItsneFiltered, args.ItsneFull, args.ItsneNormal, 
 	args.ItsneWoTissues, args.ItsneTop, args.ItsneTop100, args.ItsneNRcv, 
 	args.ItsneTissue, args.ItsneRand]"""
 
 ### Get t-sne's HTML files
-htmls_tsne = [args.PtsneFull, args.PtsneNormal, args.PtsneWoTissues]
+htmls_tsne = [args.PtsneFull, args.PtsneNormal, args.PtsneWoTissues,
+	args.PtsneTop, args.PtsneTop100, args.PtsneNRcv]
 """[args.PtsneRaw, args.PtsneFiltered, args.PtsneFull, args.PtsneNormal, 
 	args.PtsneWoTissues, args.PtsneTop, args.PtsneTop100, args.PtsneNRcv, 
 	args.PtsneTissue, args.PtsneRand]"""
 
+### Get UMAP's files
+files_umap = [args.umapFull, args.umapNormal, args.umapWoTissues,
+	args.umapTop, args.umapTop100, args.umapNRcv]
+"""[args.umapRaw, args.umapFiltered, args.umapFull, args.umapNormal,
+	args.umapWoTissues, args.umapTop, args.umapTop100, args.umapNRcv, 
+	args.umapTissue, args.umapRand]"""
+
+### Get UMAP's images
+images_umap = [args.IumapFull, args.IumapNormal, args.IumapWoTissues,
+	args.IumapTop, args.IumapTop100, args.IumapNRcv]
+"""[args.IumapRaw, args.IumapFiltered, args.IumapFull, args.IumapNormal, 
+	args.IumapWoTissues, args.IumapTop, args.IumapTop100, args.IumapNRcv, 
+	args.IumapTissue, args.IumapRand]"""
+
+### Get UMAP's HTML files
+htmls_umap = [args.PumapFull, args.PumapNormal, args.PumapWoTissues,
+	args.PumapTop, args.PumapTop100, args.PumapNRcv]
+"""[args.PumapRaw, args.PumapFiltered, args.PumapFull, args.PumapNormal, 
+	args.PumapWoTissues, args.PumapTop, args.PumapTop100, args.PumapNRcv, 
+	args.PumapTissue, args.PumapRand]"""
+
 ### Get QC images
 #### General
-general_qc_imgs = [args.IgeneralFull, args.IgeneralNormal, args.IgeneralWoTissues]
+general_qc_imgs = [args.IgeneralFull, args.IgeneralNormal, args.IgeneralWoTissues,
+	args.IgeneralTop, args.IgeneralTop100, args.IgeneralNRcv]
 """[args.IgenralRaw, args.IgenralFiltered, args.IgeneralFull, 
 	args.IgeneralNormal, args.IgeneralWoTissues, args.IgeneralTop,
 	args.IgeneralTop100, args.IgeneralNRcv, args.IgeneralTissue, 
 	args.IgeneralRand]"""
 
 #### Mean-variance
-mv_imgs = [args.ImvFull, args.ImvNormal, args.ImvWoTissues]
+mv_imgs = [args.ImvFull, args.ImvNormal, args.ImvWoTissues,
+	args.ImvTop, args.ImvTop100, args.ImvNRcv]
 """[args.ImvRaw, args.ImvFiltered, args.ImvFull, 
 	args.ImvNormal, args.ImvWoTissues, args.ImvTop,
 	args.ImvTop100, args.ImvNRcv, args.ImvTissue, 
 	args.ImvRand]"""
 
 #### z_scores
-zscores_imgs = [args.IzscoreFull, args.IzscoreNormal, args.IzscoreWoTissues]
+zscores_imgs = [args.IzscoreFull, args.IzscoreNormal, args.IzscoreWoTissues,
+	args.IzscoreTop, args.IzscoreTop100, args.IzscoreNRcv]
 """[args.IzscoreRaw, args.IzscoreFiltered, args.IzscoreFull, 
 	args.IzscoreNormal, args.IzscoreWoTissues, args.IzscoreTop, 
 	args.IzscoreTop100, args.IzscoreNRcv, args.IzscoreTissue, 
@@ -1226,38 +1444,44 @@ zscores_imgs = [args.IzscoreFull, args.IzscoreNormal, args.IzscoreWoTissues]
 
 ### Get QC html files
 #### General
-general_qc_htmls = [args.PgeneralFull, args.PgeneralNormal, args.PgeneralWoTissues]
+general_qc_htmls = [args.PgeneralFull, args.PgeneralNormal, args.PgeneralWoTissues,
+	args.PgeneralTop, args.PgeneralTop100, args.PgeneralNRcv]
 """[args.PgenralRaw, args.PgenralFiltered, args.PgeneralFull, 
 	args.PgeneralNormal, args.PgeneralWoTissues, args.PgeneralTop,
 	args.PgeneralTop100, args.PgeneralNRcv, args.PgeneralTissue, 
 	args.PgeneralRand]"""
 
 #### Mean-variance
-mv_htmls = [args.PmvFull, args.PmvNormal, args.PmvWoTissues]
+mv_htmls = [args.PmvFull, args.PmvNormal, args.PmvWoTissues,
+	args.PmvTop, args.PmvTop100, args.PmvNRcv]
 """[args.PmvRaw, args.PmvFiltered, args.PmvFull, 
 	args.PmvNormal, args.PmvWoTissues, args.PmvTop,
 	args.PmvTop100, args.PmvNRcv, args.PmvTissue, 
 	args.PmvRand]"""
 
 #### z_scores
-zscores_htmls = [args.PzscoreFull, args.PzscoreNormal, args.PzscoreWoTissues]
+zscores_htmls = [args.PzscoreFull, args.PzscoreNormal, args.PzscoreWoTissues,
+	args.PzscoreTop, args.PzscoreTop100, args.PzscoreNRcv]
 """[args.PzscoreRaw, args.PzscoreFiltered, args.PzscoreFull, 
 	args.PzscoreNormal, args.PzscoreWoTissues, args.PzscoreTop, 
 	args.PzscoreTop100, args.PzscoreNRcv, args.PzscoreTissue, 
 	args.PzscoreRand]"""
 
 ### Get the clustermaps
-s_clustermaps = [args.IclstrFullS, args.IclstrNormalS, args.IclstrWoTissueS]
+s_clustermaps = [args.IclstrFullS, args.IclstrNormalS, args.IclstrWoTissueS,
+	args.IclstrTopS, args.IclstrTop100S, args.IclstrNRcvS]
 """[args.IclstrFullS, args.IclstrNormalS, args.IclstrWoTissueS, 
 	args.IclstrTopS, args.IclstrTop100S, args.IclstrNRcvS, 
 	args.IclstrTissueS, args.IclstrRandS]"""
 
-g_clustermaps = [args.IclstrFullG, args.IclstrNormalG, args.IclstrWoTissueG]
+g_clustermaps = [args.IclstrFullG, args.IclstrNormalG, args.IclstrWoTissueG,
+	args.IclstrTopG, args.IclstrTop100G, args.IclstrNRcvG]
 """[args.IclstrFullG, args.IclstrNormalG, args.IclstrWoTissueG, 
 	args.IclstrTopG, args.IclstrTop100G, args.IclstrNRcvG, 
 	args.IclstrTissueG, args.IclstrRandG]"""
 
-sg_clustermaps = [args.IclstrFullSG, args.IclstrNormalSG, args.IclstrWoTissueSG]
+sg_clustermaps = [args.IclstrFullSG, args.IclstrNormalSG, args.IclstrWoTissueSG,
+	args.IclstrTopSG, args.IclstrTop100SG, args.IclstrNRcvSG]
 """[args.IclstrFullSG, args.IclstrNormalSG, args.IclstrWoTissueSG, 
 	args.IclstrTopSG, args.IclstrTop100SG, args.IclstrNRcvSG, 
 	args.IclstrTissueSG, args.IclstrRandSG]"""
