@@ -98,8 +98,14 @@ def clustering_genes(
     c = 0
     for m, i in zip(g_corr, g_clustermaps):
         correlation_matrix = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
-
-        if c == 550 or c == 501:
+        if c == 1 or c == 2 or c > 36:
+            g = sns.clustermap(correlation_matrix, 
+                vmin = -1, 
+                vmax = 1, 
+                cmap = "icefire", metric = Config.distance_metric,
+                xticklabels = False, yticklabels = False,
+                method = "average", figsize = [25, 25])
+        else:
             correlation_matrix = correlation_matrix.join(metadata["Class"])
             correlation_matrix = correlation_matrix.join(metadata["GeneName"])
             correlation_matrix = correlation_matrix.dropna()
@@ -124,13 +130,6 @@ def clustering_genes(
             g.ax_row_dendrogram.legend(handles, lut, title = 'Class',
                 bbox_to_anchor = (0, 1), loc = 'best', 
                 bbox_transform = plt.gcf().transFigure)
-        else :
-            g = sns.clustermap(correlation_matrix, 
-                vmin = -1, 
-                vmax = 1, 
-                cmap = "icefire", metric = Config.distance_metric,
-                xticklabels = False, yticklabels = False,
-                method = "average", figsize = [25, 25])
 
         g.savefig(str(i), dpi = 300)
         plt.close('all')
@@ -181,8 +180,16 @@ def clustering_samples_genes(
         palette = palette1 + palette2 + palette3
         lut = dict(zip(set(tissues.unique()), palette))
         col_colors = tissues.map(lut)
-
-        if c == 500 or c == 501: #find a better condition
+        
+        if c == 1 or c == 2 or c > 36:
+            g = sns.clustermap(count.T, 
+                vmin = -1, 
+                vmax = 1, 
+                col_colors = col_colors,
+                cmap = "icefire", metric = Config.distance_metric,
+                xticklabels = False, yticklabels = False,
+                method = "average", figsize = [25, 25])
+        else:
             count = count.T
             count = count.join(cv_list["GeneName"])
             count = count.join(cv_list["Class"])
@@ -212,15 +219,6 @@ def clustering_samples_genes(
                 bbox_to_anchor = (0, 0), loc = 'best', 
                 bbox_transform = plt.gcf().transFigure)
 
-        else:
-            g = sns.clustermap(count.T, 
-                vmin = -1, 
-                vmax = 1, 
-                col_colors = col_colors,
-                cmap = "icefire", metric = Config.distance_metric,
-                xticklabels = False, yticklabels = False,
-                method = "average", figsize = [25, 25])
-
         handles = [Patch(facecolor = lut[name]) for name in lut]
         g.ax_col_dendrogram.legend(handles, lut, title = 'Tissues',
             bbox_to_anchor = (0, 1), loc = 'best', 
@@ -244,7 +242,7 @@ if __name__ == '__main__':
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
         g_img_clstrRand = Config.args.IclstrRandG,
-        g_img_clstrTissues = Config.args.IclstrTissueG)
+        g_img_clstrTissues = Config.args.IclstrTissueG)"""
     
     clustering_samples_genes(
         meta = Config.args.meta,
@@ -254,7 +252,7 @@ if __name__ == '__main__':
         by_tissue = Config.args.tissue,
         sg_clustermaps = Config.sg_clustermaps,
         sg_img_clstrRand = Config.args.IclstrRandSG,
-        sg_img_clstrTissues = Config.args.IclstrTissueSG)"""
+        sg_img_clstrTissues = Config.args.IclstrTissueSG)
     
     clustering_samples(
         meta = Config.args.meta,
