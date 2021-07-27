@@ -43,10 +43,11 @@ def clustering_samples(
         correlation_matrix = correlation_matrix.dropna()
         tissues = correlation_matrix.pop(Config.args.smts)
 
-        palette1 = sns.hls_palette(11)
+        palette1 = sns.hls_palette(10)
         palette2 = sns.color_palette("bwr",10)
         palette3 = sns.color_palette("inferno",10)
-        palette = palette1 + palette2 + palette3
+        palette4 = sns.color_palette("Set2",4)
+        palette = palette1 + palette2 + palette3 + palette4
         lut = dict(zip(set(tissues.unique()), palette))
         colors = tissues.map(lut)
 
@@ -144,11 +145,11 @@ def clustering_samples_genes(
     meta, cv_list, counts, rand, by_tissue,
     sg_clustermaps, sg_img_clstrRand, sg_img_clstrTissues):
 
-    tissue_files = sorted([f for f in by_tissue.iterdir() if f.is_file()])
+    tissue_files = sorted([f for f in by_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         counts.append(path)
     
-    rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
+    rand_files = sorted([f for f in rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
         counts.append(path)
     
@@ -174,14 +175,15 @@ def clustering_samples_genes(
         count = count.dropna()
         tissues = count.pop(Config.args.smts)
 
-        palette1 = sns.hls_palette(11)
+        palette1 = sns.hls_palette(10)
         palette2 = sns.color_palette("bwr", 10)
         palette3 = sns.color_palette("inferno", 10)
-        palette = palette1 + palette2 + palette3
+        palette4 = sns.color_palette("Set2", 4)
+        palette = palette1 + palette2 + palette3 + palette4
         lut = dict(zip(set(tissues.unique()), palette))
         col_colors = tissues.map(lut)
         
-        if c == 1 or c == 2 or c > 36:
+        if  c == 1 or c == 2 or c > 36:
             g = sns.clustermap(count.T, 
                 vmin = -1, 
                 vmax = 1, 
