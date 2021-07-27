@@ -74,6 +74,7 @@ def generate_data(
 	elif Config.args.which == "Normalized":
 		counts_by_tissue = counts.T
 	counts_by_tissue = counts_by_tissue.join(metadata[Config.args.smts])
+	print(counts_by_tissue)
 	tissue_types = pd.unique(metadata[Config.args.smts])
 
 	for t in tissue_types:
