@@ -36,7 +36,6 @@ def explore_data(
 	# Runs per tissue
 	runs_per_tissue = metadata.groupby([Config.args.smtsd]).agg({Config.args.id:'unique'})
 	runs_per_tissue.sort_values(Config.args.smtsd)
-
 	# Process each file
 	for file, image, html in zip(counts, qc_imgs, qc_htmls):
 		f = pd.read_csv(file, header = 0, index_col = 0, sep = "\t")
@@ -59,6 +58,12 @@ def explore_data(
 
 		for tissue in runs_per_tissue.index:
 			for runs in runs_per_tissue.loc[tissue]:
+				if Config.args.dataset == 'TCGA':
+					corrected_runs = []
+					for run in runs:
+						run = run.split('.')[0]
+						corrected_runs.append(run)
+					runs = corrected_runs
 				try:
 					# per sample
 					counts_per_sample_per_tissue = f.loc[:, runs].sum(axis = 0)
