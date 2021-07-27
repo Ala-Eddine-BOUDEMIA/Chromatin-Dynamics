@@ -54,7 +54,7 @@ def tsne(
         scaler = StandardScaler()
         std_counts = scaler.fit_transform(f.dropna().T)
 
-        tsne = TSNE(n_components = 2)
+        tsne = TSNE(n_components = 2, random_state = 0)
         T = tsne.fit_transform(std_counts)
         df = pd.DataFrame(index = f.T.index)
         df["T1"] = T[:, 0]
