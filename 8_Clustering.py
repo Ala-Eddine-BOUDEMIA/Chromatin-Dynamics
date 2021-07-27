@@ -185,8 +185,8 @@ def clustering_samples_genes(
         
         if  c == 1 or c == 2 or c > 36:
             g = sns.clustermap(count.T, 
-                vmin = -1, 
-                vmax = 1, 
+                vmin = max(data.max(axis = 1)), 
+                vmax = min(data.min(axis = 1)),  
                 col_colors = col_colors,
                 cmap = "icefire", metric = Config.distance_metric,
                 xticklabels = False, yticklabels = False,
