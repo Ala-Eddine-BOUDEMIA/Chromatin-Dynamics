@@ -236,7 +236,7 @@ def clustering_samples_genes(
         gc.collect()
 
 if __name__ == '__main__':
-    """
+    
     clustering_genes(
         cv_list = Config.args.list,
         g_corr = Config.g_corr,
@@ -244,7 +244,7 @@ if __name__ == '__main__':
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
         g_img_clstrRand = Config.args.IclstrRandG,
-        g_img_clstrTissues = Config.args.IclstrTissueG)"""
+        g_img_clstrTissues = Config.args.IclstrTissueG)
     
     clustering_samples_genes(
         meta = Config.args.meta,
