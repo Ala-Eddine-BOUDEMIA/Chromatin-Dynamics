@@ -11,11 +11,11 @@ def mean_std(
 	rand, rand_p, rand_images,
 	tissue_counts, tissues_mv_p, tissues_images):
 	
-	tissue_files = sorted([f for f in tissue_counts.iterdir() if f.is_file()])
+	tissue_files = sorted([f for f in tissue_counts.glob("**/*.tsv") if f.is_file()])
 	for path in tissue_files:
 		counts.append(path)
 
-	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
+	rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
 	for path in rand_files:
 		counts.append(path)
 	

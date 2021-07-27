@@ -15,11 +15,11 @@ def pca(
     p_pca_rand, img_pca_rand, file_pca_rand, 
     p_pca_tissue, img_pca_tissues, file_pca_tissue):
     
-    tissue_files = sorted([f for f in tissues.iterdir() if f.is_file()])
+    tissue_files = sorted([f for f in tissues.glob("**/*.tsv") if f.is_file()])
     for path in tissue_files:
         counts.append(path)
 
-    rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
+    rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
     for path in rand_files:
         counts.append(path)
 

@@ -16,11 +16,11 @@ def tsne(
     img_tsne_rand, p_tsne_tissues,
     file_tsne_tissues, img_tsne_tissues):
     
-    tissue_files = sorted([f for f in tissues.iterdir() if f.is_file()])
+    tissue_files = sorted([f for f in tissues.glob("**/*.tsv") if f.is_file()])
     for path in tissue_files:
         counts.append(path)
     
-    rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
+    rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
     for path in rand_files:
         counts.append(path)
     
