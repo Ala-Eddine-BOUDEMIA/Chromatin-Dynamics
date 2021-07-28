@@ -1,0 +1,7 @@
+Iteration	Initial	Fit	Residual
+P1_I1	127	92	35
+P1_I2	92	91	1
+P1_I3	91	91	0
+P2_I1	36	9	27
+P2_I2	9	9	0
+P3_I1	27	0	27

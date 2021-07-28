@@ -1,0 +1,26 @@
+INFO: Mer 28 jul 15:25:10 2021
+INFO: Working directory: /Users/labo/Documents/Code/Chromatin-Dynamics/WGCNA
+INFO: Saving blocks for each iteration? TRUE
+INFO: Merging final modules if cutHeight <= 0.05
+INFO: Allowing WGCNA Threads? TRUE
+INFO: Running WGCNA with the following params:
+INFO: {'networkType': 'unsigned', 'saveTOMs': True, 'minKMEtoStay': 0.7, 'minModuleSize': 4, 'numericLabels': True, 'minCoreKME': 0.7, 'reassignThreshold': 0.05, 'power': 6}
+INFO: Loaded file: counts.tsv
+INFO: 9662 Samples
+INFO: 127 Genes
+INFO: Pass 1 converged on iteration 3.
+INFO: FIT: 91; RESIDUAL: 36
+INFO: Pass 2 converged on iteration 2.
+INFO: FIT: 9; RESIDUAL: 27
+INFO: No modules detected for iteration P3_I1. Classification complete.
+INFO: Pass 3 converged on iteration 2.
+INFO: FIT: 0; RESIDUAL: 27
+INFO: FIT: 100; RESIDUAL: 27
+INFO: Found 11 modules.
+INFO: ['P1_I3_M2', 'P2_I2_M1', 'P1_I3_M8', 'P1_I3_M1', 'P1_I3_M7', 'P1_I3_M6', 'P1_I3_M5', 'P1_I3_M9', 'P1_I3_M4', 'P1_I3_M3', 'P2_I2_M2']
+INFO: Done merging close modules: 0 modules merged.
+INFO: Retained 11 modules after merge.
+INFO: Reassigned 1 genes in final kME review.
+INFO: FIT: 100; RESIDUAL: 27
+INFO: iterativeWGCNA: SUCCESS
+INFO: Mer 28 jul 15:33:02 2021
