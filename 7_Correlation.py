@@ -13,10 +13,10 @@ def correlation(
 	tissue_files = sorted([f for f in by_tissues.glob("**/*.tsv") if f.is_file()])
 	for path in tissue_files:
 		counts.append(path) 
-
+	"""
 	rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
 	for path in rand_files:
-		counts.append(path)
+		counts.append(path)"""
 
 	for i in range(len(tissue_files)):
 		tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -28,10 +28,10 @@ def correlation(
 		
 		g_corr.append(link_g.joinpath(tissue_name + ".tsv"))
 		s_corr.append(link_s.joinpath(tissue_name + ".tsv"))
-	
+	"""
 	for i in range(len(rand_files)):
 		g_corr.append(g_corr_rand.joinpath("random" + str(i) + ".tsv"))
-		s_corr.append(s_corr_rand.joinpath("random" + str(i) + ".tsv"))
+		s_corr.append(s_corr_rand.joinpath("random" + str(i) + ".tsv"))"""
 
 	# Process each file
 	for filee, g, s in zip(counts, g_corr, s_corr):
