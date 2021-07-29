@@ -21,7 +21,7 @@ parser.add_argument("--normMethod",
 # Possible arguments: Normalized - variants_chaperones
 parser.add_argument("--which",
 	type = str,
-	default = "variants_chaperones",
+	default = "Normalized",
 	help = "Dataset to use: normalized or \
 			histone chaperones and histone variants")
 
