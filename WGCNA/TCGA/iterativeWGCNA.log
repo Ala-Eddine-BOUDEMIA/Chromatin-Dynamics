@@ -1,7 +1,0 @@
-INFO: Jeu 29 jul 10:57:49 2021
-INFO: Working directory: /Users/labo/Documents/Code/Chromatin-Dynamics/WGCNA/TCGA
-INFO: Saving blocks for each iteration? TRUE
-INFO: Merging final modules if cutHeight <= 0.05
-INFO: Allowing WGCNA Threads? TRUE
-INFO: Running WGCNA with the following params:
-INFO: {'minKMEtoStay': 0.7, 'minModuleSize': 4, 'networkType': 'Unsigned', 'saveTOMs': True, 'numericLabels': True, 'minCoreKME': 0.7, 'reassignThreshold': 0.05, 'power': 6}
