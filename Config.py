@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser()
 # GTEx or TCGA
 parser.add_argument("--dataset",
 	type = str,
-	default = "TCGA",
+	default = "GTEx_TCGA",
 	help = "Dataset to use: GTEx or TCGA")
 
 # Method used to normalize (CPM or TMM)
@@ -21,7 +21,7 @@ parser.add_argument("--normMethod",
 # Possible arguments: Normalized - variants_chaperones
 parser.add_argument("--which",
 	type = str,
-	default = "Normalized",
+	default = "variants_chaperones",
 	help = "Dataset to use: normalized or \
 			histone chaperones and histone variants")
 
@@ -29,7 +29,7 @@ parser.add_argument("--which",
 choice = parser.parse_args()
 
 # tissues or cancer
-if choice.dataset == "GTEx":
+if choice.dataset == "GTEx" or choice.dataset == "GTEx_TCGA":
 	var1 = "smtsd"
 	var2 = "smts"
 else:
@@ -47,7 +47,7 @@ parser.add_argument("--smts",
 	help = "-")
 
 # bigwig or run
-if choice.dataset == "GTEx":
+if choice.dataset == "GTEx" or choice.dataset == "GTEx_TCGA":
 	var = "run"
 else:
 	var = "bigwig_file"

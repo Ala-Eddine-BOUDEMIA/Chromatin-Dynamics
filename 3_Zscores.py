@@ -11,14 +11,14 @@ def z_scores(
 	counts, rand, tissues,
 	Icounts, Irand, Itissue,
 	Pcounts, Prand, Ptissue):
-	
+	"""	
 	tissue_files = sorted([f for f in tissues.glob("**/*.tsv") if f.is_file()])
 	for path in tissue_files:
 		counts.append(path)
-	"""	
+	
 	rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
 	for path in rand_files:
-		counts.append(path)"""
+		counts.append(path)
 
 	for i in range(len(tissue_files)):
 		tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -30,7 +30,7 @@ def z_scores(
 		
 		Icounts.append(link_img.joinpath(tissue_name + ".png"))
 		Pcounts.append(link_p.joinpath(tissue_name + ".html"))
-	"""
+
 	for i in range(len(rand_files)):
 		link_img = Irand.joinpath("random" + str(i))
 		link_html = Prand.joinpath("random" + str(i))

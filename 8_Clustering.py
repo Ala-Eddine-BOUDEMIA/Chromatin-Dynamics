@@ -15,21 +15,21 @@ sys.setrecursionlimit(1000000)
 def clustering_samples(
     meta, s_corr, s_corr_rand, s_corr_tissues,
     s_clustermaps, s_img_clstrRand, s_img_clstrTissues):
-    # Make sure there are not hidden files in the folder
+    """
     tissue_files = sorted([f for f in s_corr_tissues.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         s_corr.append(path) 
-    """
+    
     rand_files = sorted([f for f in s_corr_rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
         s_corr.append(path)
-    """
+
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link = s_img_clstrTissues.joinpath(tissue_name)
         Tools.create_folder(link)
         s_clustermaps.append(link.joinpath(tissue_name + ".png"))
-    """
+
     for i in range(len(rand_files)):
         s_clustermaps.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
 
