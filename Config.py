@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser()
 # GTEx or TCGA
 parser.add_argument("--dataset",
 	type = str,
-	default = "GTEx_TCGA",
+	default = "TCGA",
 	help = "Dataset to use: GTEx or TCGA")
 
 # Method used to normalize (CPM or TMM)
@@ -797,7 +797,7 @@ parser.add_argument("--IumapRand",
 ## Metric
 parser.add_argument("--distance",
 	type = str,
-	default = "euclidean",
+	default = "cityblock",
 	help = "Distance metric")
 
 distance_metric = parser.parse_args().distance

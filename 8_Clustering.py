@@ -15,7 +15,7 @@ sys.setrecursionlimit(1000000)
 def clustering_samples(
     meta, s_corr, s_corr_rand, s_corr_tissues,
     s_clustermaps, s_img_clstrRand, s_img_clstrTissues):
-    """
+    
     tissue_files = sorted([f for f in s_corr_tissues.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         s_corr.append(path) 
@@ -31,7 +31,7 @@ def clustering_samples(
         s_clustermaps.append(link.joinpath(tissue_name + ".png"))
 
     for i in range(len(rand_files)):
-        s_clustermaps.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+        s_clustermaps.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     
@@ -46,7 +46,8 @@ def clustering_samples(
         palette2 = sns.color_palette("bwr",10)
         palette3 = sns.color_palette("inferno",10)
         palette4 = sns.color_palette("Set2",4)
-        palette = palette1 + palette2 + palette3 + palette4
+
+        palette = palette1 + palette2 + palette3 + palette4 
         lut = dict(zip(set(tissues.unique()), palette))
         colors = tissues.map(lut)
 
@@ -78,19 +79,19 @@ def clustering_genes(
     tissue_files = sorted([f for f in g_corr_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         g_corr.append(path) 
-    """
+    
     rand_files = sorted([f for f in g_corr_rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
-        g_corr.append(path)"""
+        g_corr.append(path)
     
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link = g_img_clstrTissues.joinpath(tissue_name)
         Tools.create_folder(link)
         g_clustermaps.append(link.joinpath(tissue_name + ".png"))
-    """
+    
     for i in range(len(rand_files)):
-        g_clustermaps.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+        g_clustermaps.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(cv_list, 
         header = 0, index_col = 0, sep = ";")
@@ -98,7 +99,9 @@ def clustering_genes(
     c = 0
     for m, i in zip(g_corr, g_clustermaps):
         correlation_matrix = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
-        if c > 36:
+
+        # change c values depending on the config file
+        if c == 1 or c == 2 or c > 36:
             g = sns.clustermap(correlation_matrix, 
                 vmin = -1, 
                 vmax = 1, 
@@ -147,19 +150,19 @@ def clustering_samples_genes(
     tissue_files = sorted([f for f in by_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         counts.append(path)
-    """
+    
     rand_files = sorted([f for f in rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
-        counts.append(path)"""
+        counts.append(path)
     
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
         link = sg_img_clstrTissues.joinpath(tissue_name)
         Tools.create_folder(link)
         sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
-    """
+    
     for i in range(len(rand_files)):
-        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     cv_list = pd.read_csv(cv_list, header = 0, index_col = 0, sep = ";") 
@@ -177,12 +180,13 @@ def clustering_samples_genes(
         palette1 = sns.hls_palette(10)
         palette2 = sns.color_palette("bwr", 10)
         palette3 = sns.color_palette("inferno", 10)
-        palette4 = sns.color_palette("Set2", 4)
+        palette4 = sns.color_palette("Set2",4)
         palette = palette1 + palette2 + palette3 + palette4
         lut = dict(zip(set(tissues.unique()), palette))
         col_colors = tissues.map(lut)
         
-        if  c > 36:
+        # change c values depending on the config file
+        if c == 1 or c == 2 or c > 36:
             g = sns.clustermap(count.T, 
                 vmin = max(data.max(axis = 1)), 
                 vmax = min(data.min(axis = 1)),  

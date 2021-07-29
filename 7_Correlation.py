@@ -9,7 +9,7 @@ def correlation(
 	counts, rand, g_corr, s_corr,
 	by_tissues, g_corr_rand, s_corr_rand,
 	g_corr_by_tissue, s_corr_by_tissue):
-	"""
+
 	tissue_files = sorted([f for f in by_tissues.glob("**/*.tsv") if f.is_file()])
 	for path in tissue_files:
 		counts.append(path) 
@@ -31,7 +31,7 @@ def correlation(
 
 	for i in range(len(rand_files)):
 		g_corr.append(g_corr_rand.joinpath("random" + str(i) + ".tsv"))
-		s_corr.append(s_corr_rand.joinpath("random" + str(i) + ".tsv"))"""
+		s_corr.append(s_corr_rand.joinpath("random" + str(i) + ".tsv"))
 
 	# Process each file
 	for filee, g, s in zip(counts, g_corr, s_corr):
