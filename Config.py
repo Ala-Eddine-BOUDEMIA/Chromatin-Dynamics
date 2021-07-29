@@ -3,11 +3,11 @@ from pathlib import Path
 
 parser = argparse.ArgumentParser()
 
-# GTEx or TCGA
+# GTEx or TCGA or GTEx_TCGA
 parser.add_argument("--dataset",
 	type = str,
 	default = "TCGA",
-	help = "Dataset to use: GTEx or TCGA")
+	help = "Dataset to use: GTEx or TCGA or GTEx_TCGA")
 
 # Method used to normalize (CPM or TMM)
 parser.add_argument("--normMethod",
@@ -21,7 +21,7 @@ parser.add_argument("--normMethod",
 # Possible arguments: Normalized - variants_chaperones
 parser.add_argument("--which",
 	type = str,
-	default = "variants_chaperones",
+	default = "Normalized",
 	help = "Dataset to use: normalized or \
 			histone chaperones and histone variants")
 
@@ -797,7 +797,7 @@ parser.add_argument("--IumapRand",
 ## Metric
 parser.add_argument("--distance",
 	type = str,
-	default = "cityblock",
+	default = "euclidean",
 	help = "Distance metric")
 
 distance_metric = parser.parse_args().distance
