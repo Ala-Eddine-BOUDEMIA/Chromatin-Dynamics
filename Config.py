@@ -1347,7 +1347,7 @@ parser.add_argument("--PumapRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [ args.full, args.onlyNormal, args.WoTissues, 
+counts = [args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
@@ -1364,7 +1364,8 @@ s_corr = [args.corrFullS, args.corrNRcvS]
 	args.corrTop100S, args.corrNRcvS, args.corrTissueS, args.corrRandS]"""
 
 ### Get pca's files
-files_pca = [args.pcaFull, args.pcaNRcv]
+files_pca = [args.pcaFull, args.pcaNormal,
+	args.pcaWoTissues, args.pcaTop, args.pcaTop100]
 """[args.pcaRaw, args.pcaFiltered, args.pcaFull, args.pcaNormal,
 	args.pcaWoTissues, args.pcaTop, args.pcaTop100, args.pcaNRcv, 
 	args.pcaTissue, args.pcaRand]"""
