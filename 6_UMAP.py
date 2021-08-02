@@ -15,7 +15,7 @@ def umap(
     p_umap_rand, file_umap_rand, 
     img_umap_rand, p_umap_tissues,
     file_umap_tissues, img_umap_tissues):
-    """
+    
     tissue_files = sorted([f for f in tissues.glob("**/*.tsv") if f.is_file()])
     for path in tissue_files:
         counts.append(path)
@@ -41,7 +41,7 @@ def umap(
     for i in range(len(rand_files)):
         files_umap.append(file_umap_rand.joinpath("random" + str(i) + ".tsv"))
         img_umap.append(img_umap_rand.joinpath("random" + str(i) + ".png"))
-        p_umap.append(p_umap_rand.joinpath("random" + str(i) + ".html"))"""
+        p_umap.append(p_umap_rand.joinpath("random" + str(i) + ".html"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     tissues = metadata[Config.args.smtsd]

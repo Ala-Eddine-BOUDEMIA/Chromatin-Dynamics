@@ -15,7 +15,7 @@ def tsne(
     p_tsne_rand, file_tsne_rand, 
     img_tsne_rand, p_tsne_tissues,
     file_tsne_tissues, img_tsne_tissues):
-    """
+    
     tissue_files = sorted([f for f in tissues.glob("**/*.tsv") if f.is_file()])
     for path in tissue_files:
         counts.append(path)
@@ -41,7 +41,7 @@ def tsne(
     for i in range(len(rand_files)):
         files_tsne.append(file_tsne_rand.joinpath("random" + str(i) + ".tsv"))
         img_tsne.append(img_tsne_rand.joinpath("random" + str(i) + ".png"))
-        p_tsne.append(p_tsne_rand.joinpath("random" + str(i) + ".html"))"""
+        p_tsne.append(p_tsne_rand.joinpath("random" + str(i) + ".html"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     tissues = metadata[Config.args.smtsd]
