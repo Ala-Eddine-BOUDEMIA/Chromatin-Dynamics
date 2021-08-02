@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser()
 # GTEx or TCGA or GTEx_TCGA
 parser.add_argument("--dataset",
 	type = str,
-	default = "TCGA",
+	default = "GTEx",
 	help = "Dataset to use: GTEx or TCGA or GTEx_TCGA")
 
 # Method used to normalize (CPM or TMM)
@@ -1347,7 +1347,8 @@ parser.add_argument("--PumapRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.full, args.nonRcv]
+counts = [ args.full, args.onlyNormal, args.WoTissues, 
+	args.top1000, args.top100]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""
@@ -1369,31 +1370,36 @@ files_pca = [args.pcaFull, args.pcaNRcv]
 	args.pcaTissue, args.pcaRand]"""
 
 ### Get pca's images
-images_pca = [args.IpcaFull, args.IpcaNRcv] 
+images_pca = [args.IpcaFull, args.IpcaNormal,
+	args.IpcaWoTissues, args.IpcaTop, args.IpcaTop100] 
 """[args.IpcaRaw, args.IpcaFiltered, args.IpcaFull, args.IpcaNormal,
 	args.IpcaWoTissues, args.IpcaTop, args.IpcaTop100, args.IpcaNRcv, 
 	args.IpcaTissue, args.IpcaRand]"""
 
 ### Get pca's HTML files
-htmls_pca = [args.PpcaFull, args.PpcaNRcv]
+htmls_pca = [args.PpcaFull, args.PpcaNormal,
+	args.PpcaWoTissues, args.PpcaTop, args.PpcaTop100]
 """[args.PpcaRaw, args.PpcaFiltered, args.PpcaFull, args.PpcaNormal,
 	args.PpcaWoTissues, args.PpcaTop, args.PpcaTop100, args.PpcaNRcv,
 	args.PpcaTissue, args.PpcaRand]"""
 
 ### Get t-sne's files
-files_tsne = [args.tsneFull, args.tsneNRcv]
+files_tsne = [args.tsneFull, args.tsneNormal,
+	args.tsneWoTissues, args.tsneTop, args.tsneTop100]
 """[args.tsneRaw, args.tsneFiltered, args.tsneFull, args.tsneNormal,
 	args.tsneWoTissues, args.tsneTop, args.tsneTop100, args.tsneNRcv, 
 	args.tsneTissue, args.tsneRand]"""
 
 ### Get t-sne's images
-images_tsne = [args.ItsneFull, args.ItsneNRcv]
+images_tsne = [args.ItsneFull, args.ItsneNormal, 
+	args.ItsneWoTissues, args.ItsneTop, args.ItsneTop100]
 """[args.ItsneRaw, args.ItsneFiltered, args.ItsneFull, args.ItsneNormal, 
 	args.ItsneWoTissues, args.ItsneTop, args.ItsneTop100, args.ItsneNRcv, 
 	args.ItsneTissue, args.ItsneRand]"""
 
 ### Get t-sne's HTML files
-htmls_tsne = [args.PtsneFull, args.PtsneNRcv]
+htmls_tsne = [args.PtsneFull, args.PtsneNormal, 
+	args.PtsneWoTissues, args.PtsneTop, args.PtsneTop100]
 """[args.PtsneRaw, args.PtsneFiltered, args.PtsneFull, args.PtsneNormal, 
 	args.PtsneWoTissues, args.PtsneTop, args.PtsneTop100, args.PtsneNRcv, 
 	args.PtsneTissue, args.PtsneRand]"""
@@ -1418,21 +1424,27 @@ htmls_umap = [args.PumapFull, args.PumapNRcv]
 
 ### Get QC images
 #### General
-general_qc_imgs = [args.IgeneralFull, args.IgeneralNRcv]
+general_qc_imgs = [args.IgeneralFull, 
+	args.IgeneralNormal, args.IgeneralWoTissues, args.IgeneralTop,
+	args.IgeneralTop100]
 """[args.IgenralRaw, args.IgenralFiltered, args.IgeneralFull, 
 	args.IgeneralNormal, args.IgeneralWoTissues, args.IgeneralTop,
 	args.IgeneralTop100, args.IgeneralNRcv, args.IgeneralTissue, 
 	args.IgeneralRand]"""
 
 #### Mean-variance
-mv_imgs = [args.ImvFull, args.ImvNRcv]
+mv_imgs = [args.ImvFull, 
+	args.ImvNormal, args.ImvWoTissues, args.ImvTop,
+	args.ImvTop100]
 """[args.ImvRaw, args.ImvFiltered, args.ImvFull, 
 	args.ImvNormal, args.ImvWoTissues, args.ImvTop,
 	args.ImvTop100, args.ImvNRcv, args.ImvTissue, 
 	args.ImvRand]"""
 
 #### z_scores
-zscores_imgs = [args.IzscoreFull, args.IzscoreNRcv]
+zscores_imgs = [args.IzscoreFull, 
+	args.IzscoreNormal, args.IzscoreWoTissues, args.IzscoreTop, 
+	args.IzscoreTop100]
 """[args.IzscoreRaw, args.IzscoreFiltered, args.IzscoreFull, 
 	args.IzscoreNormal, args.IzscoreWoTissues, args.IzscoreTop, 
 	args.IzscoreTop100, args.IzscoreNRcv, args.IzscoreTissue, 
@@ -1440,21 +1452,27 @@ zscores_imgs = [args.IzscoreFull, args.IzscoreNRcv]
 
 ### Get QC html files
 #### General
-general_qc_htmls = [args.PgeneralFull, args.PgeneralNRcv]
+general_qc_htmls = [args.PgeneralFull, 
+	args.PgeneralNormal, args.PgeneralWoTissues, args.PgeneralTop,
+	args.PgeneralTop100]
 """[args.PgenralRaw, args.PgenralFiltered, args.PgeneralFull, 
 	args.PgeneralNormal, args.PgeneralWoTissues, args.PgeneralTop,
 	args.PgeneralTop100, args.PgeneralNRcv, args.PgeneralTissue, 
 	args.PgeneralRand]"""
 
 #### Mean-variance
-mv_htmls = [args.PmvFull, args.PmvNRcv]
+mv_htmls = [args.PmvFull, 
+	args.PmvNormal, args.PmvWoTissues, args.PmvTop,
+	args.PmvTop100]
 """[args.PmvRaw, args.PmvFiltered, args.PmvFull, 
 	args.PmvNormal, args.PmvWoTissues, args.PmvTop,
 	args.PmvTop100, args.PmvNRcv, args.PmvTissue, 
 	args.PmvRand]"""
 
 #### z_scores
-zscores_htmls = [args.PzscoreFull, args.PzscoreNRcv]
+zscores_htmls = [args.PzscoreFull, 
+	args.PzscoreNormal, args.PzscoreWoTissues, args.PzscoreTop, 
+	args.PzscoreTop100]
 """[args.PzscoreRaw, args.PzscoreFiltered, args.PzscoreFull, 
 	args.PzscoreNormal, args.PzscoreWoTissues, args.PzscoreTop, 
 	args.PzscoreTop100, args.PzscoreNRcv, args.PzscoreTissue, 
