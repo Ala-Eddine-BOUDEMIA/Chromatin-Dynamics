@@ -21,7 +21,7 @@ parser.add_argument("--normMethod",
 # Possible arguments: Normalized - variants_chaperones
 parser.add_argument("--which",
 	type = str,
-	default = "Normalized",
+	default = "variants_chaperones",
 	help = "Dataset to use: normalized or \
 			histone chaperones and histone variants")
 
@@ -1347,8 +1347,7 @@ parser.add_argument("--PumapRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.full, args.onlyNormal, args.WoTissues, 
-	args.top1000, args.top100]
+counts = []
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""
@@ -1364,8 +1363,7 @@ s_corr = [args.corrFullS, args.corrNRcvS]
 	args.corrTop100S, args.corrNRcvS, args.corrTissueS, args.corrRandS]"""
 
 ### Get pca's files
-files_pca = [args.pcaFull, args.pcaNormal,
-	args.pcaWoTissues, args.pcaTop, args.pcaTop100]
+files_pca = [args.pcaFull, args.pcaNRcv]
 """[args.pcaRaw, args.pcaFiltered, args.pcaFull, args.pcaNormal,
 	args.pcaWoTissues, args.pcaTop, args.pcaTop100, args.pcaNRcv, 
 	args.pcaTissue, args.pcaRand]"""
@@ -1490,7 +1488,7 @@ g_clustermaps = [args.IclstrFullG, args.IclstrNRcvG]
 	args.IclstrTopG, args.IclstrTop100G, args.IclstrNRcvG, 
 	args.IclstrTissueG, args.IclstrRandG]"""
 
-sg_clustermaps = [args.IclstrFullSG, args.IclstrNRcvSG]
+sg_clustermaps = []
 """[args.IclstrFullSG, args.IclstrNormalSG, args.IclstrWoTissueSG, 
 	args.IclstrTopSG, args.IclstrTop100SG, args.IclstrNRcvSG, 
 	args.IclstrTissueSG, args.IclstrRandSG]"""
