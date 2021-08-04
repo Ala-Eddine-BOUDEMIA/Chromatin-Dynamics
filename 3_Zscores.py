@@ -1,5 +1,4 @@
 import gc
-import numpy as np
 import pandas as pd
 import plotly.express as px
 
@@ -44,22 +43,21 @@ def z_scores(
 
 	for count, i, h in zip(counts, Icounts, Pcounts):
 		c = pd.read_csv(count, header = 0, index_col = 0, sep = "\t")
-		c = pd.DataFrame(np.log2(c + 1))
 		 
 		scaler = StandardScaler()
 		std_counts = pd.DataFrame(scaler.fit_transform(c), 
 			index = c.index, columns = c.columns)
 
 		df = pd.DataFrame(index = c.index)
-		mean = pd.DataFrame(std_counts.mean(axis = 1), columns = ["mean (log2 (counts + 1))"])
+		mean = pd.DataFrame(std_counts.mean(axis = 1), columns = ["mean"])
 		std = pd.DataFrame(std_counts.std(axis = 1), columns = ['std']) 
 
 		df = df.join(mean)
 		df = df.join(std)
-		df = df.sort_values("mean (log2 (counts + 1))")
+		df = df.sort_values("mean")
 
 		fig = px.scatter(
-			df, x = "std", y = "mean (log2 (counts + 1))", 
+			df, x = "std", y = "mean", 
 			hover_data = [df.index], 
 			title = "z_scores")
 		
