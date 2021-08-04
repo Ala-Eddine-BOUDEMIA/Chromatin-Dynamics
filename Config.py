@@ -1425,14 +1425,14 @@ general_qc_imgs = [args.IgeneralNRcv]
 	args.IgeneralRand]"""
 
 #### Mean-variance
-mv_imgs = [args.ImvFull, args.ImvTop, args.ImvTop100]
+mv_imgs = [args.ImvFull]
 """[args.ImvRaw, args.ImvFiltered, args.ImvFull, 
 	args.ImvNormal, args.ImvWoTissues, args.ImvTop,
 	args.ImvTop100, args.ImvNRcv, args.ImvTissue, 
 	args.ImvRand]"""
 
 #### z_scores
-zscores_imgs = [args.IzscoreNRcv]
+zscores_imgs = [args.IzscoreFull, args.IzscoreTop, args.IzscoreTop100]
 """[args.IzscoreRaw, args.IzscoreFiltered, args.IzscoreFull, 
 	args.IzscoreNormal, args.IzscoreWoTissues, args.IzscoreTop, 
 	args.IzscoreTop100, args.IzscoreNRcv, args.IzscoreTissue, 
@@ -1447,14 +1447,14 @@ general_qc_htmls = [args.PgeneralNRcv]
 	args.PgeneralRand]"""
 
 #### Mean-variance
-mv_htmls = [args.PmvFull, args.PmvTop, args.PmvTop100]
+mv_htmls = [args.PmvNRcv]
 """[args.PmvRaw, args.PmvFiltered, args.PmvFull, 
 	args.PmvNormal, args.PmvWoTissues, args.PmvTop,
 	args.PmvTop100, args.PmvNRcv, args.PmvTissue, 
 	args.PmvRand]"""
 
 #### z_scores
-zscores_htmls = [args.PzscoreNRcv]
+zscores_htmls = [args.PzscoreFull, args.PzscoreTop, args.PzscoreTop100]
 """[args.PzscoreRaw, args.PzscoreFiltered, args.PzscoreFull, 
 	args.PzscoreNormal, args.PzscoreWoTissues, args.PzscoreTop, 
 	args.PzscoreTop100, args.PzscoreNRcv, args.PzscoreTissue, 
@@ -1466,7 +1466,7 @@ s_clustermaps = [args.IclstrNRcvS]
 	args.IclstrTopS, args.IclstrTop100S, args.IclstrNRcvS, 
 	args.IclstrTissueS, args.IclstrRandS]"""
 
-g_clustermaps = [args.IclstrFullG, args.IclstrNormalG, args.IclstrWoTissueG, args.IclstrNRcvG]
+g_clustermaps = [args.IclstrNRcvG]
 """[args.IclstrFullG, args.IclstrNormalG, args.IclstrWoTissueG, 
 	args.IclstrTopG, args.IclstrTop100G, args.IclstrNRcvG, 
 	args.IclstrTissueG, args.IclstrRandG]"""
