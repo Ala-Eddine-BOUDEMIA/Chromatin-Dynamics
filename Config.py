@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser()
 # GTEx or TCGA or GTEx_TCGA
 parser.add_argument("--dataset",
 	type = str,
-	default = "GTEx",
+	default = "TCGA",
 	help = "Dataset to use: GTEx or TCGA or GTEx_TCGA")
 
 # Method used to normalize (CPM or TMM)
@@ -21,7 +21,7 @@ parser.add_argument("--normMethod",
 # Possible arguments: Normalized - variants_chaperones
 parser.add_argument("--which",
 	type = str,
-	default = "variants_chaperones",
+	default = "Normalized",
 	help = "Dataset to use: normalized or \
 			histone chaperones and histone variants")
 
@@ -1347,13 +1347,13 @@ parser.add_argument("--PumapRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.nonRcv]
+counts = [args.full, args.top1000, args.top100]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""
 
 ### Get genes' correlations
-g_corr = [args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrNRcvG] 
+g_corr = [args.corrNRcvG] 
 """[args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrTopG,
 	args.corrTop100G, args.corrNRcvG, args.corrTissueG, args.corrRandG]"""
 
@@ -1425,7 +1425,7 @@ general_qc_imgs = [args.IgeneralNRcv]
 	args.IgeneralRand]"""
 
 #### Mean-variance
-mv_imgs = [args.ImvNRcv]
+mv_imgs = [args.ImvFull, args.ImvTop, args.ImvTop100]
 """[args.ImvRaw, args.ImvFiltered, args.ImvFull, 
 	args.ImvNormal, args.ImvWoTissues, args.ImvTop,
 	args.ImvTop100, args.ImvNRcv, args.ImvTissue, 
@@ -1447,7 +1447,7 @@ general_qc_htmls = [args.PgeneralNRcv]
 	args.PgeneralRand]"""
 
 #### Mean-variance
-mv_htmls = [args.PmvNRcv]
+mv_htmls = [args.PmvFull, args.PmvTop, args.PmvTop100]
 """[args.PmvRaw, args.PmvFiltered, args.PmvFull, 
 	args.PmvNormal, args.PmvWoTissues, args.PmvTop,
 	args.PmvTop100, args.PmvNRcv, args.PmvTissue, 
