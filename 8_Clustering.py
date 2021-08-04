@@ -80,9 +80,9 @@ def clustering_genes(
     for path in tissue_files:
         g_corr.append(path) 
     
-    rand_files = sorted([f for f in g_corr_rand.glob('**/*.tsv') if f.is_file()])
+    """rand_files = sorted([f for f in g_corr_rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
-        g_corr.append(path)
+        g_corr.append(path)"""
     
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -90,8 +90,8 @@ def clustering_genes(
         Tools.create_folder(link)
         g_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
-    for i in range(len(rand_files)):
-        g_clustermaps.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))
+    """for i in range(len(rand_files)):
+        g_clustermaps.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
 
     metadata = pd.read_csv(cv_list, 
         header = 0, index_col = 0, sep = ";")
@@ -101,7 +101,7 @@ def clustering_genes(
         correlation_matrix = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
         # change c values depending on the config file
-        if c == 1 or c == 2 or c > 36:
+        if c > 36:
             g = sns.clustermap(correlation_matrix, 
                 vmin = -1, 
                 vmax = 1, 
@@ -249,7 +249,7 @@ if __name__ == '__main__':
         g_img_clstrRand = Config.args.IclstrRandG,
         g_img_clstrTissues = Config.args.IclstrTissueG)
     
-    clustering_samples_genes(
+    """clustering_samples_genes(
         meta = Config.args.meta,
         cv_list = Config.args.list,
         counts = Config.counts,
@@ -266,4 +266,4 @@ if __name__ == '__main__':
         s_corr_tissues = Config.args.corrTissueS,
         s_clustermaps = Config.s_clustermaps,
         s_img_clstrRand = Config.args.IclstrRandS,
-        s_img_clstrTissues = Config.args.IclstrTissueS)
+        s_img_clstrTissues = Config.args.IclstrTissueS)"""

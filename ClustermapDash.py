@@ -7,7 +7,7 @@ import dash_core_components as dcc
 
 import Config 
 
-counts = pd.read_csv(Config.args.full, 
+counts = pd.read_csv(Config.args.corrFullG, 
     header = 0, index_col = 0, sep = "\t")
 
 metadata = pd.read_csv(Config.args.meta, 
@@ -47,12 +47,12 @@ def update_clustergram(rows):
 
     return dcc.Graph(
         figure = dashbio.Clustergram(
-        data = counts.iloc[:, :1000].values,
+        data = counts.iloc[:, :].values,
         column_labels = columns,
         row_labels = rows,
         color_threshold = {'row': 250, 'col': 700},
         hidden_labels = ['col'],
-        height = 1800, width = 1400,
+        height = 1800, width = 2000,
         optimal_leaf_order = True))
         
 if __name__ == '__main__':

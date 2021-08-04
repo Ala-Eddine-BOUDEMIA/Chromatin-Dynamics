@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser()
 # GTEx or TCGA or GTEx_TCGA
 parser.add_argument("--dataset",
 	type = str,
-	default = "TCGA",
+	default = "GTEx",
 	help = "Dataset to use: GTEx or TCGA or GTEx_TCGA")
 
 # Method used to normalize (CPM or TMM)
@@ -1353,7 +1353,7 @@ counts = [args.nonRcv]
 	get_counts.rand]"""
 
 ### Get genes' correlations
-g_corr = [args.corrNRcvG] 
+g_corr = [args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrNRcvG] 
 """[args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrTopG,
 	args.corrTop100G, args.corrNRcvG, args.corrTissueG, args.corrRandG]"""
 
@@ -1466,7 +1466,7 @@ s_clustermaps = [args.IclstrNRcvS]
 	args.IclstrTopS, args.IclstrTop100S, args.IclstrNRcvS, 
 	args.IclstrTissueS, args.IclstrRandS]"""
 
-g_clustermaps = [args.IclstrNRcvG]
+g_clustermaps = [args.IclstrFullG, args.IclstrNormalG, args.IclstrWoTissueG, args.IclstrNRcvG]
 """[args.IclstrFullG, args.IclstrNormalG, args.IclstrWoTissueG, 
 	args.IclstrTopG, args.IclstrTop100G, args.IclstrNRcvG, 
 	args.IclstrTissueG, args.IclstrRandG]"""
