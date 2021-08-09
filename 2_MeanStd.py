@@ -38,14 +38,14 @@ def mean_std(
 		f = pd.read_csv(file, header = 0, index_col = 0, sep = "\t")
 
 		mean = np.log2(f + 1).mean(axis = 1)
-		std = np.sqrt(f.std(axis = 1))
+		std = f.std(axis = 1)
 		meanStd = pd.DataFrame(data=[mean, std], 
-			index=['log2(mean + 1)','sqrt(std)']).T
+			index=['log2(mean + 1)','std']).T
 
 		fig = px.scatter(
 			data_frame = meanStd, 
 			x = "log2(mean + 1)", 
-			y = "sqrt(std)",
+			y = "std",
 			hover_data = [meanStd.index],
 			title = "Mean Variance Plot")
 
