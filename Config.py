@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser()
 # GTEx or TCGA or GTEx_TCGA
 parser.add_argument("--dataset",
 	type = str,
-	default = "GTEx",
+	default = "TCGA",
 	help = "Dataset to use: GTEx or TCGA or GTEx_TCGA")
 
 # Method used to normalize (CPM or TMM)
