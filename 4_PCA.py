@@ -19,9 +19,9 @@ def pca(
     for path in tissue_files:
         counts.append(path)
     
-    rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
+    """rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
     for path in rand_files:
-        counts.append(path)
+        counts.append(path)"""
 
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -37,7 +37,7 @@ def pca(
         images_pca.append(link_img.joinpath("pca.png"))
         htmls_pca.append(link_p.joinpath("pca.html"))
 
-    for i in range(len(rand_files)):
+    """for i in range(len(rand_files)):
         link_tsv = file_pca_rand.joinpath("random" + str(i))
         link_img = img_pca_rand.joinpath("random" + str(i))
         link_html = p_pca_rand.joinpath("random" + str(i))
@@ -49,7 +49,7 @@ def pca(
         files_pca.append(link_tsv.joinpath("pca.tsv"))
         images_pca.append(link_img.joinpath("pca.png"))
         htmls_pca.append(link_html.joinpath("pca.html"))
-
+"""
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     sub_tissues = metadata[Config.args.smtsd]
 

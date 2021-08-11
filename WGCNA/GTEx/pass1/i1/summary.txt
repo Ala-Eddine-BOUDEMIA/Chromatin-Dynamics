@@ -1,0 +1,2 @@
+N Input Genes	N Classified Genes	N Residual Genes	N Detected Modules
+124	94	30	10

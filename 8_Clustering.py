@@ -15,14 +15,15 @@ sys.setrecursionlimit(1000000)
 def clustering_samples(
     meta, s_corr, s_corr_rand, s_corr_tissues,
     s_clustermaps, s_img_clstrRand, s_img_clstrTissues):
-    
-    """tissue_files = sorted([f for f in s_corr_tissues.glob('**/*.tsv') if f.is_file()])
+    s_corr = []
+    s_clustermaps = []
+    tissue_files = sorted([f for f in s_corr_tissues.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         s_corr.append(path) 
     
-    rand_files = sorted([f for f in s_corr_rand.glob('**/*.tsv') if f.is_file()])
+    """rand_files = sorted([f for f in s_corr_rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
-        s_corr.append(path)
+        s_corr.append(path)"""
 
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -30,17 +31,22 @@ def clustering_samples(
         Tools.create_folder(link)
         s_clustermaps.append(link.joinpath(tissue_name + ".png"))
 
-    for i in range(len(rand_files)):
+    """for i in range(len(rand_files)):
         s_clustermaps.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
-    
+    c = 6
     for m, i in zip(s_corr, s_clustermaps):
         correlation_matrix  = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
-        correlation_matrix = correlation_matrix .join(metadata[Config.args.smts])
+        if c <= 5 or c > 36:
+            tissue_type = Config.args.smts
+        else:
+            tissue_type = Config.args.smtsd
+
+        correlation_matrix = correlation_matrix.join(metadata[tissue_type])
         correlation_matrix = correlation_matrix.dropna()
-        tissues = correlation_matrix.pop(Config.args.smts)
+        tissues = correlation_matrix.pop(tissue_type)
 
         palette1 = sns.hls_palette(10)
         palette2 = sns.color_palette("bwr",10)
@@ -76,7 +82,7 @@ def clustering_genes(
     cv_list, g_corr, g_corr_rand, g_corr_tissue,
     g_clustermaps, g_img_clstrRand, g_img_clstrTissues):
 
-    """tissue_files = sorted([f for f in g_corr_tissue.glob('**/*.tsv') if f.is_file()])
+    tissue_files = sorted([f for f in g_corr_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         g_corr.append(path) 
     
@@ -91,7 +97,7 @@ def clustering_genes(
         g_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
     for i in range(len(rand_files)):
-        g_clustermaps.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+        g_clustermaps.append(g_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(cv_list, 
         header = 0, index_col = 0, sep = ";")
@@ -105,7 +111,8 @@ def clustering_genes(
             g = sns.clustermap(correlation_matrix, 
                 vmin = -1, 
                 vmax = 1, 
-                cmap = "icefire", metric = Config.distance_metric,
+                cmap = sns.color_palette("vlag", as_cmap = True), 
+                metric = Config.distance_metric,
                 xticklabels = False, yticklabels = False,
                 method = "average", figsize = [25, 25])
         else:
@@ -124,7 +131,8 @@ def clustering_genes(
             g = sns.clustermap(data, 
                 vmin = -1, 
                 vmax = 1, 
-                cmap = "icefire", metric = Config.distance_metric,
+                cmap = sns.color_palette("vlag", as_cmap = True), 
+                metric = Config.distance_metric,
                 row_colors = colors, col_colors = colors, 
                 xticklabels = labels, yticklabels = labels,
                 method = "average", figsize = [25, 25])
@@ -147,7 +155,7 @@ def clustering_samples_genes(
     meta, cv_list, counts, rand, by_tissue,
     sg_clustermaps, sg_img_clstrRand, sg_img_clstrTissues):
 
-    """tissue_files = sorted([f for f in by_tissue.glob('**/*.tsv') if f.is_file()])
+    tissue_files = sorted([f for f in by_tissue.glob('**/*.tsv') if f.is_file()])
     for path in tissue_files:
         counts.append(path)
     
@@ -162,7 +170,7 @@ def clustering_samples_genes(
         sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
     for i in range(len(rand_files)):
-        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     cv_list = pd.read_csv(cv_list, header = 0, index_col = 0, sep = ";") 
@@ -173,9 +181,14 @@ def clustering_samples_genes(
         count = pd.DataFrame(np.log2(count + 1))
 
         count = count.T
-        count = count.join(metadata[Config.args.smts])
+        if c <= 5 or c > 36:
+            tissue_type = Config.args.smts
+        else:
+            tissue_type = Config.args.smtsd
+        
+        count = count.join(metadata[tissue_type])
         count = count.dropna()
-        tissues = count.pop(Config.args.smts)
+        tissues = count.pop(tissue_type)
 
         palette1 = sns.hls_palette(10)
         palette2 = sns.color_palette("bwr", 10)
@@ -191,7 +204,8 @@ def clustering_samples_genes(
                 vmin = max(data.max(axis = 1)), 
                 vmax = min(data.min(axis = 1)),  
                 col_colors = col_colors,
-                cmap = "icefire", metric = Config.distance_metric,
+                cmap = sns.color_palette("Blues", as_cmap = True), 
+                metric = Config.distance_metric,
                 xticklabels = False, yticklabels = False,
                 method = "average", figsize = [25, 25])
         else:
@@ -212,7 +226,7 @@ def clustering_samples_genes(
                 vmax = min(data.min(axis = 1)), 
                 row_colors = row_colors,
                 col_colors = col_colors,
-                cmap = "icefire",
+                cmap = sns.color_palette("Blues", as_cmap = True),
                 metric = Config.distance_metric,
                 xticklabels = False, 
                 yticklabels = yticklabels,
@@ -240,14 +254,14 @@ def clustering_samples_genes(
 
 if __name__ == '__main__':
     
-    clustering_genes(
+    """clustering_genes(
         cv_list = Config.args.list,
         g_corr = Config.g_corr,
         g_corr_rand = Config.args.corrRandG,
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
         g_img_clstrRand = Config.args.IclstrRandG,
-        g_img_clstrTissues = Config.args.IclstrTissueG)
+        g_img_clstrTissues = Config.args.IclstrTissueG)"""
     
     clustering_samples_genes(
         meta = Config.args.meta,
