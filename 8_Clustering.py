@@ -49,9 +49,9 @@ def clustering_samples(
         tissues = correlation_matrix.pop(tissue_type)
 
         palette1 = sns.hls_palette(10)
-        palette2 = sns.color_palette("bwr",10)
-        palette3 = sns.color_palette("inferno",10)
-        palette4 = sns.color_palette("Set2",4)
+        palette2 = sns.color_palette("bwr", 4)
+        palette3 = sns.color_palette("Paired", 12)
+        palette4 = sns.color_palette("Set2",10)
 
         palette = palette1 + palette2 + palette3 + palette4 
         lut = dict(zip(set(tissues.unique()), palette))
@@ -191,9 +191,9 @@ def clustering_samples_genes(
         tissues = count.pop(tissue_type)
 
         palette1 = sns.hls_palette(10)
-        palette2 = sns.color_palette("bwr", 10)
-        palette3 = sns.color_palette("inferno", 10)
-        palette4 = sns.color_palette("Set2",4)
+        palette2 = sns.color_palette("bwr", 4)
+        palette3 = sns.color_palette("Paired", 12)
+        palette4 = sns.color_palette("Set2",10)
         palette = palette1 + palette2 + palette3 + palette4
         lut = dict(zip(set(tissues.unique()), palette))
         col_colors = tissues.map(lut)
@@ -204,7 +204,7 @@ def clustering_samples_genes(
                 vmin = max(data.max(axis = 1)), 
                 vmax = min(data.min(axis = 1)),  
                 col_colors = col_colors,
-                cmap = sns.color_palette("Blues", as_cmap = True), 
+                cmap = "icefire", 
                 metric = Config.distance_metric,
                 xticklabels = False, yticklabels = False,
                 method = "average", figsize = [25, 25])
@@ -226,7 +226,7 @@ def clustering_samples_genes(
                 vmax = min(data.min(axis = 1)), 
                 row_colors = row_colors,
                 col_colors = col_colors,
-                cmap = sns.color_palette("Blues", as_cmap = True),
+                cmap = "icefire",
                 metric = Config.distance_metric,
                 xticklabels = False, 
                 yticklabels = yticklabels,
@@ -254,14 +254,14 @@ def clustering_samples_genes(
 
 if __name__ == '__main__':
     
-    """clustering_genes(
+    clustering_genes(
         cv_list = Config.args.list,
         g_corr = Config.g_corr,
         g_corr_rand = Config.args.corrRandG,
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
         g_img_clstrRand = Config.args.IclstrRandG,
-        g_img_clstrTissues = Config.args.IclstrTissueG)"""
+        g_img_clstrTissues = Config.args.IclstrTissueG)
     
     clustering_samples_genes(
         meta = Config.args.meta,

@@ -20,9 +20,9 @@ def tsne(
     for path in tissue_files:
         counts.append(path)
 
-    """rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
+    rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
     for path in rand_files:
-        counts.append(path)"""
+        counts.append(path)
     
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -38,10 +38,10 @@ def tsne(
         img_tsne.append(link_img.joinpath(tissue_name + ".png"))
         p_tsne.append(link_p.joinpath(tissue_name + ".html"))
 
-    """for i in range(len(rand_files)):
+    for i in range(len(rand_files)):
         files_tsne.append(file_tsne_rand.joinpath("random" + str(i) + ".tsv"))
         img_tsne.append(img_tsne_rand.joinpath("random" + str(i) + ".png"))
-        p_tsne.append(p_tsne_rand.joinpath("random" + str(i) + ".html"))"""
+        p_tsne.append(p_tsne_rand.joinpath("random" + str(i) + ".html"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     tissues = metadata[Config.args.smtsd]

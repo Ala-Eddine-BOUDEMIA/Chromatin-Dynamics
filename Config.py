@@ -1348,82 +1348,94 @@ args = parser.parse_args()
 
 ### Get counts
 counts = [args.full, args.onlyNormal, 
-	args.WoTissues, args.nonRcv]
+	args.WoTissues, args.top1000, 
+	args.top100, args.nonRcv]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""
 
 ### Get genes' correlations
 g_corr = [args.corrFullG, args.corrNormalG, 
-	args.corrWoTissuesG] 
+	args.corrWoTissuesG, args.corrTopG,
+	args.corrTop100G, args.corrNRcvG] 
 """[args.corrFullG, args.corrNormalG, args.corrWoTissuesG, args.corrTopG,
 	args.corrTop100G, args.corrNRcvG, args.corrTissueG, args.corrRandG]"""
 
 ### Get samples' correlations
 s_corr = [args.corrFullS, args.corrNormalS, 
-	args.corrWoTissuesS]
+	args.corrWoTissuesS, args.corrTopS,
+	args.corrTop100S, args.corrNRcvS]
 """[args.corrFullS, args.corrNormalS, args.corrWoTissuesS, args.corrTopS,
 	args.corrTop100S, args.corrNRcvS, args.corrTissueS, args.corrRandS]"""
 
 ### Get pca's files
 files_pca = [args.pcaFull, args.pcaNormal,
-	args.pcaWoTissues]
+	args.pcaWoTissues, args.pcaTop, 
+	args.pcaTop100, args.pcaNRcv]
 """[args.pcaRaw, args.pcaFiltered, args.pcaFull, args.pcaNormal,
 	args.pcaWoTissues, args.pcaTop, args.pcaTop100, args.pcaNRcv, 
 	args.pcaTissue, args.pcaRand]"""
 
 ### Get pca's images
 images_pca = [args.IpcaFull, args.IpcaNormal,
-	args.IpcaWoTissues] 
+	args.IpcaWoTissues, args.IpcaTop, 
+	args.IpcaTop100, args.IpcaNRcv] 
 """[args.IpcaRaw, args.IpcaFiltered, args.IpcaFull, args.IpcaNormal,
 	args.IpcaWoTissues, args.IpcaTop, args.IpcaTop100, args.IpcaNRcv, 
 	args.IpcaTissue, args.IpcaRand]"""
 
 ### Get pca's HTML files
 htmls_pca = [args.PpcaFull, args.PpcaNormal,
-	args.PpcaWoTissues]
+	args.PpcaWoTissues, args.PpcaTop, 
+	args.PpcaTop100, args.PpcaNRcv]
 """[args.PpcaRaw, args.PpcaFiltered, args.PpcaFull, args.PpcaNormal,
 	args.PpcaWoTissues, args.PpcaTop, args.PpcaTop100, args.PpcaNRcv,
 	args.PpcaTissue, args.PpcaRand]"""
 
 ### Get t-sne's files
 files_tsne = [args.tsneFull, args.tsneNormal,
-	args.tsneWoTissues]
+	args.tsneWoTissues, args.tsneTop, 
+	args.tsneTop100, args.tsneNRcv]
 """[args.tsneRaw, args.tsneFiltered, args.tsneFull, args.tsneNormal,
 	args.tsneWoTissues, args.tsneTop, args.tsneTop100, args.tsneNRcv, 
 	args.tsneTissue, args.tsneRand]"""
 
 ### Get t-sne's images
 images_tsne = [args.ItsneFull, args.ItsneNormal, 
-	args.ItsneWoTissues]
+	args.ItsneWoTissues, args.ItsneTop, 
+	args.ItsneTop100, args.ItsneNRcv]
 """[args.ItsneRaw, args.ItsneFiltered, args.ItsneFull, args.ItsneNormal, 
 	args.ItsneWoTissues, args.ItsneTop, args.ItsneTop100, args.ItsneNRcv, 
 	args.ItsneTissue, args.ItsneRand]"""
 
 ### Get t-sne's HTML files
 htmls_tsne = [args.PtsneFull, args.PtsneNormal, 
-	args.PtsneWoTissues]
+	args.PtsneWoTissues, args.PtsneTop, 
+	args.PtsneTop100, args.PtsneNRcv]
 """[args.PtsneRaw, args.PtsneFiltered, args.PtsneFull, args.PtsneNormal, 
 	args.PtsneWoTissues, args.PtsneTop, args.PtsneTop100, args.PtsneNRcv, 
 	args.PtsneTissue, args.PtsneRand]"""
 
 ### Get UMAP's files
 files_umap = [args.umapFull, args.umapNormal,
-	args.umapWoTissues]
+	args.umapWoTissues, args.umapTop, 
+	args.umapTop100, args.umapNRcv]
 """[args.umapRaw, args.umapFiltered, args.umapFull, args.umapNormal,
 	args.umapWoTissues, args.umapTop, args.umapTop100, args.umapNRcv, 
 	args.umapTissue, args.umapRand]"""
 
 ### Get UMAP's images
 images_umap = [args.IumapFull, args.IumapNormal, 
-	args.IumapWoTissues]
+	args.IumapWoTissues, args.IumapTop, 
+	args.IumapTop100, args.IumapNRcv]
 """[args.IumapRaw, args.IumapFiltered, args.IumapFull, args.IumapNormal, 
 	args.IumapWoTissues, args.IumapTop, args.IumapTop100, args.IumapNRcv, 
 	args.IumapTissue, args.IumapRand]"""
 
 ### Get UMAP's HTML files
 htmls_umap = [args.PumapFull, args.PumapNormal, 
-	args.PumapWoTissues]
+	args.PumapWoTissues, args.PumapTop, 
+	args.PumapTop100, args.PumapNRcv]
 """[args.PumapRaw, args.PumapFiltered, args.PumapFull, args.PumapNormal, 
 	args.PumapWoTissues, args.PumapTop, args.PumapTop100, args.PumapNRcv, 
 	args.PumapTissue, args.PumapRand]"""
@@ -1431,7 +1443,8 @@ htmls_umap = [args.PumapFull, args.PumapNormal,
 ### Get QC images
 #### General
 general_qc_imgs = [args.IgeneralFull, args.IgeneralNormal, 
-	args.IgeneralWoTissues]
+	args.IgeneralWoTissues, args.IgeneralTop,
+	args.IgeneralTop100, args.IgeneralNRcv]
 """[args.IgenralRaw, args.IgenralFiltered, args.IgeneralFull, 
 	args.IgeneralNormal, args.IgeneralWoTissues, args.IgeneralTop,
 	args.IgeneralTop100, args.IgeneralNRcv, args.IgeneralTissue, 
@@ -1439,7 +1452,8 @@ general_qc_imgs = [args.IgeneralFull, args.IgeneralNormal,
 
 #### Mean-variance
 mv_imgs = [args.ImvFull, args.ImvNormal, 
-	args.ImvWoTissues, args.ImvNRcv]
+	args.ImvWoTissues, args.ImvTop,
+	args.ImvTop100, args.ImvFull]
 """[args.ImvRaw, args.ImvFiltered, args.ImvFull, 
 	args.ImvNormal, args.ImvWoTissues, args.ImvTop,
 	args.ImvTop100, args.ImvNRcv, args.ImvTissue, 
@@ -1447,7 +1461,8 @@ mv_imgs = [args.ImvFull, args.ImvNormal,
 
 #### z_scores
 zscores_imgs = [args.IzscoreFull, args.IzscoreNormal, 
-	args.IzscoreWoTissues]
+	args.IzscoreWoTissues, args.IzscoreTop, 
+	args.IzscoreTop100, args.IzscoreNRcv]
 """[args.IzscoreRaw, args.IzscoreFiltered, args.IzscoreFull, 
 	args.IzscoreNormal, args.IzscoreWoTissues, args.IzscoreTop, 
 	args.IzscoreTop100, args.IzscoreNRcv, args.IzscoreTissue, 
@@ -1456,7 +1471,8 @@ zscores_imgs = [args.IzscoreFull, args.IzscoreNormal,
 ### Get QC html files
 #### General
 general_qc_htmls = [args.PgeneralFull, args.PgeneralNormal, 
-	args.PgeneralWoTissues]
+	args.PgeneralWoTissues, args.PgeneralTop,
+	args.PgeneralTop100, args.PgeneralNRcv]
 """[args.PgenralRaw, args.PgenralFiltered, args.PgeneralFull, 
 	args.PgeneralNormal, args.PgeneralWoTissues, args.PgeneralTop,
 	args.PgeneralTop100, args.PgeneralNRcv, args.PgeneralTissue, 
@@ -1464,7 +1480,8 @@ general_qc_htmls = [args.PgeneralFull, args.PgeneralNormal,
 
 #### Mean-variance
 mv_htmls = [args.PmvFull, args.PmvNormal, 
-	args.PmvWoTissues, args.PmvNRcv]
+	args.PmvWoTissues, args.PmvTop,
+	args.PmvTop100, args.PmvNRcv]
 """[args.PmvRaw, args.PmvFiltered, args.PmvFull, 
 	args.PmvNormal, args.PmvWoTissues, args.PmvTop,
 	args.PmvTop100, args.PmvNRcv, args.PmvTissue, 
@@ -1472,7 +1489,8 @@ mv_htmls = [args.PmvFull, args.PmvNormal,
 
 #### z_scores
 zscores_htmls = [args.PzscoreFull, args.PzscoreNormal, 
-	args.PzscoreWoTissues]
+	args.PzscoreWoTissues, args.PzscoreTop, 
+	args.PzscoreTop100, args.PzscoreNRcv]
 """[args.PzscoreRaw, args.PzscoreFiltered, args.PzscoreFull, 
 	args.PzscoreNormal, args.PzscoreWoTissues, args.PzscoreTop, 
 	args.PzscoreTop100, args.PzscoreNRcv, args.PzscoreTissue, 
