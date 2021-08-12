@@ -21,9 +21,9 @@ def clustering_samples(
     for path in tissue_files:
         s_corr.append(path) 
     
-    """rand_files = sorted([f for f in s_corr_rand.glob('**/*.tsv') if f.is_file()])
+    rand_files = sorted([f for f in s_corr_rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
-        s_corr.append(path)"""
+        s_corr.append(path)
 
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -31,15 +31,15 @@ def clustering_samples(
         Tools.create_folder(link)
         s_clustermaps.append(link.joinpath(tissue_name + ".png"))
 
-    """for i in range(len(rand_files)):
-        s_clustermaps.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+    for i in range(len(rand_files)):
+        s_clustermaps.append(s_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
-    c = 6
+    c = 0
     for m, i in zip(s_corr, s_clustermaps):
         correlation_matrix  = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
 
-        if c <= 5 or c > 36:
+        if c <= 3 or c > 36:
             tissue_type = Config.args.smts
         else:
             tissue_type = Config.args.smtsd
@@ -105,9 +105,8 @@ def clustering_genes(
     c = 0
     for m, i in zip(g_corr, g_clustermaps):
         correlation_matrix = pd.read_csv(m, header = 0, index_col = 0, sep = '\t')
-
         # change c values depending on the config file
-        if c == 3 or c == 4 or c > 36:
+        if c == 1 or c == 2 or c > 36:
             g = sns.clustermap(correlation_matrix, 
                 vmin = -1, 
                 vmax = 1, 
@@ -181,7 +180,7 @@ def clustering_samples_genes(
         count = pd.DataFrame(np.log2(count + 1))
 
         count = count.T
-        if c <= 5 or c > 36:
+        if c <= 3 or c > 36:
             tissue_type = Config.args.smts
         else:
             tissue_type = Config.args.smtsd
@@ -199,7 +198,7 @@ def clustering_samples_genes(
         col_colors = tissues.map(lut)
         
         # change c values depending on the config file
-        if c == 3 or c == 4 or c > 36:
+        if c == 1 or c == 2 or c > 36:
             g = sns.clustermap(count.T, 
                 vmin = max(data.max(axis = 1)), 
                 vmax = min(data.min(axis = 1)),  
