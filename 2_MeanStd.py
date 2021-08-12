@@ -15,9 +15,9 @@ def mean_std(
 	for path in tissue_files:
 		counts.append(path)
 
-	rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
+	"""rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
 	for path in rand_files:
-		counts.append(path)
+		counts.append(path)"""
 	
 	for i in range(len(tissue_files)):
 		tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -30,9 +30,9 @@ def mean_std(
 		mv_img.append(link_img.joinpath(tissue_name + ".png"))
 		mv_p.append(link_p.joinpath(tissue_name + ".html"))
 
-	for i in range(len(rand_files)):
+	"""for i in range(len(rand_files)):
 		mv_img.append(rand_images.joinpath("random" + str(i) + ".png"))
-		mv_p.append(rand_p.joinpath("random" + str(i) + ".html"))
+		mv_p.append(rand_p.joinpath("random" + str(i) + ".html"))"""
 
 	for file, image, html in zip(counts, mv_img, mv_p):
 		f = pd.read_csv(file, header = 0, index_col = 0, sep = "\t")
