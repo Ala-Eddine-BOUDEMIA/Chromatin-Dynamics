@@ -22,14 +22,14 @@ def generate_data(
 	metadata = pd.read_csv(meta,
 		header = 0, index_col = 0, sep = "\t")
 	
-	# Generate the top 124 expressed genes
+	# Generate the top 125 expressed genes
 	# Generate the top1000 expressed genes
 	counts["total"] = counts.sum(axis = 1)
 	counts = counts.sort_values("total", ascending = False)
 	print(counts["total"])
 	counts.pop("total")
 	
-	top100_g = counts.iloc[:124, :]
+	top100_g = counts.iloc[:125, :]
 	top100_g.to_csv(top100, sep = "\t")
 	
 	top1000_g = counts.iloc[:1000, :]
@@ -41,25 +41,16 @@ def generate_data(
 		for i in counts.index.to_list():
 			counts.rename(index = {i: i.split('.')[0]}, inplace = True)
 		
-		cv_df = pd.DataFrame(columns = counts.columns)
-		nonRv_df = pd.DataFrame(columns = counts.columns)
-		
-		for i in counts.index.to_list():
-			
-			for j in chaperones_variants.index.to_list():
-				if i.strip() == j.strip():
-					cv_df = cv_df.append(counts.loc[i])
-		
-			for k in chaperone_nonRv.index.to_list():
-				if i.strip() == k.strip():
-					nonRv_df = nonRv_df.append(counts.loc[i])
+		cv_df = counts.loc[chaperones_variants.index.to_list()]
+		nonRv_df = counts.loc[chaperone_nonRv.index.to_list()]	
+
 		cv_df.to_csv(str(full), sep = "\t")
 		nonRv_df.to_csv(str(nonRcv), sep = "\t")
 	
 	# Generate random sets
 	for c in range(10):
 		rng = default_rng()
-		r = rng.choice(len(counts), size = 124, replace = False)
+		r = rng.choice(len(counts), size = 125, replace = False)
 		df_random = pd.DataFrame(columns = counts.columns)
 		
 		for i in r:
