@@ -21,7 +21,7 @@ parser.add_argument("--normMethod",
 # Possible arguments: Normalized - variants_chaperones
 parser.add_argument("--which",
 	type = str,
-	default = "Normalized",
+	default = "variants_chaperones",
 	help = "Dataset to use: normalized or \
 			histone chaperones and histone variants")
 
@@ -1347,7 +1347,7 @@ parser.add_argument("--PumapRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.top1000, args.top100]
+counts = [args.full, args.top1000, args.top100]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
 	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
 	get_counts.rand]"""

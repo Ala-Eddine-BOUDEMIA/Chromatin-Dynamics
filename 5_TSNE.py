@@ -69,7 +69,7 @@ def tsne(
             color = df[Config.args.smtsd], 
             hover_data = [df.dropna().index, "lib_size"],
             #size = "lib_size",
-            title = "GTEx t-sne")
+            title = Config.args.dataset + " t-SNE")
 
         fig.write_html(str(h))
         fig.write_image(str(i), width = 2048, height = 1024)

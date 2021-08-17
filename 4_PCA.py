@@ -85,7 +85,7 @@ def pca(
             color = d[Config.args.smtsd], 
             hover_data = [d.dropna().index, "lib_size"],
             #size = "lib_size",
-            title = "GTEx PCA")
+            title = Config.args.dataset + "  PCA")
 
         fig.write_html(str(h))
         fig.write_image(str(i), width = 2048, height = 1024)
