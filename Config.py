@@ -1347,10 +1347,9 @@ parser.add_argument("--PumapRand",
 args = parser.parse_args()
 
 ### Get counts
-counts = [args.full, args.top1000, args.top100]
+counts = [args.full, args.nonRcv]
 """ [args.bf, args.af, args.full, args.onlyNormal, args.WoTissues, 
-	args.top1000, args.top100, args.nonRcv, get_counts.tissue, 
-	get_counts.rand]"""
+	args.top1000, args.top100, args.nonRcv]"""
 
 ### Get genes' correlations
 g_corr = [args.corrFullG, args.corrTopG,
@@ -1469,17 +1468,14 @@ zscores_htmls = [args.PzscoreFull, args.PzscoreTop,
 	args.PzscoreRand]"""
 
 ### Get the clustermaps
-s_clustermaps = [args.IclstrTopS, args.IclstrTop100S]
+s_clustermaps = [args.IclstrFullS, args.IclstrNRcvS]
 """[args.IclstrFullS, args.IclstrNormalS, args.IclstrWoTissueS, 
-	args.IclstrTopS, args.IclstrTop100S, args.IclstrNRcvS, 
-	args.IclstrTissueS, args.IclstrRandS]"""
+	args.IclstrTopS, args.IclstrTop100S, args.IclstrNRcvS]"""
 
-g_clustermaps = [args.IclstrTopG, args.IclstrTop100G]
+g_clustermaps = [args.IclstrFullG, args.IclstrNRcvG]
 """[args.IclstrFullG, args.IclstrNormalG, args.IclstrWoTissueG, 
-	args.IclstrTopG, args.IclstrTop100G, args.IclstrNRcvG, 
-	args.IclstrTissueG, args.IclstrRandG]"""
+	args.IclstrTopG, args.IclstrTop100G, args.IclstrNRcvG]"""
 
-sg_clustermaps = [args.IclstrTopSG, args.IclstrTop100SG]
+sg_clustermaps = [args.IclstrFullSG, args.IclstrNRcvSG]
 """[args.IclstrFullSG, args.IclstrNormalSG, args.IclstrWoTissueSG, 
-	args.IclstrTopSG, args.IclstrTop100SG, args.IclstrNRcvSG, 
-	args.IclstrTissueSG, args.IclstrRandSG]"""
+	args.IclstrTopSG, args.IclstrTop100SG, args.IclstrNRcvSG]"""
