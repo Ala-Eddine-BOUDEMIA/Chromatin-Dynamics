@@ -20,9 +20,9 @@ def umap(
     for path in tissue_files:
         counts.append(path)
     
-    rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
+    """rand_files = sorted([f for f in rand.glob("**/*.tsv") if f.is_file()])
     for path in rand_files:
-        counts.append(path)
+        counts.append(path)"""
     
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -38,15 +38,16 @@ def umap(
         img_umap.append(link_img.joinpath(tissue_name + ".png"))
         p_umap.append(link_p.joinpath(tissue_name + ".html"))
 
-    for i in range(len(rand_files)):
+    """for i in range(len(rand_files)):
         files_umap.append(file_umap_rand.joinpath("random" + str(i) + ".tsv"))
         img_umap.append(img_umap_rand.joinpath("random" + str(i) + ".png"))
-        p_umap.append(p_umap_rand.joinpath("random" + str(i) + ".html"))
+        p_umap.append(p_umap_rand.joinpath("random" + str(i) + ".html"))"""
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = '\t')
     tissues = metadata[Config.args.smtsd]
 
     for c, t, i, h in zip(counts, files_umap, img_umap, p_umap):
+        print(c)
         f = pd.read_csv(c, header = 0, index_col = 0, sep = "\t")
         lib_size = f.sum(axis = 0).to_frame(name = "lib_size")
         f = pd.DataFrame(np.log2(f + 1))
@@ -61,21 +62,22 @@ def umap(
         df["U2"] = U[:, 1]
         df = df.join(lib_size)
         df = df.join(tissues)
+        df = df.join(metadata['database'])
         df.sort_values(Config.args.smtsd, inplace = True)
 
         fig = px.scatter(
             data_frame = df.dropna(), 
             x = "U1", y = "U2",
-            color = df[Config.args.smtsd], 
+            color = "database", 
             hover_data = [df.dropna().index, "lib_size"],
             #size = "lib_size",
             title = Config.args.dataset + " umap")
 
-        fig.write_html(str(h))
-        fig.write_image(str(i), width = 2048, height = 1024)
-        #fig.show()
+        #fig.write_html(str(h))
+        #fig.write_image(str(i), width = 2048, height = 1024)
+        fig.show()
 
-        df.to_csv(t, sep="\t", float_format='%.3f')
+        #df.to_csv(t, sep="\t", float_format='%.3f')
 
         del(f)
         del(df)

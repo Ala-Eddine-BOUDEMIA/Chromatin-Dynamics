@@ -158,9 +158,9 @@ def clustering_samples_genes(
     for path in tissue_files:
         counts.append(path)
     
-    rand_files = sorted([f for f in rand.glob('**/*.tsv') if f.is_file()])
+    """rand_files = sorted([f for f in rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
-        counts.append(path)
+        counts.append(path)"""
     
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -168,8 +168,8 @@ def clustering_samples_genes(
         Tools.create_folder(link)
         sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
-    for i in range(len(rand_files)):
-        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
+    """for i in range(len(rand_files)):
+        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     cv_list = pd.read_csv(cv_list, header = 0, index_col = 0, sep = ";") 
@@ -187,8 +187,10 @@ def clustering_samples_genes(
             tissue_type = Config.args.smtsd
         
         count = count.join(metadata[tissue_type])
+        count = count.join(metadata["gdc_cases.samples.sample_type"])
         count = count.dropna()
         tissues = count.pop(tissue_type)
+        samples = count.pop("gdc_cases.samples.sample_type")
 
         palette1 = sns.hls_palette(10)
         palette2 = sns.color_palette("bwr", 4)
@@ -196,15 +198,21 @@ def clustering_samples_genes(
         palette4 = sns.color_palette("Set2",10)
         palette = palette1 + palette2 + palette3 + palette4
         lut = dict(zip(set(tissues.unique()), palette))
-        col_colors = tissues.map(lut)
+        col_colors1 = tissues.map(lut)
+
+        paletteY = sns.color_palette("Set2",10)
+        lutY = dict(zip(set(samples.unique()), paletteY))
+        col_colors2 = samples.map(lutY)
+
+        col_colors = [col_colors1, col_colors2]
         
         # change c values depending on the config file
-        if c == 1 or c == 2 or c > 36:
+        if c > 36:
             g = sns.clustermap(count.T, 
                 vmin = min(data.max(axis = 1)), 
                 vmax = max(data.min(axis = 1)),  
                 col_colors = col_colors,
-                cmap = "inferno", 
+                cmap = "icefire", 
                 metric = Config.distance_metric,
                 xticklabels = False, yticklabels = False,
                 method = "average", figsize = [25, 25])
@@ -222,11 +230,11 @@ def clustering_samples_genes(
             data = count.iloc[:, count.columns != "GeneName"]
 
             g = sns.clustermap(data, 
-                vmin = min(data.max(axis = 1)), 
-                vmax = max(data.min(axis = 1)), 
+                vmin = max(data.max(axis = 1)), 
+                vmax = min(data.min(axis = 1)), 
                 row_colors = row_colors,
                 col_colors = col_colors,
-                cmap = "inferno",
+                cmap = "icefire",
                 metric = Config.distance_metric,
                 xticklabels = False, 
                 yticklabels = yticklabels,
@@ -240,6 +248,11 @@ def clustering_samples_genes(
 
         handles = [Patch(facecolor = lut[name]) for name in lut]
         g.ax_col_dendrogram.legend(handles, lut, title = 'Tissues',
+            bbox_to_anchor = (0, 1), loc = 'best', 
+            bbox_transform = plt.gcf().transFigure)
+
+        handlesY = [Patch(facecolor = lutY[name]) for name in lutY]
+        g.ax_col_dendrogram.legend(handlesY, lutY, title = 'Samples',
             bbox_to_anchor = (0, 1), loc = 'best', 
             bbox_transform = plt.gcf().transFigure)
 

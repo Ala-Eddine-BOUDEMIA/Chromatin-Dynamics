@@ -16,9 +16,9 @@ def generate_cpm(meta, raw, normalized):
     cpm = raw_counts.loc[:,:].div(total) 
 
     print(cpm.sum(axis = 0))
-    cpm['total'] = cpm.mean(axis = 1)
+    cpm['total'] = cpm.sum(axis = 1)
     cpm = cpm.drop(cpm[cpm["total"] <= 1].index)
-    cpm = cpm.drop(cpm[cpm["total"] > 4000].index)
+    #cpm = cpm.drop(cpm[cpm["total"] > 4000].index)
     cpm.pop('total')
 
     if Config.args.dataset == 'TCGA':
@@ -26,7 +26,7 @@ def generate_cpm(meta, raw, normalized):
             header = 0, index_col = 0, sep = '\t')
         cpm = cpm.T
         cpm = cpm.join(metadata['gdc_cases.samples.sample_type'])
-        cpm = cpm[cpm['gdc_cases.samples.sample_type'] == 'Primary Tumor']
+        cpm = cpm[cpm['gdc_cases.samples.sample_type'] == 'Solid Tissue Normal']
         cpm.pop('gdc_cases.samples.sample_type')
         cpm = cpm.T
 

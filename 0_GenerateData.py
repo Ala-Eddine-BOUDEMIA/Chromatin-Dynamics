@@ -24,7 +24,7 @@ def generate_data(
 	
 	# Generate the top 125 expressed genes
 	# Generate the top1000 expressed genes
-	counts["total"] = counts.sum(axis = 1)
+	"""counts["total"] = counts.sum(axis = 1)
 	counts = counts.sort_values("total", ascending = False)
 	print(counts["total"])
 	counts.pop("total")
@@ -33,7 +33,7 @@ def generate_data(
 	top100_g.to_csv(top100, sep = "\t")
 	
 	top1000_g = counts.iloc[:1000, :]
-	top1000_g.to_csv(top1000, sep = "\t")
+	top1000_g.to_csv(top1000, sep = "\t")"""
 	
 	# Generate chaperones and variants dataframe
 	# Generate chaperones and non replicative variants dataframe
@@ -48,7 +48,7 @@ def generate_data(
 		nonRv_df.to_csv(str(nonRcv), sep = "\t")
 	
 	# Generate random sets
-	for c in range(10):
+	"""for c in range(10):
 		rng = default_rng()
 		r = rng.choice(len(counts), size = 125, replace = False)
 		df_random = pd.DataFrame(columns = counts.columns)
@@ -56,7 +56,7 @@ def generate_data(
 		for i in r:
 			df_random = df_random.append(counts.iloc[i])
 
-		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")
+		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")"""
 	
 	# Generate counts by tissue/cancer
 	if Config.args.which == "variants_chaperones":
