@@ -26,17 +26,11 @@ The data provided by recount2 is per-base coverage, it was transformed into norm
 The data should be organized as follow:
 
     Chromatin-Dynamics
-                    │
                     └─── Data
-                            │
-                            ├─── GTEx 				
-                            │	    └──── BeforeFiltering
-                            │      	                    │
-                            │	                        └──── PairedEndRounded.tsv
-                            └──── TCGA 				
-                                    └──── BeforeFiltering
-                                                        │
-                                                        └──── PairedEndRounded.tsv
+                            └─── dataset (GTEx or TCGA) 				
+                                                    └──── BeforeFiltering
+                                                                        └──── PairedEndRounded.tsv
+
 
 # Requirements
 
@@ -99,6 +93,15 @@ python3 CPM.py
   - Solid Tissue Normal
   - Primary Blood Derived Cancer - Peripheral Blood
 
+    Chromatin-Dynamics
+                    └─── Data
+                            └─── dataset (GTEx or TCGA) 			
+                            	                    └──── CPM				
+                                                        └──── Counts			
+                                                                └──── Normalized		
+                                                                            └──── Full   
+                                                                                    └──── Counts.tsv
+
 ## 0_GenerateData.py
 
 - This code uses the normalized counts to generate subsections of the datasets.
@@ -150,6 +153,15 @@ If the parameter `which` in the `Config.py` file is set to **variants_chaperones
 - Top1000: Contains all the samples but only the top 1000 expressed genes
 - Top100: Contains all the samples but only the top 125 expressed genes
 - Random: Contains 10 files each contain all the samples and only 125 randomly selected genes
+
+   Chromatin-Dynamics
+                    └─── Data
+                            └─── dataset (GTEx or TCGA) 			
+                            	                    └──── CPM				
+                                                            └──── Counts			
+                                                                    └──── Normalized or Random or Top1000 or Top100 or variants_chaperones	
+                                                                                                                                        └──── Normal or WoTissues or CountsByTissue    
+                                                                                                                                                                                └──── Counts.tsv
 
 ```
 python3 0_GenerateData.py 
@@ -249,6 +261,13 @@ python3 6_Correlation.py
 **Inputs**: `counts`, `s_corr` and `g_corr`
 **Outputs**: `s_clustermaps`, `g_clustermaps` and `s_clustermaps`
 
+```
+python3 7_Clustering.py 
+```
+
+- Note that there is a variable called `c`, it should be modified depending on the dataset you enter otherwise you might get an error or a clustermap without gene names.
+
 ## 8_AdjacencyMatrix.py
 
 - This code takes an adjacency matrix and generates an interactive graph
+- The generated graphs could be found at `WGCNA/dataset/Networks/*.html`
