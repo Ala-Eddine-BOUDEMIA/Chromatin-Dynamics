@@ -94,13 +94,13 @@ python3 CPM.py
   - Primary Blood Derived Cancer - Peripheral Blood
 
     Chromatin-Dynamics
-                    └─── Data
-                            └─── dataset (GTEx or TCGA) 			
-                            	                    └──── CPM				
-                                                        └──── Counts			
-                                                                └──── Normalized		
-                                                                            └──── Full   
-                                                                                    └──── Counts.tsv
+        └─── Data
+                └─── dataset (GTEx or TCGA) 			
+                        └──── CPM				
+                                └──── Counts			
+                                        └──── Normalized		
+                                                └──── Full   
+                                                        └──── Counts.tsv
 
 ## 0_GenerateData.py
 
@@ -155,13 +155,13 @@ If the parameter `which` in the `Config.py` file is set to **variants_chaperones
 - Random: Contains 10 files each contain all the samples and only 125 randomly selected genes
 
    Chromatin-Dynamics
-                    └─── Data
-                            └─── dataset (GTEx or TCGA) 			
-                            	                    └──── CPM				
-                                                            └──── Counts			
-                                                                    └──── Normalized or Random or Top1000 or Top100 or variants_chaperones	
-                                                                                                                                        └──── Normal or WoTissues or CountsByTissue    
-                                                                                                                                                                                └──── Counts.tsv
+        └─── Data
+                └─── dataset (GTEx or TCGA) 			
+                        └──── CPM				
+                                └──── Counts			
+                                        └──── Normalized or Random or Top1000 or Top100 or variants_chaperones	
+                                                └──── Normal or WoTissues or CountsByTissue    
+                                                        └──── Counts.tsv
 
 ```
 python3 0_GenerateData.py 
