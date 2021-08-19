@@ -46,12 +46,6 @@ def explore_data(
 		# Number of counts per gene
 		counts_per_gene = f.sum(axis = 1)
 
-		# cpm
-		cpm = f
-		total = counts_per_sample.div(1e6)
-		cpm = cpm.loc[:,:].div(total) 
-		cpm_sum = cpm.sum(axis = 1)
-
 		# Number of counts per tissue
 		counts_per_tissue_sample = []		
 		counts_per_tissue_gene = []
@@ -88,12 +82,11 @@ def explore_data(
 		dataframes = [
 			pd.DataFrame(counts_per_sample, columns = ["Counts Per Sample"]), 
 			pd.DataFrame(counts_per_gene, columns = ["Counts Per Gene"]), 
-			pd.DataFrame(cpm_sum, columns = ["Counts Per Million"]), 
 			df_counts_per_tissue_sample.T, 
 			df_counts_per_tissue_gene.T]
 
 		titles = [
-			"Counts per sample", "Counts per gene", "Counts per million",
+			"Counts per sample", "Counts per gene", 
 			"Counts per sample by tissue", "Counts per gene by tissue"]
 
 		for d, t in zip(dataframes, titles):

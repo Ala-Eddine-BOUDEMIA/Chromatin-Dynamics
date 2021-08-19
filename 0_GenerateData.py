@@ -48,7 +48,7 @@ def generate_data(
 		nonRv_df.to_csv(str(nonRcv), sep = "\t")
 	
 	# Generate random sets
-	"""for c in range(10):
+	for c in range(10):
 		rng = default_rng()
 		r = rng.choice(len(counts), size = 125, replace = False)
 		df_random = pd.DataFrame(columns = counts.columns)
@@ -56,7 +56,7 @@ def generate_data(
 		for i in r:
 			df_random = df_random.append(counts.iloc[i])
 
-		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")"""
+		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")
 	
 	# Generate counts by tissue/cancer
 	if Config.args.which == "variants_chaperones":

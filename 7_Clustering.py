@@ -158,9 +158,9 @@ def clustering_samples_genes(
     for path in tissue_files:
         counts.append(path)
     
-    """rand_files = sorted([f for f in rand.glob('**/*.tsv') if f.is_file()])
+    rand_files = sorted([f for f in rand.glob('**/*.tsv') if f.is_file()])
     for path in rand_files:
-        counts.append(path)"""
+        counts.append(path)
     
     for i in range(len(tissue_files)):
         tissue_name = str(tissue_files[i]).split("/")[-1].split(".")[0]
@@ -168,8 +168,8 @@ def clustering_samples_genes(
         Tools.create_folder(link)
         sg_clustermaps.append(link.joinpath(tissue_name + ".png"))
     
-    """for i in range(len(rand_files)):
-        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))"""
+    for i in range(len(rand_files)):
+        sg_clustermaps.append(sg_img_clstrRand.joinpath("random" + str(i) + ".png"))
 
     metadata = pd.read_csv(meta, header = 0, index_col = 0, sep = "\t")
     cv_list = pd.read_csv(cv_list, header = 0, index_col = 0, sep = ";") 
@@ -267,14 +267,14 @@ def clustering_samples_genes(
 
 if __name__ == '__main__':
     
-    """clustering_genes(
+    clustering_genes(
         cv_list = Config.args.list,
         g_corr = Config.g_corr,
         g_corr_rand = Config.args.corrRandG,
         g_corr_tissue = Config.args.corrTissueG,
         g_clustermaps = Config.g_clustermaps,        
         g_img_clstrRand = Config.args.IclstrRandG,
-        g_img_clstrTissues = Config.args.IclstrTissueG)"""
+        g_img_clstrTissues = Config.args.IclstrTissueG)
     
     clustering_samples_genes(
         meta = Config.args.meta,
@@ -286,11 +286,11 @@ if __name__ == '__main__':
         sg_img_clstrRand = Config.args.IclstrRandSG,
         sg_img_clstrTissues = Config.args.IclstrTissueSG)
     
-    """clustering_samples(
+    clustering_samples(
         meta = Config.args.meta,
         s_corr = Config.s_corr,
 		s_corr_rand = Config.args.corrRandS,
         s_corr_tissues = Config.args.corrTissueS,
         s_clustermaps = Config.s_clustermaps,
         s_img_clstrRand = Config.args.IclstrRandS,
-        s_img_clstrTissues = Config.args.IclstrTissueS)"""
+        s_img_clstrTissues = Config.args.IclstrTissueS)
