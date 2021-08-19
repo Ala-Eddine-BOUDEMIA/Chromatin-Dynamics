@@ -15,6 +15,11 @@ def tsne(
     p_tsne_rand, file_tsne_rand, 
     img_tsne_rand, p_tsne_tissues,
     file_tsne_tissues, img_tsne_tissues):
+
+    for i, j, k in zip(img_tsne, p_tsne, files_tsne):
+        Tools.create_folder(('/').join(str(i)).split("/")[:-1])
+        Tools.create_folder(('/').join(str(j)).split("/")[:-1])
+        Tools.create_folder(('/').join(str(k)).split("/")[:-1])
     
     tissue_files = sorted([f for f in tissues.glob("**/*.tsv") if f.is_file()])
     for path in tissue_files:
@@ -38,6 +43,9 @@ def tsne(
         img_tsne.append(link_img.joinpath(tissue_name + ".png"))
         p_tsne.append(link_p.joinpath(tissue_name + ".html"))
 
+    Tools.create_folder(img_tsne_rand)
+    Tools.create_folder(p_tsne_rand)
+    Tools.create_folder(file_tsne_rand)
     for i in range(len(rand_files)):
         files_tsne.append(file_tsne_rand.joinpath("random" + str(i) + ".tsv"))
         img_tsne.append(img_tsne_rand.joinpath("random" + str(i) + ".png"))

@@ -11,6 +11,10 @@ def explore_data(
 	qc_imgs, qc_htmls,
 	qc_rand_img, qc_rand_html):
 	
+	for i, j in zip(qc_imgs, qc_htmls):
+		Tools.create_folder(i)
+		Tools.create_folder(j)
+	
 	rand_files = sorted([f for f in rand.iterdir() if f.is_file()])
 	for path in rand_files:
 		counts.append(path)

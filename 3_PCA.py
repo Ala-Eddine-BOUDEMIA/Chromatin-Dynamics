@@ -14,6 +14,11 @@ def pca(
     files_pca, images_pca, htmls_pca,
     p_pca_rand, img_pca_rand, file_pca_rand, 
     p_pca_tissue, img_pca_tissues, file_pca_tissue):
+
+    for i, j, k in zip(images_pca, htmls_pca, files_pca):
+        Tools.create_folder(('/').join(str(i)).split("/")[:-1])
+        Tools.create_folder(('/').join(str(j)).split("/")[:-1])
+        Tools.create_folder(('/').join(str(k)).split("/")[:-1])
     
     tissue_files = sorted([f for f in tissues.glob("**/*.tsv") if f.is_file()])
     for path in tissue_files:

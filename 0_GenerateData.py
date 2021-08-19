@@ -3,6 +3,7 @@ from numpy.random import default_rng
 
 from pathlib import Path
 
+import Tools
 import Config
 
 def generate_data(
@@ -24,19 +25,24 @@ def generate_data(
 	
 	# Generate the top 125 expressed genes
 	# Generate the top1000 expressed genes
-	"""counts["total"] = counts.sum(axis = 1)
+	Tools.create_folder(("/").join(str(top100).split("/")[:-1]))
+	Tools.create_folder(("/").join(str(top1000).split("/")[:-1]))
+
+	counts["total"] = counts.sum(axis = 1)
 	counts = counts.sort_values("total", ascending = False)
-	print(counts["total"])
 	counts.pop("total")
 	
 	top100_g = counts.iloc[:125, :]
 	top100_g.to_csv(top100, sep = "\t")
 	
 	top1000_g = counts.iloc[:1000, :]
-	top1000_g.to_csv(top1000, sep = "\t")"""
+	top1000_g.to_csv(top1000, sep = "\t")
 	
 	# Generate chaperones and variants dataframe
 	# Generate chaperones and non replicative variants dataframe
+	Tools.create_folder(("/").join(str(full).split("/")[:-1]))
+	Tools.create_folder(("/").join(str(nonRcv).split("/")[:-1]))
+
 	if Config.args.which == "variants_chaperones":
 		for i in counts.index.to_list():
 			counts.rename(index = {i: i.split('.')[0]}, inplace = True)
@@ -48,6 +54,8 @@ def generate_data(
 		nonRv_df.to_csv(str(nonRcv), sep = "\t")
 	
 	# Generate random sets
+	Tools.create_folder(rand)
+
 	for c in range(10):
 		rng = default_rng()
 		r = rng.choice(len(counts), size = 125, replace = False)
@@ -59,12 +67,13 @@ def generate_data(
 		df_random.to_csv(rand.joinpath(str(c) + ".tsv"), sep = "\t")
 	
 	# Generate counts by tissue/cancer
+	Tools.create_folder(tissue_counts)
+
 	if Config.args.which == "variants_chaperones":
 		counts_by_tissue = cv_df.T
 	elif Config.args.which == "Normalized":
 		counts_by_tissue = counts.T
 	counts_by_tissue = counts_by_tissue.join(metadata[Config.args.smts])
-	print(counts_by_tissue)
 	tissue_types = pd.unique(metadata[Config.args.smts])
 
 	for t in tissue_types:
@@ -75,6 +84,9 @@ def generate_data(
 		df.to_csv(tissue_counts.joinpath(t + ".tsv"), sep = '\t')
 
 	if Config.args.dataset == "GTEx":
+		Tools.create_folder(("/").join(str(normal).split("/")[:-1]))
+		Tools.create_folder(("/").join(str(wo_bbbpst_tissues).split("/")[:-1]))
+
 		# Generate counts without transformed cells
 		if Config.args.which == "variants_chaperones":
 			counts_wo_tcells = cv_df.T
