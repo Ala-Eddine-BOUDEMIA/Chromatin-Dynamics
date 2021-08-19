@@ -93,15 +93,6 @@ python3 CPM.py
   - Solid Tissue Normal
   - Primary Blood Derived Cancer - Peripheral Blood
 
-    Chromatin-Dynamics
-        └─── Data
-                └─── dataset (GTEx or TCGA) 			
-                        └──── CPM				
-                                └──── Counts			
-                                        └──── Normalized		
-                                                └──── Full   
-                                                        └──── Counts.tsv
-
 ## 0_GenerateData.py
 
 - This code uses the normalized counts to generate subsections of the datasets.
@@ -153,15 +144,6 @@ If the parameter `which` in the `Config.py` file is set to **variants_chaperones
 - Top1000: Contains all the samples but only the top 1000 expressed genes
 - Top100: Contains all the samples but only the top 125 expressed genes
 - Random: Contains 10 files each contain all the samples and only 125 randomly selected genes
-
-   Chromatin-Dynamics
-        └─── Data
-                └─── dataset (GTEx or TCGA) 			
-                        └──── CPM				
-                                └──── Counts			
-                                        └──── Normalized or Random or Top1000 or Top100 or variants_chaperones	
-                                                └──── Normal or WoTissues or CountsByTissue    
-                                                        └──── Counts.tsv
 
 ```
 python3 0_GenerateData.py 
